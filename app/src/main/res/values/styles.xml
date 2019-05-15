@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" >
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -8,7 +8,7 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:fontFamily">@font/yekan_mobile_regular</item>
-        <item name="ms_stepperStyle">@style/DotStepperStyle</item>
+        <item name="ms_stepperStyle">@style/MSDefaultStepperLayoutTheme</item>
         <item name="coordinatorLayoutStyle">@style/coordinatorLayoutStyle</item>
         <item name="cardViewStyle">@style/cardViewStyle</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
@@ -29,7 +29,7 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="android:windowActivityTransitions">true</item>
-        <item name="ms_stepperStyle">@style/DotStepperStyle</item>
+        <item name="ms_stepperStyle">@style/MSDefaultStepperLayoutTheme</item>
         <item name="verificationCodeStyle">@style/verificationCodeStyle</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
     </style>
@@ -44,11 +44,87 @@
         <item name="dialogCornerRadius">8dp</item>
     </style>
 
-    <style name="DotStepperStyle">
-        <item name="ms_stepperType">dots</item>
-        <item name="ms_activeStepColor">#FFFFFF</item>
-        <item name="ms_inactiveStepColor">#006867</item>
-        <item name="ms_bottomNavigationBackground">?attr/colorAccent</item>
+    <style name="SDefaultStepperLayoutTheme">
+        <item name="ms_tabsContainerStyle">@style/MSStepTabsContainer</item>
+        <item name="ms_bottomNavigationStyle">@style/SBottomNavigation</item>
+        <item name="ms_backNavigationButtonStyle">@style/Back</item>
+        <item name="ms_nextNavigationButtonStyle">@style/Next</item>
+        <item name="ms_completeNavigationButtonStyle">@style/Complete</item>
+        <item name="ms_colorableProgressBarStyle">@style/MSColorableProgressBar</item>
+        <item name="ms_stepPagerProgressBarStyle">@style/MSStepPagerProgressBarStyle</item>
+        <item name="ms_stepPagerOverlayStyle">@style/MSStepPagerOverlayStyle</item>
+        <item name="ms_stepTabsScrollViewStyle">@style/MSStepTabsScrollView</item>
+        <item name="ms_stepTabsInnerContainerStyle">@style/MSStepTabsInnerContainer</item>
+        <item name="ms_stepTabContainerStyle">@style/SStepTabContainer</item>
+        <item name="ms_stepTabNumberStyle">@style/MSStepTabNumber</item>
+        <item name="ms_stepTabDoneIndicatorStyle">@style/MSStepTabDoneIndicator</item>
+        <item name="ms_stepTabIconBackgroundStyle">@style/MSStepTabIconBackground</item>
+        <item name="ms_stepTabTitleStyle">@style/SStepTabTitle</item>
+        <item name="ms_stepTabSubtitleStyle">@style/SStepTabSubtitle</item>
+        <item name="ms_stepTabDividerStyle">@style/MSStepTabDivider</item>
+        <item name="ms_stepTabsProgressMessageStyle">@style/MSStepTabsProgressMessage</item>
+    </style>
+
+    <style name="SStepTabContainer">
+        <item name="android:layout_height">@dimen/ms_step_tab_height</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Back">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">left|start|center_vertical</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Complete">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right|end|center_vertical</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Next">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right|end|center_vertical</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="SStepTabTitle">
+        <item name="android:layout_marginLeft">@dimen/ms_step_tab_text_lateral_padding</item>
+        <item name="android:layout_marginStart">@dimen/ms_step_tab_text_lateral_padding</item>
+        <item name="android:textColor">@color/ms_black</item><!-- Text alpha is changed in StepTab. 87% for active and 38% for inactive-->
+        <item name="android:textSize">@dimen/ms_step_tab_title_font_size</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="SStepTabSubtitle">
+        <item name="android:layout_marginLeft">@dimen/ms_step_tab_text_lateral_padding</item>
+        <item name="android:layout_marginStart">@dimen/ms_step_tab_text_lateral_padding</item>
+        <item name="android:textColor">#80000000</item>
+        <item name="android:textSize">@dimen/ms_step_tab_subtitle_font_size</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:gravity">end</item>
+    </style>
+
+    <style name="SBottomNavigation">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/ms_bottomNavigationBackgroundColor</item>
+        <item name="android:elevation">16dp</item>
     </style>
 
     <style name="verificationCodeStyle" parent="Widget.AppCompat.EditText">

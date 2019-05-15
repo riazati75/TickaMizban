@@ -31,7 +31,7 @@ public class NewActivity extends OptionActivity {
         stepperLayout = findViewById(R.id.stepperLayout);
 
         stepperAdapter = new StepperAdapter(getSupportFragmentManager(), this);
-        stepperLayout.setAdapter(stepperAdapter);
+        stepperLayout.setAdapter(stepperAdapter , 0);
         stepperLayout.setListener(new StepperLayout.StepperListener() {
             @Override
             public void onCompleted(View completeButton) {
@@ -41,7 +41,7 @@ public class NewActivity extends OptionActivity {
             @Override
             public void onError(VerificationError verificationError) {
                 Snackbar.make(root,
-                        "خطا های موجود را تصحیح کنید و سپس  ادامه دهید",
+                        "خطا های موجود را تصحیح کنید و سپس ادامه دهید",
                         Snackbar.LENGTH_INDEFINITE
                 ).setAction("باشه", new View.OnClickListener() {
                     @Override

@@ -8,7 +8,7 @@
     <color name="colorBackgroundSplash">#52616a</color>
     <color name="colorText">#1e2022</color>
     <color name="colorTextLight">#c9d6de</color>
-    <color name="colorError">#FF2D2D</color>
+    <color name="colorError">#FF0000</color>
     <color name="colorDone">#00a66d</color>
 
     <color name="colorPrimary2">#C72E45</color>

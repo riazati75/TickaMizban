@@ -13,6 +13,7 @@ import com.ticka.application.R;
 import com.ticka.application.fragments.CapacityFragment;
 import com.ticka.application.fragments.GeneralDetailsFragment;
 import com.ticka.application.fragments.MinorDetailsFragment;
+import com.ticka.application.fragments.PossibilitiesFragment;
 import com.ticka.application.fragments.RulesFragment;
 import com.ticka.application.fragments.UploadPhotoFragment;
 
@@ -63,6 +64,13 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 b5.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step5.setArguments(b5);
                 return step5;
+
+            case 5:
+                PossibilitiesFragment step6 = new PossibilitiesFragment();
+                Bundle b6 = new Bundle();
+                b6.putInt(CURRENT_STEP_POSITION_KEY, position);
+                step6.setArguments(b6);
+                return step6;
         }
 
         return null;
@@ -70,7 +78,7 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 6;
     }
 
     @NonNull
@@ -95,14 +103,14 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
             case 2:
                 return new StepViewModel.Builder(context)
                         .setTitle("تصاویر")
-                        .setSubtitle("بارگذاری تصاویر اقامتگاه")
+                        .setSubtitle("تصاویر اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
             case 3:
                 return new StepViewModel.Builder(context)
                         .setTitle("اطلاعات جزعی")
-                        .setSubtitle("ریز اطلاعات اقامتگاه")
+                        .setSubtitle("اطلاعات تکمیلی اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
@@ -110,6 +118,13 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 return new StepViewModel.Builder(context)
                         .setTitle("ظرفیت")
                         .setSubtitle("اطلاعات مربوط به نفرات")
+                        .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
+                        .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
+                        .create();
+            case 5:
+                return new StepViewModel.Builder(context)
+                        .setTitle("امکانات")
+                        .setSubtitle("امکانات موجود در اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
