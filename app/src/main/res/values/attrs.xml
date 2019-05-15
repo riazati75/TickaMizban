@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CodeVerificationTheme">
+        <attr format="reference" name="verificationCodeStyle"/>
+    </declare-styleable>
+
+    <declare-styleable name="CodeVerification">
+        <attr format="integer" name="itemCount"/>
+        <attr format="dimension" name="itemWidth"/>
+        <attr format="dimension" name="itemHeight"/>
+        <attr format="dimension" name="itemRadius"/>
+        <attr format="dimension" name="itemSpacing"/>
+        <attr format="dimension" name="lineWidth"/>
+        <attr format="reference|color" name="lineColor"/>
+        <attr format="enum" name="viewType">
+            <enum name="rectangle" value="0"/>
+            <enum name="line" value="1"/>
+            <enum name="none" value="2"/>
+        </attr>
+        <attr name="android:cursorVisible"/>
+        <attr format="dimension" name="cursorWidth"/>
+        <attr format="reference|color" name="cursorColor"/>
+        <attr name="android:itemBackground"/>
+        <attr format="boolean" name="hideLineWhenFilled"/>
+        <attr format="boolean" name="state_filled"/>
+        <attr format="boolean" name="rtlTextDirection"/>
+    </declare-styleable>
+
+    <declare-styleable name="ValueChanger">
+        <attr name="vcDefaultValue" format="integer" />
+        <attr name="vcMinValue" format="integer" />
+        <attr name="vcMaxValue" format="integer" />
+        <attr name="vcMinCountError" format="string" />
+        <attr name="vcMaxCountError" format="string" />
+        <attr name="vcAccompanyingText" format="string" />
+        <attr name="vcPlusIcon" format="reference"/>
+        <attr name="vcMinesIcon" format="reference"/>
+        <attr name="vcBackgroundShape" format="reference"/>
+    </declare-styleable>
+
+</resources>

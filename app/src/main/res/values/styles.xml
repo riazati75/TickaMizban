@@ -1,0 +1,148 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:fontFamily">@font/yekan_mobile_regular</item>
+        <item name="ms_stepperStyle">@style/DotStepperStyle</item>
+        <item name="coordinatorLayoutStyle">@style/coordinatorLayoutStyle</item>
+        <item name="cardViewStyle">@style/cardViewStyle</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="verificationCodeStyle">@style/verificationCodeStyle</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+    </style>
+
+    <style name="LoginTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorError">@color/colorError</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:popupBackground">@drawable/shape_popup</item>
+        <item name="android:fontFamily">@font/yekan_mobile_regular</item>
+        <item name="coordinatorLayoutStyle">@style/coordinatorLayoutStyle</item>
+        <item name="cardViewStyle">@style/cardViewStyle</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="ms_stepperStyle">@style/DotStepperStyle</item>
+        <item name="verificationCodeStyle">@style/verificationCodeStyle</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+    </style>
+
+    <style name="AppThemeDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">@font/yekan_mobile_regular</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="dialogCornerRadius">8dp</item>
+    </style>
+
+    <style name="DotStepperStyle">
+        <item name="ms_stepperType">dots</item>
+        <item name="ms_activeStepColor">#FFFFFF</item>
+        <item name="ms_inactiveStepColor">#006867</item>
+        <item name="ms_bottomNavigationBackground">?attr/colorAccent</item>
+    </style>
+
+    <style name="verificationCodeStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">@drawable/shape_popup</item>
+        <item name="android:popupElevation" tools:ignore="NewApi">4dp</item>
+    </style>
+
+    <style name="coordinatorLayoutStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/gray200</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="cardViewStyle" parent="CardView.Light">
+        <item name="cardBackgroundColor">@color/colorWhite</item>
+        <item name="cardCornerRadius">4dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TextStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextStyleDialog" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="toolbarStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="noBackground" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="Clickable" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:theme">@style/styleRippleBlackMe</item>
+    </style>
+
+    <style name="ClickableWhite" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:theme">@style/styleRippleWhiteMe</item>
+    </style>
+
+    <style name="ClickableCircle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:theme">@style/styleRipplePrimary</item>
+    </style>
+
+    <style name="ClickableCircleWhite" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:theme">@style/styleRippleWhiteMe</item>
+    </style>
+
+    <style name="ClickableCircleBlack" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:clickable">true</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:theme">@style/styleRippleBlackMe</item>
+    </style>
+
+    <style name="styleRippleWhite" parent="Theme.AppCompat.NoActionBar" />
+
+    <style name="styleRippleBlack" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="styleRipplePrimary" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+    <style name="styleRippleWhiteMe" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlHighlight">@color/colorWhite</item>
+    </style>
+
+    <style name="styleRippleBlackMe" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorControlHighlight">#00a66d</item>
+    </style>
+
+</resources>
