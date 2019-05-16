@@ -14,6 +14,7 @@ import com.ticka.application.fragments.CapacityFragment;
 import com.ticka.application.fragments.GeneralDetailsFragment;
 import com.ticka.application.fragments.MinorDetailsFragment;
 import com.ticka.application.fragments.PossibilitiesFragment;
+import com.ticka.application.fragments.PriceFragment;
 import com.ticka.application.fragments.RulesFragment;
 import com.ticka.application.fragments.UploadPhotoFragment;
 import com.ticka.application.fragments.UserRulesFragment;
@@ -81,7 +82,7 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 return step7;
 
             case 7:
-                UserRulesFragment step8 = new UserRulesFragment();
+                PriceFragment step8 = new PriceFragment();
                 Bundle b8 = new Bundle();
                 b8.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step8.setArguments(b8);
