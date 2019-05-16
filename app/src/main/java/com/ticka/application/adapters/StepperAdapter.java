@@ -79,6 +79,13 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 b7.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step7.setArguments(b7);
                 return step7;
+
+            case 7:
+                UserRulesFragment step8 = new UserRulesFragment();
+                Bundle b8 = new Bundle();
+                b8.putInt(CURRENT_STEP_POSITION_KEY, position);
+                step8.setArguments(b8);
+                return step8;
         }
 
         return null;
@@ -86,7 +93,7 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public int getCount() {
-        return 7;
+        return 8;
     }
 
     @NonNull
@@ -140,6 +147,13 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 return new StepViewModel.Builder(context)
                         .setTitle("قوانین")
                         .setSubtitle("قوانین اقامتگاه")
+                        .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
+                        .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
+                        .create();
+            case 7:
+                return new StepViewModel.Builder(context)
+                        .setTitle("قیمت گذاری")
+                        .setSubtitle("قیمت گذاری برا رزرو اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
