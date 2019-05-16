@@ -101,20 +101,21 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
     public StepViewModel getViewModel(@IntRange(from = 0) int position) {
 
         switch (position){
-            case 0:
-                return new StepViewModel.Builder(context)
+
+            case 0: return new StepViewModel.Builder(context)
                         .setTitle("قوانین همکاری")
                         .setSubtitle("قوانین و مقررات تیکا")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
-            case 1:
-                return new StepViewModel.Builder(context)
+
+            case 1: return new StepViewModel.Builder(context)
                         .setTitle("اطلاعات کلی")
                         .setSubtitle("اطلاعات اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
+
             case 2:
                 return new StepViewModel.Builder(context)
                         .setTitle("تصاویر")
@@ -122,43 +123,42 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
-            case 3:
-                return new StepViewModel.Builder(context)
+            case 3: return new StepViewModel.Builder(context)
                         .setTitle("اطلاعات جزعی")
                         .setSubtitle("اطلاعات تکمیلی اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
-            case 4:
-                return new StepViewModel.Builder(context)
+
+            case 4: return new StepViewModel.Builder(context)
                         .setTitle("ظرفیت")
                         .setSubtitle("اطلاعات مربوط به نفرات")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
-            case 5:
-                return new StepViewModel.Builder(context)
+
+            case 5: return new StepViewModel.Builder(context)
                         .setTitle("امکانات")
                         .setSubtitle("امکانات موجود در اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
-            case 6:
-                return new StepViewModel.Builder(context)
+
+            case 6: return new StepViewModel.Builder(context)
                         .setTitle("قوانین")
                         .setSubtitle("قوانین اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
-            case 7:
-                return new StepViewModel.Builder(context)
+
+            case 7: return new StepViewModel.Builder(context)
                         .setTitle("قیمت گذاری")
-                        .setSubtitle("قیمت گذاری برا رزرو اقامتگاه")
+                        .setSubtitle("قیمت گذاری برای رزرو اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
 
-                default: return null;
+            default: return null;
         }
     }
 }
