@@ -17,7 +17,7 @@ public class APIClient {
     static final String URL_LOGIN             = "SendLoginCode";
     static final String URL_VERIFICATION_CODE = "Token";
 
-    private static Retrofit retrofitLogin = null , retrofit = null;
+    private static Retrofit retrofit = null;
 
     private static Retrofit getInstance(){
 
