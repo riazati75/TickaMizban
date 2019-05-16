@@ -16,6 +16,7 @@ import com.ticka.application.fragments.MinorDetailsFragment;
 import com.ticka.application.fragments.PossibilitiesFragment;
 import com.ticka.application.fragments.RulesFragment;
 import com.ticka.application.fragments.UploadPhotoFragment;
+import com.ticka.application.fragments.UserRulesFragment;
 
 public class StepperAdapter extends AbstractFragmentStepAdapter {
 
@@ -71,6 +72,13 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 b6.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step6.setArguments(b6);
                 return step6;
+
+            case 6:
+                UserRulesFragment step7 = new UserRulesFragment();
+                Bundle b7 = new Bundle();
+                b7.putInt(CURRENT_STEP_POSITION_KEY, position);
+                step7.setArguments(b7);
+                return step7;
         }
 
         return null;
@@ -78,7 +86,7 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public int getCount() {
-        return 6;
+        return 7;
     }
 
     @NonNull
@@ -125,6 +133,13 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 return new StepViewModel.Builder(context)
                         .setTitle("امکانات")
                         .setSubtitle("امکانات موجود در اقامتگاه")
+                        .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
+                        .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
+                        .create();
+            case 6:
+                return new StepViewModel.Builder(context)
+                        .setTitle("قوانین")
+                        .setSubtitle("قوانین اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();

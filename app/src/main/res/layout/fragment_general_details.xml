@@ -10,12 +10,12 @@
         android:layout_centerHorizontal="true">
 
         <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_marginBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -23,12 +23,12 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginTop="3dp"
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="16dp"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -36,9 +36,9 @@
                     android:id="@+id/inputTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="3dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/selector_edt"
                     android:inputType="text"
                     android:padding="10dp"
@@ -49,19 +49,19 @@
                     android:id="@+id/state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
                 <RelativeLayout
-                    android:background="@drawable/shape_edt_normal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/shape_edt_normal">
 
                     <Spinner
                         android:id="@+id/stateList"
@@ -75,19 +75,19 @@
                     android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
                 <RelativeLayout
-                    android:background="@drawable/shape_edt_normal"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/shape_edt_normal">
 
                     <Spinner
                         android:id="@+id/cityList"
@@ -101,9 +101,9 @@
                     android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -111,12 +111,12 @@
                     android:id="@+id/inputAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="3dp"
-                    android:layout_marginEnd="8dp"
-                    android:minLines="3"
-                    android:maxLines="5"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/selector_edt"
+                    android:maxLines="5"
+                    android:minLines="3"
                     android:padding="10dp"
                     android:textColor="@color/colorBlack"
                     tools:ignore="Autofill,LabelFor" />
@@ -125,9 +125,9 @@
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="16dp"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -135,13 +135,13 @@
                     android:id="@+id/inputDescription"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="3dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:minLines="2"
-                    android:maxLines="3"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/selector_edt"
+                    android:maxLines="3"
+                    android:minLines="2"
                     android:padding="10dp"
                     android:textColor="@color/colorBlack"
                     tools:ignore="Autofill,LabelFor" />
