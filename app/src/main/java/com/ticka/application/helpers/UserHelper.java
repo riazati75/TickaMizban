@@ -22,7 +22,7 @@ public class UserHelper {
     }
 
     private UserHelper(Context context) {
-        spUtils = new SPUtils(context);
+        spUtils = SPUtils.getInstance(context);
     }
 
     public void setUserJoined(boolean isJoin){
