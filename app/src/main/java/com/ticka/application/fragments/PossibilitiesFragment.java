@@ -59,7 +59,7 @@ public class PossibilitiesFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-        Logger.Log(homesModel.toString());
+        Logger.Log(homesModel.parsData());
         callback.goToPrevStep();
     }
 

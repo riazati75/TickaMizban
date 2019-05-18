@@ -159,7 +159,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-        Logger.Log(homesModel.toString());
+        Logger.Log(homesModel.parsData());
         callback.goToNextStep();
     }
 

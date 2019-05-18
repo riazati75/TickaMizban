@@ -23,7 +23,6 @@ public class RulesFragment extends Fragment implements BlockingStep{
 
     private Context context;
     private HomesModel homesModel = HomesModel.getInstance();
-    private View view;
     private boolean isDone = false;
 
     public RulesFragment() {
@@ -32,20 +31,14 @@ public class RulesFragment extends Fragment implements BlockingStep{
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        view = inflater.inflate(R.layout.fragment_rules, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_rules, container, false);
         context = container.getContext();
-
         initViews(view);
-
         return view;
     }
 
     private void initViews(View view) {
-
         final CheckBox accept = view.findViewById(R.id.accept);
-
         accept.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -57,7 +50,7 @@ public class RulesFragment extends Fragment implements BlockingStep{
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
         if(isDone){
-            Logger.Log(homesModel.toString());
+            Logger.Log(homesModel.parsData());
             callback.goToNextStep();
         }
         else {

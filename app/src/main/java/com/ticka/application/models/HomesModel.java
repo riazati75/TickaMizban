@@ -240,8 +240,7 @@ public class HomesModel implements Serializable {
         this.ruleDescription = ruleDescription;
     }
 
-    @Override
-    public String toString() {
+    public String parsData() {
         return "HomesModel{" +
                 "homeTitle='" + homeTitle +
                 "', homeStateId=" + homeStateId +
