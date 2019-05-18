@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private Context context;
     private HomesModel homesModel = HomesModel.getInstance();
     private RecyclerView recycler;
+    private FloatingActionButton fab;
 
     public UploadPhotoFragment() {
         // Required empty public constructor
@@ -51,13 +53,22 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private void initViews(View view){
 
         recycler = view.findViewById(R.id.recycler);
+        fab = view.findViewById(R.id.fab);
 
-        PhotoGalleryAdapter adapter = new PhotoGalleryAdapter(context);
+        final PhotoGalleryAdapter adapter = new PhotoGalleryAdapter(context);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(
                 context , LinearLayoutManager.VERTICAL , false
         ));
         recycler.setAdapter(adapter);
+
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                adapter.setItemCount(adapter.getItemCount() + 1);
+//                adapter.notifyDataSetChanged();
+//            }
+//        });
     }
 
     public void pickImage(int position) {

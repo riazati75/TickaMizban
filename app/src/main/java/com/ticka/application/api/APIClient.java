@@ -11,9 +11,8 @@ public class APIClient {
 
     public static final String BODY_TEXT_TYPE = "text/plain";
 
-    private static final String BASE_URL_ORGINAL = "https://ticka.com/api/";
+    private static final String BASE_URL_ORGINAL = "https://api.ticka.com";
     private static final String BASE_URL_HOST    = "http://193.176.242.60:5030/ticka/home/public/api/v1/";
-    private static final String BASE_URL_TEST    = "http://user.prv:8085/api/v1/Account/";
 
     static final String URL_LOGIN             = "SendLoginCode";
     static final String URL_VERIFICATION_CODE = "Token";
