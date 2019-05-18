@@ -1,4 +1,4 @@
-package com.ticka.application.widgets.verification;
+package com.ticka.application.custom.verification;
 
 public interface OnCompletionListener {
     void onFinishEnterCode(String code);

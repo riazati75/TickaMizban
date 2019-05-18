@@ -1,4 +1,4 @@
-package com.ticka.application.widgets;
+package com.ticka.application.custom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

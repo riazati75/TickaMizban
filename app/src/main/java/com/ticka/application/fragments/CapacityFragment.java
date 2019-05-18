@@ -17,7 +17,7 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomesModel;
-import com.ticka.application.widgets.ValueChanger;
+import com.ticka.application.custom.ValueChanger;
 
 public class CapacityFragment extends Fragment implements BlockingStep {
 

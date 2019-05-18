@@ -69,7 +69,7 @@
                 android:textColor="@color/colorText"
                 android:textSize="18sp" />
 
-            <com.ticka.application.widgets.verification.CodeVerification
+            <com.ticka.application.custom.verification.CodeVerification
                 android:id="@+id/otpView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

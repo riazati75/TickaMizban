@@ -24,8 +24,8 @@ import com.ticka.application.helpers.UserHelper;
 import com.ticka.application.models.LoginCallback;
 import com.ticka.application.utils.JSONUtils;
 import com.ticka.application.utils.TimeLoader;
-import com.ticka.application.widgets.verification.CodeVerification;
-import com.ticka.application.widgets.verification.OnCompletionListener;
+import com.ticka.application.custom.verification.CodeVerification;
+import com.ticka.application.custom.verification.OnCompletionListener;
 
 import org.json.JSONObject;
 

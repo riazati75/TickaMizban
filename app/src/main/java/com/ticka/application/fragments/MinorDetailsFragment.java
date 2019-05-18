@@ -19,7 +19,7 @@ import com.ticka.application.R;
 import com.ticka.application.core.Logger;
 import com.ticka.application.helpers.SpinnerHelper;
 import com.ticka.application.models.HomesModel;
-import com.ticka.application.widgets.ValueChanger;
+import com.ticka.application.custom.ValueChanger;
 
 public class MinorDetailsFragment extends Fragment implements BlockingStep {
 

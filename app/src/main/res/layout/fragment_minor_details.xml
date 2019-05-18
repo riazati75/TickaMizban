@@ -133,7 +133,7 @@
                         android:orientation="horizontal"
                         android:weightSum="5">
 
-                        <com.ticka.application.widgets.ValueChanger
+                        <com.ticka.application.custom.ValueChanger
                             android:id="@+id/roomsCounter"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -247,7 +247,7 @@
                         android:padding="5dp"
                         android:textSize="18sp" />
 
-                    <com.ticka.application.widgets.ValueChanger
+                    <com.ticka.application.custom.ValueChanger
                         android:id="@+id/minDay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -267,7 +267,7 @@
                         android:padding="5dp"
                         android:textSize="18sp" />
 
-                    <com.ticka.application.widgets.ValueChanger
+                    <com.ticka.application.custom.ValueChanger
                         android:id="@+id/maxDay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -33,6 +33,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private HomesModel homesModel = HomesModel.getInstance();
     private ImageView img1 , img2 , img3;
     private TextView path1 , path2 , path3;
+    private String imgP1 = "" , imgP2 = "" , imgP3 = "";
     private File file1 , file2 , file3;
 
     public UploadPhotoFragment() {
@@ -41,12 +42,9 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_upload_photo, container, false);
         context = container.getContext();
-
         initViews(view);
-
         return view;
     }
 
@@ -120,7 +118,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             }
 
             if (path != null) {
-                path1.setText(path);
+                imgP1 = path;
+                path1.setText(imgP1);
             }
             img1.setImageURI(selectedImageUri);
         }
@@ -135,7 +134,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             }
 
             if (path != null) {
-                path2.setText(path);
+                imgP2 = path;
+                path2.setText(imgP2);
             }
             img2.setImageURI(selectedImageUri);
 
@@ -151,7 +151,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             }
 
             if (path != null) {
-                path3.setText(path);
+                imgP3 = path;
+                path3.setText(imgP3);
             }
             img3.setImageURI(selectedImageUri);
         }
@@ -180,6 +181,9 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             return new VerificationError("حداقل یک عکس باید انتخاب کنید");
         }
         else{
+            homesModel.setPhotoLocation1(imgP1);
+            homesModel.setPhotoLocation1(imgP2);
+            homesModel.setPhotoLocation1(imgP3);
             return null;
         }
     }

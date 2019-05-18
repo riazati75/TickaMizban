@@ -241,7 +241,7 @@ public class HomesModel implements Serializable {
     }
 
     public String parsData() {
-        return "HomesModel{" +
+        return "\n\nHomesModel{" +
                 "homeTitle='" + homeTitle +
                 "', homeStateId=" + homeStateId +
                 ", homeCityId=" + homeCityId +

@@ -1,4 +1,4 @@
-package com.ticka.application.widgets.verification;
+package com.ticka.application.custom.verification;
 
 import android.text.Selection;
 import android.text.Spannable;
