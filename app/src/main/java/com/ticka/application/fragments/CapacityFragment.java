@@ -33,13 +33,10 @@ public class CapacityFragment extends Fragment implements BlockingStep {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_capacity, container, false);
         context = container.getContext();
-
         initViews(view);
         init();
-
         return view;
     }
 

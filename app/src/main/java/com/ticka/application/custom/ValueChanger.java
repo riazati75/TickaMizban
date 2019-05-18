@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.ticka.application.R;
 
-
 public class ValueChanger extends RelativeLayout {
 
     private static final int DELAY = 200;
