@@ -12,7 +12,7 @@ public class SPUtils {
     private static SPUtils spUtils = null;
     private SharedPreferences sharedPreferences = null;
 
-    public SPUtils(Context context) {
+    private SPUtils(Context context) {
         this.context = context;
     }
 

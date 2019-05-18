@@ -12,7 +12,6 @@ public class TimeLoader implements Runnable {
     private int second = 0;
 
     public static TimeLoader getTimeLoader(){
-
         if(timeLoader == null){
             timeLoader = new TimeLoader();
         }
