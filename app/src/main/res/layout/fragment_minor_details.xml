@@ -108,6 +108,7 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -127,7 +128,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginBottom="0dp"
                         android:baselineAligned="false"
                         android:orientation="horizontal"
@@ -168,6 +169,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="15dp"
+                        android:layout_marginTop="16dp"
                         android:padding="1dp"
                         android:text="متراژ زمین و ساختمان به متر مربع:"
                         android:textColor="@color/gray900"
@@ -182,41 +184,65 @@
                         android:weightSum="2"
                         tools:ignore="DisableBaselineAlignment">
 
-                        <EditText
-                            android:id="@+id/buildingArea"
+                        <android.support.design.widget.TextInputLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusBottomEnd="6dp"
+                            app:boxCornerRadiusBottomStart="6dp"
+                            app:boxCornerRadiusTopEnd="6dp"
+                            app:boxCornerRadiusTopStart="6dp"
                             android:layout_marginTop="3dp"
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="3dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/selector_edt"
-                            android:gravity="center_vertical"
-                            android:hint="متراژ ساختمان"
-                            android:inputType="number"
-                            android:padding="10dp"
-                            android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/gray500"
-                            tools:ignore="Autofill,LabelFor" />
+                            android:layout_weight="1">
 
-                        <EditText
-                            android:id="@+id/landArea"
+                            <EditText
+                                android:id="@+id/buildingArea"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/selector_edt"
+                                android:gravity="center_vertical"
+                                android:hint="متراژ ساختمان"
+                                android:inputType="number"
+                                android:padding="10dp"
+                                android:textColor="@color/colorBlack"
+                                android:textColorHint="@color/gray500"
+                                tools:ignore="Autofill,LabelFor" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="3dp"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusBottomEnd="6dp"
+                            app:boxCornerRadiusBottomStart="6dp"
+                            app:boxCornerRadiusTopEnd="6dp"
+                            app:boxCornerRadiusTopStart="6dp"
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="3dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/selector_edt"
-                            android:gravity="center_vertical"
-                            android:hint="متراژ زمین"
-                            android:inputType="number"
-                            android:padding="10dp"
-                            android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/gray500"
-                            tools:ignore="Autofill,LabelFor" />
+                            android:layout_weight="1">
+
+                            <EditText
+                                android:id="@+id/landArea"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/selector_edt"
+                                android:gravity="center_vertical"
+                                android:hint="متراژ زمین"
+                                android:inputType="number"
+                                android:padding="10dp"
+                                android:textColor="@color/colorBlack"
+                                android:textColorHint="@color/gray500"
+                                tools:ignore="Autofill,LabelFor" />
+
+                        </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
 

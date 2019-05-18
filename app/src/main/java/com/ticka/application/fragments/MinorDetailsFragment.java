@@ -128,7 +128,7 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
             buildingArea.requestFocus();
             return new VerificationError("فیلد ها را با دقت پر کنید");
         }
-        else if(spRight.getSelectedItemPosition() == 0 || spLeft.getSelectedItemPosition() == 0 || spTip.getSelectedItemPosition() == 0){
+        else if(spRight.getSelectedItemPosition() == 0 || spLeft.getSelectedItemPosition() == 0){
             return new VerificationError("اطلاعات ساختمان را صحیح و دقیق انتخاب کنید");
         }
         else {

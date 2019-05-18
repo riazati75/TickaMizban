@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.adapters.PhotoGalleryAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomesModel;
 
@@ -31,10 +34,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private HomesModel homesModel = HomesModel.getInstance();
-    private ImageView img1 , img2 , img3;
-    private TextView path1 , path2 , path3;
-    private String imgP1 = "" , imgP2 = "" , imgP3 = "";
-    private File file1 , file2 , file3;
+    private RecyclerView recycler;
 
     public UploadPhotoFragment() {
         // Required empty public constructor
@@ -50,35 +50,14 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     private void initViews(View view){
 
-        img1 = view.findViewById(R.id.img1);
-        img2 = view.findViewById(R.id.img2);
-        img3 = view.findViewById(R.id.img3);
+        recycler = view.findViewById(R.id.recycler);
 
-        path1 = view.findViewById(R.id.path1);
-        path2 = view.findViewById(R.id.path2);
-        path3 = view.findViewById(R.id.path3);
-
-        img1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pickImage(1);
-            }
-        });
-
-        img2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pickImage(2);
-            }
-        });
-
-        img3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pickImage(3);
-            }
-        });
-
+        PhotoGalleryAdapter adapter = new PhotoGalleryAdapter(context);
+        recycler.setHasFixedSize(true);
+        recycler.setLayoutManager(new LinearLayoutManager(
+                context , LinearLayoutManager.VERTICAL , false
+        ));
+        recycler.setAdapter(adapter);
     }
 
     public void pickImage(int position) {
@@ -117,44 +96,11 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 path = selectedImageUri.getPath();
             }
 
-            if (path != null) {
-                imgP1 = path;
-                path1.setText(imgP1);
-            }
-            img1.setImageURI(selectedImageUri);
-        }
-        else if(requestCode == PICK_PHOTO_REQUEST_2
-                && resultCode == Activity.RESULT_OK){
-
-            Uri selectedImageUri = data.getData();
-
-            String path = null;
-            if(selectedImageUri != null){
-                path = selectedImageUri.getPath();
-            }
-
-            if (path != null) {
-                imgP2 = path;
-                path2.setText(imgP2);
-            }
-            img2.setImageURI(selectedImageUri);
-
-        }
-        else if(requestCode == PICK_PHOTO_REQUEST_3
-                && resultCode == Activity.RESULT_OK){
-
-            Uri selectedImageUri = data.getData();
-
-            String path = null;
-            if(selectedImageUri != null){
-                path = selectedImageUri.getPath();
-            }
-
-            if (path != null) {
-                imgP3 = path;
-                path3.setText(imgP3);
-            }
-            img3.setImageURI(selectedImageUri);
+//            if (path != null) {
+//                imgP1 = path;
+//                path1.setText(imgP1);
+//            }
+//            img1.setImageURI(selectedImageUri);
         }
     }
 
@@ -177,15 +123,17 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     @Nullable
     @Override
     public VerificationError verifyStep() {
-        if(path1.getText().toString().equals("")){
-            return new VerificationError("حداقل یک عکس باید انتخاب کنید");
-        }
-        else{
-            homesModel.setPhotoLocation1(imgP1);
-            homesModel.setPhotoLocation1(imgP2);
-            homesModel.setPhotoLocation1(imgP3);
-            return null;
-        }
+//        if(path1.getText().toString().equals("")){
+//            return new VerificationError("حداقل یک عکس باید انتخاب کنید");
+//        }
+//        else{
+//            homesModel.setPhotoLocation1(imgP1);
+//            homesModel.setPhotoLocation1(imgP2);
+//            homesModel.setPhotoLocation1(imgP3);
+//            return null;
+//        }
+
+        return null;
     }
 
     @Override

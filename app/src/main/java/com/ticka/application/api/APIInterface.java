@@ -24,4 +24,11 @@ public interface APIInterface {
     })
     Call<LoginCallback> verificationCode(@Body RequestBody body);
 
+    @POST(APIClient.URL_VERIFICATION_CODE)
+    @Headers({
+            "accept: application/json",
+            "Content-Type: application/json"
+    })
+    Call<String> insertDate(@Body RequestBody body);
+
 }

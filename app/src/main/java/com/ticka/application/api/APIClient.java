@@ -11,11 +11,13 @@ public class APIClient {
 
     public static final String BODY_TEXT_TYPE = "text/plain";
 
-    private static final String BASE_URL      = "https://ticka.com/api/";
-    private static final String BASE_URL_TEST = "http://user.prv:8085/api/v1/Account/";
+    private static final String BASE_URL_ORGINAL = "https://ticka.com/api/";
+    private static final String BASE_URL_HOST    = "http://193.176.242.60:5030/ticka/home/public/api/v1/";
+    private static final String BASE_URL_TEST    = "http://user.prv:8085/api/v1/Account/";
 
     static final String URL_LOGIN             = "SendLoginCode";
     static final String URL_VERIFICATION_CODE = "Token";
+    static final String URL_INSERT_HOME       = "insert";
 
     private static Retrofit retrofit = null;
 
@@ -28,7 +30,7 @@ public class APIClient {
                     .create();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL_TEST)
+                    .baseUrl(BASE_URL_HOST)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();

@@ -23,8 +23,8 @@ public class CapacityFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private HomesModel homesModel = HomesModel.getInstance();
-    private TextView ca1 , ca2 , ca3 , ca4 , description;
-    private ValueChanger c1 , c2 , c3 , c4;
+    private TextView ca1 , ca2 , ca3 , ca4 , ca5 , description;
+    private ValueChanger c1 , c2 , c3 , c4 , c5;
     private EditText inputDescription;
 
     public CapacityFragment() {
@@ -46,6 +46,7 @@ public class CapacityFragment extends Fragment implements BlockingStep {
         ca2 = view.findViewById(R.id.ca2);
         ca3 = view.findViewById(R.id.ca3);
         ca4 = view.findViewById(R.id.ca4);
+        ca5 = view.findViewById(R.id.ca5);
         description = view.findViewById(R.id.description);
         inputDescription = view.findViewById(R.id.inputDescription);
 
@@ -53,12 +54,14 @@ public class CapacityFragment extends Fragment implements BlockingStep {
         ca2.setText(R.string.capacity_2);
         ca3.setText(R.string.capacity_3);
         ca4.setText(R.string.capacity_4);
+        ca5.setText(R.string.capacity_5);
         description.setText(R.string.general_description);
 
         c1 = view.findViewById(R.id.c1);
         c2 = view.findViewById(R.id.c2);
         c3 = view.findViewById(R.id.c3);
         c4 = view.findViewById(R.id.c4);
+        c5 = view.findViewById(R.id.c5);
 
     }
 
