@@ -14,8 +14,8 @@ public class APIClient {
     private static final String BASE_URL_ORGINAL = "https://api.ticka.com";
     private static final String BASE_URL_HOST    = "http://193.176.242.60:5030/ticka/home/public/api/v1/";
 
-    static final String URL_LOGIN             = "SendLoginCode";
-    static final String URL_VERIFICATION_CODE = "Token";
+    static final String URL_LOGIN             = "Account/SendLoginCode";
+    static final String URL_VERIFICATION_CODE = "Account/Token";
     static final String URL_INSERT_HOME       = "insert";
 
     private static Retrofit retrofit = null;
