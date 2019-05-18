@@ -143,6 +143,8 @@
                     android:maxLines="3"
                     android:minLines="2"
                     android:padding="10dp"
+                    android:textColorHint="@color/gray500"
+                    android:hint="مثل: کوچه و بلوار های فرعی"
                     android:textColor="@color/colorBlack"
                     tools:ignore="Autofill,LabelFor" />
 

@@ -47,14 +47,14 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 return step2;
 
             case 2:
-                UploadPhotoFragment step3 = new UploadPhotoFragment();
+                MinorDetailsFragment step3 = new MinorDetailsFragment();
                 Bundle b3 = new Bundle();
                 b3.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step3.setArguments(b3);
                 return step3;
 
             case 3:
-                MinorDetailsFragment step4 = new MinorDetailsFragment();
+                UploadPhotoFragment step4 = new UploadPhotoFragment();
                 Bundle b4 = new Bundle();
                 b4.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step4.setArguments(b4);
@@ -117,16 +117,16 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
 
-            case 2:
-                return new StepViewModel.Builder(context)
+            case 2: return new StepViewModel.Builder(context)
+                    .setTitle("اطلاعات جزعی")
+                    .setSubtitle("اطلاعات تکمیلی اقامتگاه")
+                    .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
+                    .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
+                    .create();
+
+            case 3: return new StepViewModel.Builder(context)
                         .setTitle("تصاویر")
                         .setSubtitle("تصاویر اقامتگاه")
-                        .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
-                        .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
-                        .create();
-            case 3: return new StepViewModel.Builder(context)
-                        .setTitle("اطلاعات جزعی")
-                        .setSubtitle("اطلاعات تکمیلی اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
