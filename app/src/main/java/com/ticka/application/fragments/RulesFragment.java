@@ -16,10 +16,13 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.core.Logger;
+import com.ticka.application.models.HomesModel;
 
 public class RulesFragment extends Fragment implements BlockingStep{
 
     private Context context;
+    private HomesModel homesModel = HomesModel.getInstance();
     private View view;
     private boolean isDone = false;
 
@@ -54,6 +57,7 @@ public class RulesFragment extends Fragment implements BlockingStep{
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
         if(isDone){
+            Logger.Log(homesModel.toString());
             callback.goToNextStep();
         }
         else {

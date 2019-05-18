@@ -16,10 +16,13 @@ import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.CheckboxAdapter;
+import com.ticka.application.core.Logger;
+import com.ticka.application.models.HomesModel;
 
 public class UserRulesFragment extends Fragment implements BlockingStep {
 
     private Context context;
+    private HomesModel homesModel = HomesModel.getInstance();
     private RecyclerView recyclerView;
     private CheckboxAdapter adapter;
 
@@ -48,6 +51,7 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+        Logger.Log(homesModel.toString());
         callback.goToNextStep();
     }
 

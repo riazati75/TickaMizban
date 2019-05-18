@@ -17,18 +17,19 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.core.Logger;
 import com.ticka.application.helpers.SpinnerHelper;
 import com.ticka.application.models.HomesModel;
 
 public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
     private Context context;
+    private HomesModel homesModel = HomesModel.getInstance();
     private View view;
     private TextView title , state , city , address , description;
     private Spinner stateList , cityList;
     private EditText inputTitle , inputAddress , inputDescription;
     private String spState , spCity;
-    private HomesModel homesModel = HomesModel.getInstance();
 
     private String[] listState = {
             "انتخاب کنید",
@@ -121,6 +122,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+        Logger.Log(homesModel.toString());
         callback.goToNextStep();
     }
 
@@ -150,7 +152,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             setError(inputAddress);
             return new VerificationError("فیلد ها را با دقت پر کنید");
         }
-        else if(spState.equals(listState[0]) || spCity.equals(listCity[0])){
+        else if(stateList.getSelectedItemPosition() ==0 || cityList.getSelectedItemPosition() == 0){
             return new VerificationError("استان و شهر را صحیح و دقیق انتخاب کنید");
         }
         else {

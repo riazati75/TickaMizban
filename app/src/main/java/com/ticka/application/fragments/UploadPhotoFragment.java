@@ -18,6 +18,8 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.core.Logger;
+import com.ticka.application.models.HomesModel;
 
 import java.io.File;
 
@@ -28,6 +30,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private static final int PICK_PHOTO_REQUEST_3 = 3;
 
     private Context context;
+    private HomesModel homesModel = HomesModel.getInstance();
     private ImageView img1 , img2 , img3;
     private TextView path1 , path2 , path3;
     private File file1 , file2 , file3;
@@ -156,6 +159,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+        Logger.Log(homesModel.toString());
         callback.goToNextStep();
     }
 

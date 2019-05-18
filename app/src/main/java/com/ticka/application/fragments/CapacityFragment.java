@@ -15,11 +15,14 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.core.Logger;
+import com.ticka.application.models.HomesModel;
 import com.ticka.application.widgets.ValueChanger;
 
 public class CapacityFragment extends Fragment implements BlockingStep {
 
     private Context context;
+    private HomesModel homesModel = HomesModel.getInstance();
     private TextView ca1 , ca2 , ca3 , ca4 , description;
     private ValueChanger c1 , c2 , c3 , c4;
     private EditText inputDescription;
@@ -69,6 +72,7 @@ public class CapacityFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+        Logger.Log(homesModel.toString());
         callback.goToNextStep();
     }
 

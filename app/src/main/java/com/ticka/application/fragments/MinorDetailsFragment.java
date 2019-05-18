@@ -16,14 +16,18 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.core.Logger;
 import com.ticka.application.helpers.SpinnerHelper;
+import com.ticka.application.models.HomesModel;
+import com.ticka.application.widgets.ValueChanger;
 
 public class MinorDetailsFragment extends Fragment implements BlockingStep {
 
     private Context context;
-
+    private HomesModel homesModel = HomesModel.getInstance();
     private EditText buildingArea , landArea;
     private Spinner spLeft , spRight , spTip;
+    private ValueChanger roomsCounter;
     private TextView ca1 , ca2;
 
     private String[] type = {
@@ -72,6 +76,7 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
 
         landArea     = view.findViewById(R.id.landArea);
         buildingArea = view.findViewById(R.id.buildingArea);
+        roomsCounter = view.findViewById(R.id.roomsCounter);
         spLeft       = view.findViewById(R.id.spLeft);
         spRight      = view.findViewById(R.id.spRight);
         spTip        = view.findViewById(R.id.spTip);
@@ -94,6 +99,7 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+        Logger.Log(homesModel.toString());
         callback.goToNextStep();
     }
 
@@ -110,7 +116,34 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
     @Nullable
     @Override
     public VerificationError verifyStep() {
-        return null;
+
+        String ba = getText(buildingArea);
+        String la = getText(landArea);
+
+        if(la.equals("")){
+            landArea.requestFocus();
+            return new VerificationError("فیلد ها را با دقت پر کنید");
+        }
+        else if(ba.equals("")){
+            buildingArea.requestFocus();
+            return new VerificationError("فیلد ها را با دقت پر کنید");
+        }
+        else if(spRight.getSelectedItemPosition() == 0 || spLeft.getSelectedItemPosition() == 0 || spTip.getSelectedItemPosition() == 0){
+            return new VerificationError("اطلاعات ساختمان را صحیح و دقیق انتخاب کنید");
+        }
+        else {
+            homesModel.setBuildingArea(Integer.valueOf(ba));
+            homesModel.setLandArea(Integer.valueOf(la));
+            homesModel.setBuildingType(type[spRight.getSelectedItemPosition()]);
+            homesModel.setLocationType(location[spLeft.getSelectedItemPosition()]);
+            homesModel.setBuildingTip(buildingTip[spTip.getSelectedItemPosition()]);
+            homesModel.setRoomNumber(roomsCounter.getValue());
+            return null;
+        }
+    }
+
+    private String getText(EditText editText){
+        return editText.getText().toString().trim();
     }
 
     @Override

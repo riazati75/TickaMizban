@@ -12,8 +12,12 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.core.Logger;
+import com.ticka.application.models.HomesModel;
 
 public class PriceFragment extends Fragment implements BlockingStep {
+
+    private HomesModel homesModel = HomesModel.getInstance();
 
     public PriceFragment() {
         // Required empty public constructor
@@ -36,6 +40,7 @@ public class PriceFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+        Logger.Log(homesModel.toString());
         callback.complete();
     }
 
