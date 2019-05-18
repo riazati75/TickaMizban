@@ -41,7 +41,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="3dp"
                             android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="3dp"
+                            android:layout_marginBottom="16dp"
                             android:layout_weight="1"
                             android:background="@drawable/shape_edt_normal">
 
@@ -59,7 +59,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="3dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="3dp"
+                            android:layout_marginBottom="16dp"
                             android:layout_weight="1"
                             android:background="@drawable/shape_edt_normal">
 
@@ -77,6 +77,7 @@
                         android:id="@+id/inputDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="16dp"
@@ -86,7 +87,7 @@
                         android:inputType="text"
                         android:padding="10dp"
                         android:textColor="@color/colorBlack"
-                        android:textColorHint="@color/gray900"
+                        android:textColorHint="@color/gray500"
                         tools:ignore="Autofill,LabelFor" />
 
                 </LinearLayout>
@@ -195,7 +196,7 @@
                             android:inputType="number"
                             android:padding="10dp"
                             android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/gray900"
+                            android:textColorHint="@color/gray500"
                             tools:ignore="Autofill,LabelFor" />
 
                         <EditText
@@ -213,7 +214,7 @@
                             android:inputType="number"
                             android:padding="10dp"
                             android:textColor="@color/colorBlack"
-                            android:textColorHint="@color/gray900"
+                            android:textColorHint="@color/gray500"
                             tools:ignore="Autofill,LabelFor" />
 
                     </LinearLayout>
