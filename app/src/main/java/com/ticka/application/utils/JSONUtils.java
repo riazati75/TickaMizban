@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 public class JSONUtils {
 
-    private static JSONObject jsonObject;
+    private static JSONObject jsonObject = null;
 
     private static JSONObject getJsonObject(){
         if(jsonObject == null){
@@ -42,6 +42,23 @@ public class JSONUtils {
             json.put("clientIp" , "");
             json.put("clientId" , 0);
             json.put("refreshToken" , "RefreshToken");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+
+    public static JSONObject getSaveJson(@NonNull String name , Integer type , Integer size , String base64){
+
+        JSONObject json = getJsonObject();
+
+        try{
+            json.put("Name" , name);
+            json.put("Type" , type);
+            json.put("Size" , size);
+            json.put("HasThumbnail" , true);
+            json.put("Base64Content" , base64);
         }catch(JSONException e){
             e.printStackTrace();
         }
