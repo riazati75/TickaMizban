@@ -1,6 +1,7 @@
 package com.ticka.application.api;
 
-import com.ticka.application.models.LoginCallback;
+import com.ticka.application.models.callback.LoginCallback;
+import com.ticka.application.models.callback.SaveCallback;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -30,5 +31,12 @@ public interface APIInterface {
             "Content-Type: application/json"
     })
     Call<String> insertDate(@Body RequestBody body);
+
+    @POST(APIClient.URL_SAVE_PHOTO)
+    @Headers({
+            "accept: application/json",
+            "Content-Type: application/json"
+    })
+    Call<SaveCallback> savePhoto(@Body RequestBody body);
 
 }

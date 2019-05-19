@@ -1,4 +1,4 @@
-package com.ticka.application.models;
+package com.ticka.application.models.callback;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;

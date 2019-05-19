@@ -21,7 +21,7 @@ import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.helpers.UserHelper;
-import com.ticka.application.models.LoginCallback;
+import com.ticka.application.models.callback.LoginCallback;
 import com.ticka.application.utils.JSONUtils;
 import com.ticka.application.utils.TimeLoader;
 import com.ticka.application.custom.verification.CodeVerification;
