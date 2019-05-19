@@ -1,7 +1,6 @@
 package com.ticka.application.fragments;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,7 +15,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,9 +32,7 @@ import com.ticka.application.utils.JSONUtils;
 
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import ir.farsroidx.StringImageUtils;
 import retrofit2.Call;
@@ -50,7 +46,6 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private Context context;
     private HomesModel homesModel = HomesModel.getInstance();
     private AddPhotoAdapter adapter;
-    private RecyclerView recycler;
     private ImageView imageView;
 
     public UploadPhotoFragment() {
@@ -67,7 +62,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     private void initViews(View view){
 
-        recycler = view.findViewById(R.id.recycler);
+        RecyclerView recycler = view.findViewById(R.id.recycler);
 
         adapter = new AddPhotoAdapter(context);
         recycler.setHasFixedSize(true);
@@ -113,31 +108,11 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         }
     }
 
-    private byte[] getBytes(InputStream inputStream) throws IOException {
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-        int buffSize = 1024;
-        byte[] buff = new byte[buffSize];
-
-        int length;
-        while((length = inputStream.read()) != -1){
-            byteArrayOutputStream.write(buff , 0 , length);
-        }
-        return byteArrayOutputStream.toByteArray();
-    }
-
-    private String getFileExtension(Uri uri){
-        ContentResolver contentResolver = context.getContentResolver();
-        MimeTypeMap typeMap = MimeTypeMap.getSingleton();
-        return typeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-    }
-
     private void uploadFile(String base64) {
 
         APIInterface api = APIClient.getCDNClient();
 
-        JSONObject object = JSONUtils.getSaveJson("photo.jpeg" , 1 , 1 , base64);
+        JSONObject object = JSONUtils.getSaveJson(base64);
 
         api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
             @Override
@@ -153,7 +128,6 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
                 }
                 else {
-
                     Logger.Log("error: " + response.body().getErrorMessage());
                     Toast.makeText(context, "خطا در ارسال تصویر. مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
                 }
@@ -161,7 +135,6 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
             @Override
             public void onFailure(Call<SaveCallback> call, Throwable t) {
-
                 Logger.Log("throwable: " + t.getMessage());
                 Toast.makeText(context, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
             }

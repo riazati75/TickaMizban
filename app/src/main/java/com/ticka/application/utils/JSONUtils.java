@@ -49,16 +49,16 @@ public class JSONUtils {
         return json;
     }
 
-    public static JSONObject getSaveJson(@NonNull String name , Integer type , Integer size , String base64){
+    public static JSONObject getSaveJson(@NonNull String base64){
 
         JSONObject json = getJsonObject();
 
         try{
-            json.put("Name" , name);
-            json.put("Type" , type);
-            json.put("Size" , size);
+            json.put("Name" , "photo.jpeg");
+            json.put("Type" , 1);
+            json.put("Size" , 1);
             json.put("HasThumbnail" , true);
-            json.put("Base64Content" , base64);
+            json.put("Base64Content" , "data:image/jpeg;base64," + base64);
         }catch(JSONException e){
             e.printStackTrace();
         }
