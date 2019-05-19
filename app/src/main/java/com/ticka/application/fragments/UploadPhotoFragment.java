@@ -40,9 +40,13 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import ir.farsroidx.StringImageUtils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.ticka.application.api.APIClient.BODY_JSON_TYPE;
 
 public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
@@ -129,23 +133,33 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
         //////////////////////////////////////////////////////////////////////////////
 
-        api.savePhoto(upload).enqueue(new Callback<SaveCallback>() {
+        RequestBody body = RequestBody.create(
+                MediaType.parse(BODY_JSON_TYPE),
+                object.toString());
+
+        api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
             @Override
             public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
 
-                if(response.isSuccessful() && response.body().isSuccessful()){
+                if(response.isSuccessful()){
 
-                    Logger.Log("fileId: " + response.body().getResult());
+                    if(response.body().isSuccessful()){
 
-                    Toast.makeText(context, "ارسال موفق", Toast.LENGTH_SHORT).show();
+                        Logger.Log("fileId: " + response.body().getResult());
 
-                    adapter.setItemCount(adapter.getItemCount() + 1);
+                        Toast.makeText(context, "ارسال موفق", Toast.LENGTH_SHORT).show();
 
+                        adapter.setItemCount(adapter.getItemCount() + 1);
+                    }
+                    else {
+                        Logger.Log("error: " + response.body().getErrorMessage());
+                        Toast.makeText(context, "خطا در ارسال تصویر. مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Logger.Log("error: " + response.toString());
+                    Toast.makeText(context, "خطایی رخ داده است", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Logger.Log("error: " + response.body().getErrorMessage());
-                    Toast.makeText(context, "خطا در ارسال تصویر. مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
-                }
+
             }
 
             @Override

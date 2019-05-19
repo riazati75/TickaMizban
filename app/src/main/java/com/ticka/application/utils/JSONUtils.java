@@ -60,7 +60,7 @@ public class JSONUtils {
 
         try{
             json.put("Name" , "photo.jpeg");
-            json.put("Type" , 1);
+            json.put("Type" , 4);
             json.put("Size" , 1);
             json.put("HasThumbnail" , true);
             json.put("Base64Content" , "data:image/jpeg;base64," + base64);

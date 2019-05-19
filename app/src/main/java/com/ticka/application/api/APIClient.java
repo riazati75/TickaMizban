@@ -26,7 +26,7 @@ public class APIClient {
 
     static final String URL_LOGIN             = "Account/SendLoginCode";
     static final String URL_VERIFICATION_CODE = "Account/Token";
-    static final String URL_SAVE_PHOTO        = "Upload";
+    static final String URL_SAVE_PHOTO        = "upload";
     static final String URL_GET_PHOTO         = "File/{id}";
     static final String URL_INSERT_HOME       = "insert-home";
     static final String URL_GET_HOME          = "home";

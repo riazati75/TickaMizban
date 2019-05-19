@@ -2,14 +2,24 @@ package com.ticka.application.models;
 
 import android.support.annotation.Nullable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class UploadModel {
 
+    @SerializedName("Name")
     private String Name;
 
+    @SerializedName("Type")
     private double Type;
 
+    @SerializedName("Size")
     private double Size;
+
+    @SerializedName("HasThumbnail")
     private boolean HasThumbnail;
+
+    @SerializedName("Base64Content")
     private String Base64Content;
 
     public UploadModel() {
