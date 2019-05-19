@@ -66,7 +66,6 @@ public class MainActivity extends OptionActivity {
 
     private void getHome(){
 
-
         APIInterface api = APIClient.getTESTClient();
         api.getHomes().enqueue(new Callback<HomeModel>() {
             @Override

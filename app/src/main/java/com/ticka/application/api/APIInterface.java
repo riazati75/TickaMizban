@@ -31,7 +31,7 @@ public interface APIInterface {
             "Content-Type: application/json"})
     Call<String> insertDate(@Body RequestBody body);
 
-    @POST(APIClient.URL_GET_HOME)
+    @GET(APIClient.URL_GET_HOME)
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
     Call<HomeModel> getHomes();
