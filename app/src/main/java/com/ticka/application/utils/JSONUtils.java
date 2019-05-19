@@ -56,7 +56,7 @@ public class JSONUtils {
 
     public static JSONObject getSaveJson(@NonNull String base64){
 
-        JSONObject json = getJsonObject();
+        JSONObject json = new JSONObject();
 
         try{
             json.put("Name" , "photo.jpeg");
