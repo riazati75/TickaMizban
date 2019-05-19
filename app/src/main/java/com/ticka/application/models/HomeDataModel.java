@@ -3,13 +3,13 @@ package com.ticka.application.models;
 import java.io.Serializable;
 import java.util.List;
 
-public class HomesModel implements Serializable {
+public class HomeDataModel implements Serializable {
 
-    private static HomesModel homesModel = null;
+    private static HomeDataModel homesModel = null;
 
-    public static HomesModel getInstance(){
+    public static HomeDataModel getInstance(){
         if(homesModel == null){
-            homesModel = new HomesModel();
+            homesModel = new HomeDataModel();
         }
         return homesModel;
     }
@@ -241,7 +241,7 @@ public class HomesModel implements Serializable {
     }
 
     public String parsData() {
-        return "\n\nHomesModel{" +
+        return "\n\nHomeDataModel{" +
                 "homeTitle='" + homeTitle +
                 "', homeStateId=" + homeStateId +
                 ", homeCityId=" + homeCityId +

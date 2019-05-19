@@ -16,13 +16,13 @@ import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.core.Logger;
-import com.ticka.application.models.HomesModel;
+import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.custom.ValueChanger;
 
 public class CapacityFragment extends Fragment implements BlockingStep {
 
     private Context context;
-    private HomesModel homesModel = HomesModel.getInstance();
+    private HomeDataModel homesModel = HomeDataModel.getInstance();
     private TextView ca1 , ca2 , ca3 , ca4 , ca5 , description;
     private ValueChanger c1 , c2 , c3 , c4 , c5;
     private EditText inputDescription;

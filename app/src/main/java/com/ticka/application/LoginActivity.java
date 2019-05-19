@@ -135,7 +135,7 @@ public class LoginActivity extends OptionActivity {
         JSONObject object = JSONUtils.getJsonPhone(phone);
 
         RequestBody body = RequestBody.create(
-                MediaType.parse(APIClient.BODY_TEXT_TYPE),
+                MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
                 object.toString());
 
         APIInterface api = APIClient.getAPIClient();

@@ -26,7 +26,7 @@ import com.ticka.application.adapters.AddPhotoAdapter;
 import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
-import com.ticka.application.models.HomesModel;
+import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.utils.JSONUtils;
 
@@ -44,7 +44,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private static final int PICK_PHOTO_REQUEST = 100;
 
     private Context context;
-    private HomesModel homesModel = HomesModel.getInstance();
+    private HomeDataModel homesModel = HomeDataModel.getInstance();
     private AddPhotoAdapter adapter;
     private ImageView imageView;
 

@@ -17,14 +17,14 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.CheckboxAdapter;
 import com.ticka.application.core.Logger;
-import com.ticka.application.models.HomesModel;
+import com.ticka.application.models.HomeDataModel;
 
 public class PossibilitiesFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private RecyclerView recyclerView;
     private CheckboxAdapter adapter;
-    private HomesModel homesModel = HomesModel.getInstance();
+    private HomeDataModel homesModel = HomeDataModel.getInstance();
 
     public PossibilitiesFragment() {
         // Required empty public constructor

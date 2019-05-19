@@ -17,12 +17,12 @@ import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.core.Logger;
-import com.ticka.application.models.HomesModel;
+import com.ticka.application.models.HomeDataModel;
 
 public class RulesFragment extends Fragment implements BlockingStep{
 
     private Context context;
-    private HomesModel homesModel = HomesModel.getInstance();
+    private HomeDataModel homesModel = HomeDataModel.getInstance();
     private boolean isDone = false;
 
     public RulesFragment() {

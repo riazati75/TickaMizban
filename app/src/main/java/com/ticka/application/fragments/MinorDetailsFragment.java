@@ -18,13 +18,13 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.core.Logger;
 import com.ticka.application.helpers.SpinnerHelper;
-import com.ticka.application.models.HomesModel;
+import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.custom.ValueChanger;
 
 public class MinorDetailsFragment extends Fragment implements BlockingStep {
 
     private Context context;
-    private HomesModel homesModel = HomesModel.getInstance();
+    private HomeDataModel homesModel = HomeDataModel.getInstance();
     private EditText buildingArea , landArea;
     private Spinner spLeft , spRight , spTip;
     private ValueChanger roomsCounter;

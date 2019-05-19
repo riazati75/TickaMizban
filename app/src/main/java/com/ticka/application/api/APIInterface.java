@@ -2,6 +2,7 @@ package com.ticka.application.api;
 
 import com.ticka.application.models.callback.LoginCallback;
 import com.ticka.application.models.callback.SaveCallback;
+import com.ticka.application.models.home.HomeModel;
 
 import org.json.JSONObject;
 
@@ -25,10 +26,15 @@ public interface APIInterface {
             "Content-Type: application/json"})
     Call<LoginCallback> verificationCode(@Body RequestBody body);
 
-    @POST(APIClient.URL_VERIFICATION_CODE)
+    @POST(APIClient.URL_INSERT_HOME)
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
     Call<String> insertDate(@Body RequestBody body);
+
+    @POST(APIClient.URL_GET_HOME)
+    @Headers({"accept: application/json",
+            "Content-Type: application/json"})
+    Call<HomeModel> getHomes();
 
     @POST(APIClient.URL_SAVE_PHOTO)
     @Headers({"accept: application/json",
