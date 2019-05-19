@@ -13,7 +13,7 @@ public class HomeModel implements Serializable {
 
     @SerializedName("data")
     @Expose
-    private List<Data> data = null;
+    private List<HomeData> data = null;
 
     @SerializedName("first_page_url")
     @Expose
@@ -33,7 +33,7 @@ public class HomeModel implements Serializable {
 
     @SerializedName("next_page_url")
     @Expose
-    private Object nextPageUrl;
+    private String nextPageUrl;
 
     @SerializedName("path")
     @Expose
@@ -45,7 +45,7 @@ public class HomeModel implements Serializable {
 
     @SerializedName("prev_page_url")
     @Expose
-    private Object prevPageUrl;
+    private String prevPageUrl;
 
     @SerializedName("to")
     @Expose
@@ -63,11 +63,11 @@ public class HomeModel implements Serializable {
         this.currentPage = currentPage;
     }
 
-    public List<Data> getData() {
+    public List<HomeData> getData() {
         return data;
     }
 
-    public void setData(List<Data> data) {
+    public void setData(List<HomeData> data) {
         this.data = data;
     }
 
@@ -103,11 +103,11 @@ public class HomeModel implements Serializable {
         this.lastPageUrl = lastPageUrl;
     }
 
-    public Object getNextPageUrl() {
+    public String getNextPageUrl() {
         return nextPageUrl;
     }
 
-    public void setNextPageUrl(Object nextPageUrl) {
+    public void setNextPageUrl(String nextPageUrl) {
         this.nextPageUrl = nextPageUrl;
     }
 
@@ -127,11 +127,11 @@ public class HomeModel implements Serializable {
         this.perPage = perPage;
     }
 
-    public Object getPrevPageUrl() {
+    public String getPrevPageUrl() {
         return prevPageUrl;
     }
 
-    public void setPrevPageUrl(Object prevPageUrl) {
+    public void setPrevPageUrl(String prevPageUrl) {
         this.prevPageUrl = prevPageUrl;
     }
 

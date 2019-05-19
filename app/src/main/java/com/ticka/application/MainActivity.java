@@ -12,7 +12,10 @@ import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
+import com.ticka.application.models.home.HomeData;
 import com.ticka.application.models.home.HomeModel;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,8 +73,8 @@ public class MainActivity extends OptionActivity {
             public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
 
                 if(response.body() != null){
-                    HomeModel model = response.body();
-                    Logger.Log(model.getData().size() + "");
+                         List<HomeData> model = response.body().getData();
+                    Logger.Log("Response: " + response.body().getCurrentPage());
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();

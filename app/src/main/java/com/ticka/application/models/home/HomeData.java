@@ -4,7 +4,7 @@ import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Data implements Serializable {
+public class HomeData implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -12,99 +12,99 @@ public class Data implements Serializable {
 
     @SerializedName("city_id")
     @Expose
-    private Object cityId;
+    private Integer cityId;
 
     @SerializedName("home_status_id")
     @Expose
-    private Object homeStatusId;
+    private Integer homeStatusId;
 
     @SerializedName("base_capacity")
     @Expose
-    private Object baseCapacity;
+    private Integer baseCapacity;
 
     @SerializedName("max_capacity")
     @Expose
-    private Object maxCapacity;
+    private Integer maxCapacity;
 
     @SerializedName("place_area")
     @Expose
-    private Object placeArea;
+    private Integer placeArea;
 
     @SerializedName("home_type")
     @Expose
-    private Object homeType;
+    private Integer homeType;
 
     @SerializedName("room_count")
     @Expose
-    private Object roomCount;
+    private Integer roomCount;
 
     @SerializedName("single_bed")
     @Expose
-    private Object singleBed;
+    private Integer singleBed;
 
     @SerializedName("double_bed")
     @Expose
-    private Object doubleBed;
+    private Integer doubleBed;
 
     @SerializedName("extra_bed")
     @Expose
-    private Object extraBed;
+    private Integer extraBed;
 
     @SerializedName("building_size")
     @Expose
-    private Object buildingSize;
+    private Integer buildingSize;
 
     @SerializedName("area_size")
     @Expose
-    private Object areaSize;
+    private Integer areaSize;
 
     @SerializedName("operator_id")
     @Expose
-    private Object operatorId;
+    private Integer operatorId;
 
     @SerializedName("name")
     @Expose
-    private Object name;
+    private String name;
 
     @SerializedName("description")
     @Expose
-    private Object description;
+    private String description;
 
     @SerializedName("address")
     @Expose
-    private Object address;
+    private String address;
 
     @SerializedName("rules")
     @Expose
-    private Object rules;
+    private String rules;
 
     @SerializedName("phone")
     @Expose
-    private Object phone;
+    private String phone;
 
     @SerializedName("cellphone")
     @Expose
-    private Object cellphone;
+    private String cellphone;
 
     @SerializedName("team_note")
     @Expose
-    private Object teamNote;
+    private String teamNote;
 
     @SerializedName("is_removed")
     @Expose
-    private Object isRemoved;
+    private Integer isRemoved;
 
     @SerializedName("is_recommended")
     @Expose
-    private Object isRecommended;
+    private Integer isRecommended;
 
     @SerializedName("latitude")
     @Expose
-    private Object latitude;
+    private String latitude;
 
     @SerializedName("longitude")
     @Expose
-    private Object longitude;
+    private String longitude;
 
     @SerializedName("created_at")
     @Expose
@@ -122,195 +122,195 @@ public class Data implements Serializable {
         this.id = id;
     }
 
-    public Object getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(Object cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 
-    public Object getHomeStatusId() {
+    public Integer getHomeStatusId() {
         return homeStatusId;
     }
 
-    public void setHomeStatusId(Object homeStatusId) {
+    public void setHomeStatusId(Integer homeStatusId) {
         this.homeStatusId = homeStatusId;
     }
 
-    public Object getBaseCapacity() {
+    public Integer getBaseCapacity() {
         return baseCapacity;
     }
 
-    public void setBaseCapacity(Object baseCapacity) {
+    public void setBaseCapacity(Integer baseCapacity) {
         this.baseCapacity = baseCapacity;
     }
 
-    public Object getMaxCapacity() {
+    public Integer getMaxCapacity() {
         return maxCapacity;
     }
 
-    public void setMaxCapacity(Object maxCapacity) {
+    public void setMaxCapacity(Integer maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
-    public Object getPlaceArea() {
+    public Integer getPlaceArea() {
         return placeArea;
     }
 
-    public void setPlaceArea(Object placeArea) {
+    public void setPlaceArea(Integer placeArea) {
         this.placeArea = placeArea;
     }
 
-    public Object getHomeType() {
+    public Integer getHomeType() {
         return homeType;
     }
 
-    public void setHomeType(Object homeType) {
+    public void setHomeType(Integer homeType) {
         this.homeType = homeType;
     }
 
-    public Object getRoomCount() {
+    public Integer getRoomCount() {
         return roomCount;
     }
 
-    public void setRoomCount(Object roomCount) {
+    public void setRoomCount(Integer roomCount) {
         this.roomCount = roomCount;
     }
 
-    public Object getSingleBed() {
+    public Integer getSingleBed() {
         return singleBed;
     }
 
-    public void setSingleBed(Object singleBed) {
+    public void setSingleBed(Integer singleBed) {
         this.singleBed = singleBed;
     }
 
-    public Object getDoubleBed() {
+    public Integer getDoubleBed() {
         return doubleBed;
     }
 
-    public void setDoubleBed(Object doubleBed) {
+    public void setDoubleBed(Integer doubleBed) {
         this.doubleBed = doubleBed;
     }
 
-    public Object getExtraBed() {
+    public Integer getExtraBed() {
         return extraBed;
     }
 
-    public void setExtraBed(Object extraBed) {
+    public void setExtraBed(Integer extraBed) {
         this.extraBed = extraBed;
     }
 
-    public Object getBuildingSize() {
+    public Integer getBuildingSize() {
         return buildingSize;
     }
 
-    public void setBuildingSize(Object buildingSize) {
+    public void setBuildingSize(Integer buildingSize) {
         this.buildingSize = buildingSize;
     }
 
-    public Object getAreaSize() {
+    public Integer getAreaSize() {
         return areaSize;
     }
 
-    public void setAreaSize(Object areaSize) {
+    public void setAreaSize(Integer areaSize) {
         this.areaSize = areaSize;
     }
 
-    public Object getOperatorId() {
+    public Integer getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Object operatorId) {
+    public void setOperatorId(Integer operatorId) {
         this.operatorId = operatorId;
     }
 
-    public Object getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Object name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Object getDescription() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(Object description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public Object getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Object address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public Object getRules() {
+    public String getRules() {
         return rules;
     }
 
-    public void setRules(Object rules) {
+    public void setRules(String rules) {
         this.rules = rules;
     }
 
-    public Object getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Object phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Object getCellphone() {
+    public String getCellphone() {
         return cellphone;
     }
 
-    public void setCellphone(Object cellphone) {
+    public void setCellphone(String cellphone) {
         this.cellphone = cellphone;
     }
 
-    public Object getTeamNote() {
+    public String getTeamNote() {
         return teamNote;
     }
 
-    public void setTeamNote(Object teamNote) {
+    public void setTeamNote(String teamNote) {
         this.teamNote = teamNote;
     }
 
-    public Object getIsRemoved() {
+    public Integer getIsRemoved() {
         return isRemoved;
     }
 
-    public void setIsRemoved(Object isRemoved) {
+    public void setIsRemoved(Integer isRemoved) {
         this.isRemoved = isRemoved;
     }
 
-    public Object getIsRecommended() {
+    public Integer getIsRecommended() {
         return isRecommended;
     }
 
-    public void setIsRecommended(Object isRecommended) {
+    public void setIsRecommended(Integer isRecommended) {
         this.isRecommended = isRecommended;
     }
 
-    public Object getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Object latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public Object getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Object longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
