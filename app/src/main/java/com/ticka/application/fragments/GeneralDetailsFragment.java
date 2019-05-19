@@ -132,7 +132,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String city_id = databaseHelperCities.get((position - 1)).getId();
-                stateIdSelected = Integer.valueOf(city_id);
+                cityIdSelected = Integer.valueOf(city_id);
             }
 
             @Override
@@ -174,7 +174,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             setError(inputAddress);
             return new VerificationError("فیلد ها را با دقت پر کنید");
         }
-        else if(stateList.getSelectedItemPosition() ==0 || cityList.getSelectedItemPosition() == 0){
+        else if(stateList.getSelectedItemPosition() == 0 || cityList.getSelectedItemPosition() == 0){
             return new VerificationError("استان و شهر را صحیح و دقیق انتخاب کنید");
         }
         else {
