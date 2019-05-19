@@ -21,7 +21,6 @@ public class HomeDataModel implements Serializable {
     private String homeDescription;
     private String buildingType;
     private String locationType;
-    private String buildingTip;
     private Integer roomNumber;
     private Integer landArea;
     private Integer buildingArea;
@@ -94,14 +93,6 @@ public class HomeDataModel implements Serializable {
 
     public void setLocationType(String locationType) {
         this.locationType = locationType;
-    }
-
-    public String getBuildingTip() {
-        return buildingTip;
-    }
-
-    public void setBuildingTip(String buildingTip) {
-        this.buildingTip = buildingTip;
     }
 
     public Integer getRoomNumber() {
@@ -249,7 +240,6 @@ public class HomeDataModel implements Serializable {
                 "', homeDescription='" + homeDescription +
                 "', buildingType='" + buildingType +
                 "', locationType='" + locationType +
-                "', buildingTip='" + buildingTip +
                 "', roomNumber=" + roomNumber +
                 ", landArea=" + landArea +
                 ", buildingArea=" + buildingArea +

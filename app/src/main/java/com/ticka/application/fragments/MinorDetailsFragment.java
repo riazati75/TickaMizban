@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,15 +23,18 @@ import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.custom.ValueChanger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MinorDetailsFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
     private EditText buildingArea , landArea;
-    private Spinner spLeft , spRight , spTip;
+    private Spinner spLocation, spType;
     private ValueChanger roomsCounter;
     private TextView ca1 , ca2;
+    private int typeIdSelected = -1 , locationIdSelected = -1;
 
     private String[] type = {
             "نوع ساختمان",
@@ -39,6 +43,16 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
             "سویت",
             "خانه",
             "کلبه"
+    };
+
+    private int[] typeId = {
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+
     };
 
     private String[] location = {
@@ -51,11 +65,14 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
             "روستایی"
     };
 
-    private String[] buildingTip = {
-            "تیپ سازه",
-            "هم سطح",
-            "دوبلکس",
-            "تریبلکس"
+    private int[] locationId = {
+            01,
+            12,
+            23,
+            34,
+            45,
+            56,
+            67
     };
 
     public MinorDetailsFragment() {
@@ -79,19 +96,47 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
         landArea     = view.findViewById(R.id.landArea);
         buildingArea = view.findViewById(R.id.buildingArea);
         roomsCounter = view.findViewById(R.id.roomsCounter);
-        spLeft       = view.findViewById(R.id.spLeft);
-        spRight      = view.findViewById(R.id.spRight);
-        spTip        = view.findViewById(R.id.spTip);
+        spLocation   = view.findViewById(R.id.spLeft);
+        spType       = view.findViewById(R.id.spRight);
         ca1          = view.findViewById(R.id.ca1);
         ca2          = view.findViewById(R.id.ca2);
 
-        spLeft.setAdapter(SpinnerHelper.getSpinnerAdapter(context , new ArrayList<String>()));
-        spRight.setAdapter(SpinnerHelper.getSpinnerAdapter(context , new ArrayList<String>()));
-        spTip.setAdapter(SpinnerHelper.getSpinnerAdapter(context , new ArrayList<String>()));
+        spLocation.setAdapter(SpinnerHelper.getSpinnerAdapter(context , getList(location)));
+        spType.setAdapter(SpinnerHelper.getSpinnerAdapter(context , getList(type)));
+
+        spLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                locationIdSelected = locationId[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                locationIdSelected = 0;
+            }
+        });
+
+        spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                typeIdSelected = typeId[position];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                typeIdSelected = 0;
+            }
+        });
 
         ca1.setText(R.string.minor_1);
         ca2.setText(R.string.minor_2);
 
+    }
+
+    private List<String> getList(String[] strings){
+        List<String> list = new ArrayList<>();
+        list.addAll(Arrays.asList(strings));
+        return list;
     }
 
     private void init(){
@@ -130,15 +175,14 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
             buildingArea.requestFocus();
             return new VerificationError("فیلد ها را با دقت پر کنید");
         }
-        else if(spRight.getSelectedItemPosition() == 0 || spLeft.getSelectedItemPosition() == 0){
+        else if(spType.getSelectedItemPosition() == 0 || spLocation.getSelectedItemPosition() == 0){
             return new VerificationError("اطلاعات ساختمان را صحیح و دقیق انتخاب کنید");
         }
         else {
             homesModel.setBuildingArea(Integer.valueOf(ba));
             homesModel.setLandArea(Integer.valueOf(la));
-            homesModel.setBuildingType(type[spRight.getSelectedItemPosition()]);
-            homesModel.setLocationType(location[spLeft.getSelectedItemPosition()]);
-            homesModel.setBuildingTip(buildingTip[spTip.getSelectedItemPosition()]);
+            homesModel.setBuildingType(String.valueOf(typeIdSelected));
+            homesModel.setLocationType(String.valueOf(locationIdSelected));
             homesModel.setRoomNumber(roomsCounter.getValue());
             return null;
         }
