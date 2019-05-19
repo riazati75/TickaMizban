@@ -18,8 +18,14 @@ import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.core.Logger;
+import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.helpers.SpinnerHelper;
 import com.ticka.application.models.HomeDataModel;
+import com.ticka.application.models.cities.City;
+import com.ticka.application.models.states.State;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
@@ -29,19 +35,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
     private TextView title , state , city , address , description;
     private Spinner stateList , cityList;
     private EditText inputTitle , inputAddress , inputDescription;
-    private String spState , spCity;
-
-    private String[] listState = {
-            "انتخاب کنید",
-            "تهران",
-            "کرج"
-    };
-
-    private String[] listCity = {
-            "انتخاب کنید",
-            "اندیشه",
-            "ملارد"
-    };
+    private DatabaseHelper databaseHelper;
 
     public GeneralDetailsFragment() {
 
@@ -51,12 +45,12 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_general_details, container, false);
         context = container.getContext();
+        databaseHelper = DatabaseHelper.getInstance(context);
 
         initViews(view);
         init();
 
-        initSpinnerState(listState);
-        initSpinnerCity(listCity);
+        initSpinnerState();
 
         return view;
     }
@@ -90,32 +84,50 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
         return editText.getText().toString().trim();
     }
 
-    private void initSpinnerState(String[] list){
+    private void initSpinnerState(){
+
+        List<String> list = new ArrayList<>();
+        List<State> databaseHelperStates = databaseHelper.getStates();
+        list.add("انتخاب کنید");
+
+        for(int i = 0; i < databaseHelperStates.size(); i++){
+            list.add(databaseHelperStates.get(i).getName());
+        }
+
         stateList.setAdapter(SpinnerHelper.getSpinnerAdapter(context , list));
         stateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spState = listState[position];
+                //initSpinnerCity(databaseHelper.);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                spState = listState[0];
+                initSpinnerCity("0");
             }
         });
     }
 
-    private void initSpinnerCity(String[] list){
+    private void initSpinnerCity(String stateId){
+
+        List<String> list = new ArrayList<>();
+        List<City> databaseHelperStates = databaseHelper.getCities(stateId);
+        list.add("انتخاب کنید");
+
+        for(int i = 0; i < databaseHelperStates.size(); i++){
+            list.add(databaseHelperStates.get(i).getName());
+        }
+
         cityList.setAdapter(SpinnerHelper.getSpinnerAdapter(context , list));
         cityList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spCity = listCity[position];
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                spCity = listCity[0];
+
             }
         });
     }

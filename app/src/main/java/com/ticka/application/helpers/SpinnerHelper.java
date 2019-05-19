@@ -10,10 +10,8 @@ import java.util.List;
 
 public class SpinnerHelper {
 
-    public static StateCityAdapter getSpinnerAdapter(Context context , String[] lists){
-        List<String> list = new ArrayList<>();
-        Collections.addAll(list, lists);
-        return new StateCityAdapter(context , list);
+    public static StateCityAdapter getSpinnerAdapter(Context context , List<String> lists){
+        return new StateCityAdapter(context , lists);
     }
 
 }

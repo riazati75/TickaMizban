@@ -28,6 +28,8 @@ public class APIClient {
     static final String URL_INSERT_HOME       = "insert-home";
     static final String URL_GET_HOME          = "home";
 
+    public static final String CREATE_HOME_SUCCESS = "Home Inserted Successfully";
+
     private static Retrofit API = null , CDN = null , TEST = null;
     private static Gson GSON = null;
 

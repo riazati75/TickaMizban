@@ -21,6 +21,8 @@ import com.ticka.application.helpers.SpinnerHelper;
 import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.custom.ValueChanger;
 
+import java.util.ArrayList;
+
 public class MinorDetailsFragment extends Fragment implements BlockingStep {
 
     private Context context;
@@ -83,9 +85,9 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
         ca1          = view.findViewById(R.id.ca1);
         ca2          = view.findViewById(R.id.ca2);
 
-        spLeft.setAdapter(SpinnerHelper.getSpinnerAdapter(context , location));
-        spRight.setAdapter(SpinnerHelper.getSpinnerAdapter(context , type));
-        spTip.setAdapter(SpinnerHelper.getSpinnerAdapter(context , buildingTip));
+        spLeft.setAdapter(SpinnerHelper.getSpinnerAdapter(context , new ArrayList<String>()));
+        spRight.setAdapter(SpinnerHelper.getSpinnerAdapter(context , new ArrayList<String>()));
+        spTip.setAdapter(SpinnerHelper.getSpinnerAdapter(context , new ArrayList<String>()));
 
         ca1.setText(R.string.minor_1);
         ca2.setText(R.string.minor_2);
