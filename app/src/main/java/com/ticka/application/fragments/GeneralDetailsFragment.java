@@ -36,6 +36,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
     private Spinner stateList , cityList;
     private EditText inputTitle , inputAddress , inputDescription;
     private DatabaseHelper databaseHelper;
+    private int stateIdSelected = -1 , cityIdSelected = -1;
 
     public GeneralDetailsFragment() {
 
@@ -101,6 +102,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
                 if(position != 0){
                     String state_id = databaseHelperStates.get((position - 1)).getId();
+                    stateIdSelected = Integer.valueOf(state_id);
                     initSpinnerCity(state_id);
                 }
                 else {
@@ -118,18 +120,19 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
     private void initSpinnerCity(String stateId){
 
         List<String> list = new ArrayList<>();
-        List<City> databaseHelperStates = databaseHelper.getCities(stateId);
+        final List<City> databaseHelperCities = databaseHelper.getCities(stateId);
         list.add("انتخاب کنید");
 
-        for(int i = 0; i < databaseHelperStates.size(); i++){
-            list.add(databaseHelperStates.get(i).getName());
+        for(int i = 0; i < databaseHelperCities.size(); i++){
+            list.add(databaseHelperCities.get(i).getName());
         }
 
         cityList.setAdapter(SpinnerHelper.getSpinnerAdapter(context , list));
         cityList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                String city_id = databaseHelperCities.get((position - 1)).getId();
+                stateIdSelected = Integer.valueOf(city_id);
             }
 
             @Override
@@ -178,8 +181,8 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             homesModel.setHomeTitle(title);
             homesModel.setHomeAddress(address);
             homesModel.setHomeDescription(desc);
-            homesModel.setHomeStateId(1);
-            homesModel.setHomeCityId(1);
+            homesModel.setHomeStateId(stateIdSelected);
+            homesModel.setHomeCityId(cityIdSelected);
             return null;
         }
     }
