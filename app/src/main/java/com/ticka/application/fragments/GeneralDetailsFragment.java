@@ -87,7 +87,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
     private void initSpinnerState(){
 
         List<String> list = new ArrayList<>();
-        List<State> databaseHelperStates = databaseHelper.getStates();
+        final List<State> databaseHelperStates = databaseHelper.getStates();
         list.add("انتخاب کنید");
 
         for(int i = 0; i < databaseHelperStates.size(); i++){
@@ -98,7 +98,14 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
         stateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //initSpinnerCity(databaseHelper.);
+
+                if(position != 0){
+                    String state_id = databaseHelperStates.get((position - 1)).getId();
+                    initSpinnerCity(state_id);
+                }
+                else {
+                    initSpinnerCity("0");
+                }
             }
 
             @Override

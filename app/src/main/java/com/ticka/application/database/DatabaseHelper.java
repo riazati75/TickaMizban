@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 
 import com.ticka.application.models.cities.City;
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    private static final String PATH = Environment.getExternalStorageDirectory().getAbsolutePath();
     private static final String DATABASE_NAME = "ticka.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -66,8 +68,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         for(int i = 0; i < stateList.size(); i++){
             contentValues.clear();
-            contentValues.put(STATE_ID, stateList.get(i).getName());
-            contentValues.put(STATE_NAME, stateList.get(i).getId());
+            contentValues.put(STATE_ID, stateList.get(i).getId());
+            contentValues.put(STATE_NAME, stateList.get(i).getName());
             database.insert(TABLE_STATE , null , contentValues);
         }
 
@@ -81,9 +83,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         for(int i = 0; i < cityList.size(); i++){
             contentValues.clear();
-            contentValues.put(CITY_STATE_ID, cityList.get(i).getStateId());
             contentValues.put(CITY_NAME, cityList.get(i).getName());
-            database.insert(TABLE_STATE , null , contentValues);
+            contentValues.put(CITY_STATE_ID, cityList.get(i).getStateId());
+            database.insert(TABLE_CITY , null , contentValues);
         }
 
         database.close();
@@ -101,9 +103,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do{
 
-                int primary = cursor.getInt(0);
-                String id   = cursor.getString(1);
-                String name = cursor.getString(2);
+                String id   = cursor.getString(cursor.getColumnIndex(STATE_ID));
+                String name = cursor.getString(cursor.getColumnIndex(STATE_NAME));
 
                 stateList.add(new State(
                         id , name
@@ -127,18 +128,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase database = getReadableDatabase();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_CITY + " WHERE " + CITY_STATE_ID + " = " + stateId , null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_CITY + " WHERE " + CITY_STATE_ID + " = '" + stateId + "'", null);
 
         if(cursor.moveToFirst()){
             do{
 
-                int primary     = cursor.getInt(0);
-                String id       = cursor.getString(1);
-                String state_id = cursor.getString(2);
-                String name     = cursor.getString(3);
+                String state_id = cursor.getString(cursor.getColumnIndex(CITY_STATE_ID));
+                String name     = cursor.getString(cursor.getColumnIndex(CITY_NAME));
 
                 stateList.add(new City(
-                        id , name , state_id
+                        null , name , state_id
                 ));
             }
             while(cursor.moveToNext());
@@ -165,8 +164,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if(newVersion > oldVersion){
-            db.execSQL("DROP TABLE " + TABLE_CITY);
-            db.execSQL("DROP TABLE " + TABLE_STATE);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_CITY);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATE);
             onCreate(db);
         }
     }

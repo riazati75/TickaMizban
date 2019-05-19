@@ -14,11 +14,9 @@ import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.database.DatabaseHelper;
-import com.ticka.application.helpers.StateHelper;
 import com.ticka.application.models.cities.CitiesModel;
 import com.ticka.application.models.home.HomeData;
 import com.ticka.application.models.home.HomeModel;
-import com.ticka.application.models.states.State;
 import com.ticka.application.models.states.StatesModel;
 import com.ticka.application.utils.JSONUtils;
 import com.ticka.application.utils.SPUtils;
@@ -32,6 +30,7 @@ import retrofit2.Response;
 public class MainActivity extends OptionActivity {
 
     private FloatingActionButton fab;
+    private SPUtils spUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +56,8 @@ public class MainActivity extends OptionActivity {
     @Override
     protected void initViews() {
 
-        SPUtils spUtils = SPUtils.getInstance(this);
-        if(spUtils.readBoolean("import" , false)){
+        spUtils = SPUtils.getInstance(this);
+        if(!spUtils.readBoolean("import", false)){
             DatabaseHelper database = DatabaseHelper.getInstance(this);
             String states = JSONUtils.openJsonFromAssets(this , "json/states.json");
             String cities = JSONUtils.openJsonFromAssets(this , "json/cities.json");
