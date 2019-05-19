@@ -29,6 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // City
     private static final String CITY_PRIMARY  = "_id";
+    private static final String CITY_ID       = "id";
     private static final String CITY_STATE_ID = "state_id";
     private static final String CITY_NAME     = "name";
 
@@ -82,6 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for(int i = 0; i < cityList.size(); i++){
             contentValues.clear();
             contentValues.put(CITY_NAME, cityList.get(i).getName());
+            contentValues.put(CITY_ID, cityList.get(i).getId());
             contentValues.put(CITY_STATE_ID, cityList.get(i).getStateId());
             database.insert(TABLE_CITY , null , contentValues);
         }
@@ -131,11 +133,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do{
 
+                String id = cursor.getString(cursor.getColumnIndex(CITY_ID));
                 String state_id = cursor.getString(cursor.getColumnIndex(CITY_STATE_ID));
                 String name     = cursor.getString(cursor.getColumnIndex(CITY_NAME));
 
                 stateList.add(new City(
-                        null , name , state_id
+                        id , name , state_id
                 ));
             }
             while(cursor.moveToNext());
@@ -155,6 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE " + TABLE_CITY + " (" + CITY_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
                 CITY_STATE_ID + " TEXT ," +
+                CITY_ID       + " TEXT ," +
                 CITY_NAME     + " TEXT " +
                 ")");
     }

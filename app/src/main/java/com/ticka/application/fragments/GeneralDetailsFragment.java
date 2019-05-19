@@ -117,7 +117,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
         });
     }
 
-    private void initSpinnerCity(String stateId){
+    private void initSpinnerCity(final String stateId){
 
         List<String> list = new ArrayList<>();
         final List<City> databaseHelperCities = databaseHelper.getCities(stateId);
@@ -131,13 +131,20 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
         cityList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String city_id = databaseHelperCities.get((position - 1)).getId();
-                cityIdSelected = Integer.valueOf(city_id);
+
+                if(position != 0){
+                    String city_id = databaseHelperCities.get((position - 1)).getId();
+                    Logger.Log(city_id);
+                    cityIdSelected = Integer.parseInt(city_id);
+                }
+                else {
+                    cityIdSelected = 0;
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                cityIdSelected = 0;
             }
         });
     }
