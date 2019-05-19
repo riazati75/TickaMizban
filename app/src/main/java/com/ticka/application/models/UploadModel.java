@@ -1,25 +1,32 @@
 package com.ticka.application.models;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 public class UploadModel {
 
     @SerializedName("Name")
+    @Nullable
     private String name;
 
     @SerializedName("Type")
-    private int type;
+    @Nullable
+    private double type;
 
     @SerializedName("Size")
-    private int size;
+    @Nullable
+    private double size;
 
     @SerializedName("HasThumbnail")
+    @Nullable
     private boolean hasThumbnail;
 
     @SerializedName("Base64Content")
-    private String base64Content;
+    @Nullable
+    private Object base64Content;
 
-    public UploadModel(String name, int type, int size, boolean hasThumbnail, String base64Content) {
+    public UploadModel(@Nullable String name, double type, double size, boolean hasThumbnail, @Nullable Object base64Content) {
         this.name = name;
         this.type = type;
         this.size = size;
@@ -27,6 +34,7 @@ public class UploadModel {
         this.base64Content = base64Content;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
@@ -35,19 +43,19 @@ public class UploadModel {
         this.name = name;
     }
 
-    public int getType() {
+    public double getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(double type) {
         this.type = type;
     }
 
-    public int getSize() {
+    public double getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(double size) {
         this.size = size;
     }
 
@@ -59,11 +67,11 @@ public class UploadModel {
         this.hasThumbnail = hasThumbnail;
     }
 
-    public String getBase64Content() {
+    public Object getBase64Content() {
         return base64Content;
     }
 
-    public void setBase64Content(String base64Content) {
+    public void setBase64Content(Object base64Content) {
         this.base64Content = base64Content;
     }
 }

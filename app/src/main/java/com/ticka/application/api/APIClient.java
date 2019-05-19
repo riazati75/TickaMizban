@@ -36,7 +36,6 @@ public class APIClient {
     private static Gson getGson(){
 
         if(GSON == null){
-
             GSON = new GsonBuilder()
                     .setLenient()
                     .serializeNulls()

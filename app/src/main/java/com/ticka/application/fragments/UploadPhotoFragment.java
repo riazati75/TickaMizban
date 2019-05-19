@@ -33,6 +33,7 @@ import com.ticka.application.models.UploadModel;
 import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.utils.JSONUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -107,7 +108,6 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             String base64 = StringImageUtils.encodeToString(bitmap);
             Bitmap b = StringImageUtils.decodeToBitmap(base64);
             imageView.setImageBitmap(b);
-            //Logger.Log(base64);
             uploadFile(base64);
         }
     }
@@ -120,26 +120,24 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
         //////////////////////////////////////////////////////////////////////////////
 
-        HashMap<String , Object> body = new HashMap<>();
-        body.put("Name" , "file.jpeg");
-        body.put("Type" , 1);
-        body.put("Size" , 1);
-        body.put("HasThumbnail" , true);
-        body.put("Base64Content" , base64);
+        UploadModel upload = new UploadModel("file.jpeg", 1, 1, true, "");
 
-        //////////////////////////////////////////////////////////////////////////////
-
-        UploadModel upload = new UploadModel("file.jpeg" , 1 , 1 , true , base64);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.serializeNulls();
         Gson gson = gsonBuilder.create();
         String json = gson.toJson(upload);
 
+        JSONObject jsonObject = null;
+
+        try{
+            jsonObject = new JSONObject(json);
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
         //////////////////////////////////////////////////////////////////////////////
 
-
-
-        api.savePhoto(json).enqueue(new Callback<SaveCallback>() {
+        api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
             @Override
             public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
 
