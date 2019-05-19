@@ -120,24 +120,16 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
         //////////////////////////////////////////////////////////////////////////////
 
-        UploadModel upload = new UploadModel("file.jpeg", 1, 1, true, "");
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.serializeNulls();
-        Gson gson = gsonBuilder.create();
-        String json = gson.toJson(upload);
-
-        JSONObject jsonObject = null;
-
-        try{
-            jsonObject = new JSONObject(json);
-        }catch(JSONException e){
-            e.printStackTrace();
-        }
+        UploadModel upload = new UploadModel();
+        upload.setName("file.jpeg");
+        upload.setSize(1);
+        upload.setType(1);
+        upload.setHasThumbnail(true);
+        upload.setBase64Content(base64);
 
         //////////////////////////////////////////////////////////////////////////////
 
-        api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
+        api.savePhoto(upload).enqueue(new Callback<SaveCallback>() {
             @Override
             public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
 

@@ -1,7 +1,10 @@
 package com.ticka.application.api;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.lang.reflect.Modifier;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -39,6 +42,9 @@ public class APIClient {
             GSON = new GsonBuilder()
                     .setLenient()
                     .serializeNulls()
+                    .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .excludeFieldsWithModifiers(Modifier.STATIC, Modifier.TRANSIENT, Modifier.VOLATILE)
                     .create();
         }
 
