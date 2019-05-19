@@ -1,10 +1,13 @@
 package com.ticka.application.api;
 
+import com.ticka.application.models.UploadModel;
 import com.ticka.application.models.callback.LoginCallback;
 import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.models.home.HomeModel;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -40,6 +43,11 @@ public interface APIInterface {
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
     Call<SaveCallback> savePhoto(@Body JSONObject body);
+
+    @POST(APIClient.URL_SAVE_PHOTO)
+    @Headers({"accept: application/json",
+            "Content-Type: application/json"})
+    Call<SaveCallback> savePhoto(@Body String body);
 
     @GET(APIClient.URL_GET_PHOTO)
     @Headers({"accept: application/json",

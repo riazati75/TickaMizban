@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -27,12 +29,14 @@ import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomeDataModel;
+import com.ticka.application.models.UploadModel;
 import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.utils.JSONUtils;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import ir.farsroidx.StringImageUtils;
 import retrofit2.Call;
@@ -114,7 +118,28 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
         JSONObject object = JSONUtils.getSaveJson(base64);
 
-        api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
+        //////////////////////////////////////////////////////////////////////////////
+
+        HashMap<String , Object> body = new HashMap<>();
+        body.put("Name" , "file.jpeg");
+        body.put("Type" , 1);
+        body.put("Size" , 1);
+        body.put("HasThumbnail" , true);
+        body.put("Base64Content" , base64);
+
+        //////////////////////////////////////////////////////////////////////////////
+
+        UploadModel upload = new UploadModel("file.jpeg" , 1 , 1 , true , base64);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.serializeNulls();
+        Gson gson = gsonBuilder.create();
+        String json = gson.toJson(upload);
+
+        //////////////////////////////////////////////////////////////////////////////
+
+
+
+        api.savePhoto(json).enqueue(new Callback<SaveCallback>() {
             @Override
             public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
 

@@ -39,6 +39,7 @@ public class APIClient {
 
             GSON = new GsonBuilder()
                     .setLenient()
+                    .serializeNulls()
                     .create();
         }
 

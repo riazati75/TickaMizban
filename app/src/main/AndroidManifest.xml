@@ -19,7 +19,7 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".NewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +29,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".CodeActivity" />
-        <activity android:name=".NewActivity" />
+        <activity android:name=".SplashActivity" />
 
         <receiver
             android:name=".service.SMSService"
