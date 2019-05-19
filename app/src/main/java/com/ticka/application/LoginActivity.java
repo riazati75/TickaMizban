@@ -138,7 +138,7 @@ public class LoginActivity extends OptionActivity {
                 MediaType.parse(APIClient.BODY_TEXT_TYPE),
                 object.toString());
 
-        APIInterface api = APIClient.getClient();
+        APIInterface api = APIClient.getAPIClient();
         api.login(body).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

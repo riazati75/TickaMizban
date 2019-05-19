@@ -89,7 +89,7 @@ public class CodeActivity extends OptionActivity {
                 MediaType.parse(APIClient.BODY_TEXT_TYPE),
                 object.toString());
 
-        APIInterface api = APIClient.getClient();
+        APIInterface api = APIClient.getAPIClient();
         api.login(body).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -145,7 +145,7 @@ public class CodeActivity extends OptionActivity {
                 MediaType.parse(APIClient.BODY_TEXT_TYPE),
                 object.toString());
 
-        APIInterface api = APIClient.getClient();
+        APIInterface api = APIClient.getAPIClient();
         api.verificationCode(body).enqueue(new Callback<LoginCallback>() {
             @Override
             public void onResponse(Call<LoginCallback> call, Response<LoginCallback> response) {
