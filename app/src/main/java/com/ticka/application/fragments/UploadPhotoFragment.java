@@ -1,42 +1,57 @@
 package com.ticka.application.fragments;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
-import com.ticka.application.adapters.PhotoGalleryAdapter;
+import com.ticka.application.adapters.AddPhotoAdapter;
+import com.ticka.application.api.APIClient;
+import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomesModel;
+import com.ticka.application.models.callback.SaveCallback;
+import com.ticka.application.utils.JSONUtils;
 
-import java.io.File;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import ir.farsroidx.StringImageUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
-    private static final int PICK_PHOTO_REQUEST_1 = 1;
-    private static final int PICK_PHOTO_REQUEST_2 = 2;
-    private static final int PICK_PHOTO_REQUEST_3 = 3;
+    private static final int PICK_PHOTO_REQUEST = 100;
 
     private Context context;
     private HomesModel homesModel = HomesModel.getInstance();
+    private AddPhotoAdapter adapter;
     private RecyclerView recycler;
-    private FloatingActionButton fab;
+    private ImageView imageView;
 
     public UploadPhotoFragment() {
         // Required empty public constructor
@@ -53,66 +68,104 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private void initViews(View view){
 
         recycler = view.findViewById(R.id.recycler);
-        fab = view.findViewById(R.id.fab);
 
-        final PhotoGalleryAdapter adapter = new PhotoGalleryAdapter(context);
+        adapter = new AddPhotoAdapter(context);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(
                 context , LinearLayoutManager.VERTICAL , false
         ));
         recycler.setAdapter(adapter);
 
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                adapter.setItemCount(adapter.getItemCount() + 1);
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
+        adapter.setOnItemClicked(new AddPhotoAdapter.OnItemClicked() {
+            @Override
+            public void onClicked(int position, AddPhotoAdapter.ViewHolder viewHolder) {
+                imageView = viewHolder.photo;
+                pickImage();
+            }
+        });
     }
 
-    public void pickImage(int position) {
-
+    public void pickImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
-
-        switch(position){
-
-            case 1:
-                startActivityForResult(Intent.createChooser(intent, "عکس را انتخاب کنید:") , PICK_PHOTO_REQUEST_1);
-                break;
-
-            case 2:
-                startActivityForResult(Intent.createChooser(intent, "عکس را انتخاب کنید:") , PICK_PHOTO_REQUEST_2);
-                break;
-
-            case 3:
-                startActivityForResult(Intent.createChooser(intent, "عکس را انتخاب کنید:") , PICK_PHOTO_REQUEST_3);
-                break;
-        }
+        startActivityForResult(Intent.createChooser(intent, "عکس را انتخاب کنید:") , PICK_PHOTO_REQUEST);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_PHOTO_REQUEST_1
+        if (requestCode == PICK_PHOTO_REQUEST
                 && resultCode == Activity.RESULT_OK) {
 
             Uri selectedImageUri = data.getData();
+            Bitmap bitmap = null;
+            try{
+                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImageUri);
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            String base64 = StringImageUtils.encodeToString(bitmap);
+            Bitmap b = StringImageUtils.decodeToBitmap(base64);
+            imageView.setImageBitmap(b);
+            //Logger.Log(base64);
+            uploadFile(base64);
+        }
+    }
 
-            String path = null;
-            if(selectedImageUri != null){
-                path = selectedImageUri.getPath();
+    private byte[] getBytes(InputStream inputStream) throws IOException {
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        int buffSize = 1024;
+        byte[] buff = new byte[buffSize];
+
+        int length;
+        while((length = inputStream.read()) != -1){
+            byteArrayOutputStream.write(buff , 0 , length);
+        }
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = context.getContentResolver();
+        MimeTypeMap typeMap = MimeTypeMap.getSingleton();
+        return typeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void uploadFile(String base64) {
+
+        APIInterface api = APIClient.getCDNClient();
+
+        JSONObject object = JSONUtils.getSaveJson("photo.jpeg" , 1 , 1 , base64);
+
+        api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
+            @Override
+            public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
+
+                if(response.isSuccessful() && response.body().isSuccessful()){
+
+                    Logger.Log("fileId: " + response.body().getResult());
+
+                    Toast.makeText(context, "ارسال موفق", Toast.LENGTH_SHORT).show();
+
+                    adapter.setItemCount(adapter.getItemCount() + 1);
+
+                }
+                else {
+
+                    Logger.Log("error: " + response.body().getErrorMessage());
+                    Toast.makeText(context, "خطا در ارسال تصویر. مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
+                }
             }
 
-//            if (path != null) {
-//                imgP1 = path;
-//                path1.setText(imgP1);
-//            }
-//            img1.setImageURI(selectedImageUri);
-        }
+            @Override
+            public void onFailure(Call<SaveCallback> call, Throwable t) {
+
+                Logger.Log("throwable: " + t.getMessage());
+                Toast.makeText(context, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

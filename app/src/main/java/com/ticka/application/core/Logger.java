@@ -5,7 +5,7 @@ import android.util.Log;
 public class Logger {
 
     public static void Log(String msg){
-        Log.d("CoreLogger" , msg);
+        Log.d("CentralCore" , msg);
     }
 
 }

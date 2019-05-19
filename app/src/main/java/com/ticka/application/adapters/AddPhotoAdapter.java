@@ -1,5 +1,6 @@
 package com.ticka.application.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,35 +12,43 @@ import android.widget.TextView;
 
 import com.ticka.application.R;
 
-public class PhotoGalleryAdapter extends RecyclerView.Adapter<PhotoGalleryAdapter.ViewHolder> {
+public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.ViewHolder> {
 
     private Context context;
     private LayoutInflater layoutInflater;
     private int itemCount = 1;
+    private OnItemClicked onItemClicked;
 
-    public PhotoGalleryAdapter(Context context) {
+    public AddPhotoAdapter(Context context) {
         this.context = context;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public void setItemCount(int itemCount) {
         this.itemCount = itemCount;
+        notifyDataSetChanged();
+    }
+
+    public void setOnItemClicked(OnItemClicked onItemClicked){
+        this.onItemClicked = onItemClicked;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(@NonNull final ViewGroup viewGroup, final int type) {
         return new ViewHolder(layoutInflater.inflate(R.layout.layout_recycler_gallery , viewGroup , false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
         viewHolder.upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemCount = itemCount + 1;
-                notifyDataSetChanged();
+
+                if(onItemClicked != null){
+                    onItemClicked.onClicked(position , viewHolder);
+                }
             }
         });
     }
@@ -49,10 +58,10 @@ public class PhotoGalleryAdapter extends RecyclerView.Adapter<PhotoGalleryAdapte
         return itemCount;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView photo , upload;
-        TextView txt;
+        public ImageView photo , upload;
+        public TextView txt;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,5 +71,9 @@ public class PhotoGalleryAdapter extends RecyclerView.Adapter<PhotoGalleryAdapte
             txt = itemView.findViewById(R.id.txt);
 
         }
+    }
+
+    public interface OnItemClicked {
+        void onClicked(int position , ViewHolder viewHolder);
     }
 }

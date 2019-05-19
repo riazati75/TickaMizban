@@ -33,7 +33,7 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
         switch (position){
 
             case 0:
-                RulesFragment step1 = new RulesFragment();
+                UploadPhotoFragment step1 = new UploadPhotoFragment();
                 Bundle b1 = new Bundle();
                 b1.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step1.setArguments(b1);
