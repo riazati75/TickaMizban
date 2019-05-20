@@ -12,52 +12,33 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.AddPhotoAdapter;
-import com.ticka.application.api.APIClient;
-import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomeDataModel;
-import com.ticka.application.models.UploadModel;
-import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.utils.JSONUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 import ir.farsroidx.StringImageUtils;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
@@ -67,6 +48,10 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private HomeDataModel homesModel = HomeDataModel.getInstance();
     private AddPhotoAdapter adapter;
     private ImageView imageView;
+    private boolean isSuccess = false;
+    private String errorMessage = null;
+    private int result = 0;
+    private int errorCode = 0;
 
     public UploadPhotoFragment() {
         // Required empty public constructor
@@ -127,50 +112,6 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         }
     }
 
-    private void uploadFile(String base64) {
-
-        APIInterface api = APIClient.getCDNClient();
-
-        JSONObject object = JSONUtils.getSaveJson(base64);
-        JsonObject jsonObject = JSONUtils.getSaveJson2(base64);
-
-        //////////////////////////////////////////////////////////////////////////////
-
-        UploadModel upload = new UploadModel("file.jpeg" , 1 , 1 , false , base64);
-
-        //////////////////////////////////////////////////////////////////////////////
-
-        RequestBody body = RequestBody.create(
-                MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
-                object.toString());
-
-        api.savePhoto(jsonObject).enqueue(new Callback<SaveCallback>() {
-            @Override
-            public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
-
-                if(response.isSuccessful()){
-                    if(response.body().isSuccessful()){
-                        Logger.Log("fileId: " + response.body().getResult());
-                        Toast.makeText(context, "ارسال موفق", Toast.LENGTH_SHORT).show();
-                        adapter.setItemCount(adapter.getItemCount() + 1);
-                    }else {
-                        Logger.Log("error: " + response.body().getErrorMessage());
-                        Toast.makeText(context, "خطا در ارسال تصویر. مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                    Logger.Log("error: " + response.toString());
-                    Toast.makeText(context, "خطایی رخ داده است", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SaveCallback> call, Throwable t) {
-                Logger.Log("throwable: " + t.getMessage());
-                Toast.makeText(context, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private void uploadFileVolley(String base64) {
 
         String URL = "http://cdn.ticka.com/upload";
@@ -179,20 +120,32 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonBody, new com.android.volley.Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                int result = 0;
 
                 try{
-                    result = response.getInt("result" );
+                    isSuccess = response.getBoolean("succeed");
+                    errorMessage = response.getString("errorMessage");
+                    result = response.getInt("result");
+                    errorCode = response.getInt("errorCode");
                 }catch(JSONException e){
                     e.printStackTrace();
                 }
 
-                Logger.Log("Result: " + result);
+                Logger.Log("isSuccess: " + isSuccess + "\nerrorMessage: " + errorMessage + "\nresult: " + result + "\nerrorCode: " + errorCode);
+
+                if(isSuccess){
+                    Logger.Log("fileId: " + result);
+                    Toast.makeText(context, "ارسال موفق", Toast.LENGTH_SHORT).show();
+                    adapter.setItemCount(adapter.getItemCount() + 1);
+                }else {
+                    Logger.Log("error: " + errorMessage);
+                    Toast.makeText(context, "خطا در ارسال تصویر. مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
+                }
             }
         }, new com.android.volley.Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Logger.Log(error.toString());
+                Logger.Log("throwable: " + error.toString());
+                Toast.makeText(context, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
