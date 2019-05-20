@@ -50,7 +50,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private ImageView imageView;
     private boolean isSuccess = false;
     private String errorMessage = null;
-    private int result = 0;
+    private long result = 0;
     private int errorCode = 0;
 
     public UploadPhotoFragment() {
@@ -124,13 +124,13 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 try{
                     isSuccess = response.getBoolean("succeed");
                     errorMessage = response.getString("errorMessage");
-                    result = response.getInt("result");
+                    result = response.getLong("result");
                     errorCode = response.getInt("errorCode");
                 }catch(JSONException e){
                     e.printStackTrace();
                 }
 
-                Logger.Log("isSuccess: " + isSuccess + "\nerrorMessage: " + errorMessage + "\nresult: " + result + "\nerrorCode: " + errorCode);
+                //Logger.Log("isSuccess: " + isSuccess + "\nerrorMessage: " + errorMessage + "\nresult: " + result + "\nerrorCode: " + errorCode);
 
                 if(isSuccess){
                     Logger.Log("fileId: " + result);
