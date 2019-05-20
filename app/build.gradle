@@ -37,6 +37,9 @@ dependencies {
     implementation 'com.koushikdutta.async:androidasync:2.1.9'
     implementation 'com.loopj.android:android-async-http:1.4.9'
 
+    // Connection
+    implementation 'com.android.volley:volley:1.1.1'
+
     // Other
     implementation 'com.stepstone.stepper:material-stepper:4.3.1'
     implementation 'de.hdodenhof:circleimageview:3.0.0'

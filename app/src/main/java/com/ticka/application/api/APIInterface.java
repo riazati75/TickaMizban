@@ -41,23 +41,19 @@ public interface APIInterface {
     Call<HomeModel> getHomes();
 
     @POST(APIClient.URL_SAVE_PHOTO)
-    @Headers({"accept: application/json",
-            "Content-Type: application/json"})
+    @Headers({"Content-Type: application/json"})
     Call<SaveCallback> savePhoto(@Body JSONObject body);
 
     @POST(APIClient.URL_SAVE_PHOTO)
-    @Headers({"accept: application/json",
-            "Content-Type: application/json"})
+    @Headers({"Content-Type: application/json"})
     Call<SaveCallback> savePhoto(@Body JsonObject body);
 
     @POST(APIClient.URL_SAVE_PHOTO)
-    @Headers({"accept: application/json",
-            "Content-Type: application/json"})
+    @Headers({"Content-Type: application/json"})
     Call<SaveCallback> savePhoto(@Body UploadModel body);
 
     @POST(APIClient.URL_SAVE_PHOTO)
-    @Headers({"accept: application/json",
-            "Content-Type: application/json"})
+    @Headers({"Content-Type: application/json"})
     Call<SaveCallback> savePhoto(@Body RequestBody body);
 
     @GET(APIClient.URL_GET_PHOTO)

@@ -12,12 +12,24 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
@@ -32,9 +44,13 @@ import com.ticka.application.models.UploadModel;
 import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.utils.JSONUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import ir.farsroidx.StringImageUtils;
 import okhttp3.MediaType;
@@ -107,7 +123,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             String base64 = StringImageUtils.encodeToString(bitmap);
             Bitmap b = StringImageUtils.decodeToBitmap(base64);
             imageView.setImageBitmap(b);
-            uploadFile(base64);
+            uploadFileVolley(base64);
         }
     }
 
@@ -128,7 +144,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
                 object.toString());
 
-        api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
+        api.savePhoto(jsonObject).enqueue(new Callback<SaveCallback>() {
             @Override
             public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
 
@@ -153,6 +169,41 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 Toast.makeText(context, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void uploadFileVolley(String base64) {
+
+        String URL = "http://cdn.ticka.com/upload";
+        final JSONObject jsonBody = JSONUtils.getSaveJson(base64);
+
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonBody, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                int result = 0;
+
+                try{
+                    result = response.getInt("result" );
+                }catch(JSONException e){
+                    e.printStackTrace();
+                }
+
+                Logger.Log("Result: " + result);
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Logger.Log(error.toString());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                return headers;
+            }
+        };
+
+        Volley.newRequestQueue(context).add(jsonRequest);
     }
 
     @Override
