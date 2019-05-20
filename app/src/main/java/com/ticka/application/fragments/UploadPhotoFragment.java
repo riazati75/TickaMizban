@@ -18,8 +18,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
@@ -34,11 +32,9 @@ import com.ticka.application.models.UploadModel;
 import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.utils.JSONUtils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import ir.farsroidx.StringImageUtils;
 import okhttp3.MediaType;
@@ -46,8 +42,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.ticka.application.api.APIClient.BODY_JSON_TYPE;
 
 public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
@@ -122,15 +116,11 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         APIInterface api = APIClient.getCDNClient();
 
         JSONObject object = JSONUtils.getSaveJson(base64);
+        JsonObject jsonObject = JSONUtils.getSaveJson2(base64);
 
         //////////////////////////////////////////////////////////////////////////////
 
-        UploadModel upload = new UploadModel();
-        upload.setName("file.jpeg");
-        upload.setSize(1);
-        upload.setType(1);
-        upload.setHasThumbnail(true);
-        upload.setBase64Content(base64);
+        UploadModel upload = new UploadModel("file.jpeg" , 1 , 1 , false , base64);
 
         //////////////////////////////////////////////////////////////////////////////
 
@@ -138,21 +128,16 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
                 object.toString());
 
-        api.savePhoto(body).enqueue(new Callback<SaveCallback>() {
+        api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
             @Override
             public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
 
                 if(response.isSuccessful()){
-
                     if(response.body().isSuccessful()){
-
                         Logger.Log("fileId: " + response.body().getResult());
-
                         Toast.makeText(context, "ارسال موفق", Toast.LENGTH_SHORT).show();
-
                         adapter.setItemCount(adapter.getItemCount() + 1);
-                    }
-                    else {
+                    }else {
                         Logger.Log("error: " + response.body().getErrorMessage());
                         Toast.makeText(context, "خطا در ارسال تصویر. مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
                     }
