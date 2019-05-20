@@ -1,5 +1,6 @@
 package com.ticka.application.api;
 
+import com.google.gson.JsonObject;
 import com.ticka.application.models.UploadModel;
 import com.ticka.application.models.callback.LoginCallback;
 import com.ticka.application.models.callback.SaveCallback;
@@ -42,7 +43,7 @@ public interface APIInterface {
     @POST(APIClient.URL_SAVE_PHOTO)
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
-    Call<SaveCallback> savePhoto(@Body JSONObject body);
+    Call<SaveCallback> savePhoto(@Body String body);
 
     @POST(APIClient.URL_SAVE_PHOTO)
     @Headers({"accept: application/json",

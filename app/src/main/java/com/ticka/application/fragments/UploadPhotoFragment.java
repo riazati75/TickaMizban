@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -134,10 +135,10 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         //////////////////////////////////////////////////////////////////////////////
 
         RequestBody body = RequestBody.create(
-                MediaType.parse(BODY_JSON_TYPE),
+                MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
                 object.toString());
 
-        api.savePhoto(object).enqueue(new Callback<SaveCallback>() {
+        api.savePhoto(body).enqueue(new Callback<SaveCallback>() {
             @Override
             public void onResponse(Call<SaveCallback> call, Response<SaveCallback> response) {
 
@@ -159,7 +160,6 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     Logger.Log("error: " + response.toString());
                     Toast.makeText(context, "خطایی رخ داده است", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override

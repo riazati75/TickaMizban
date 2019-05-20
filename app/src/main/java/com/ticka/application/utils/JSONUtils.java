@@ -3,6 +3,9 @@ package com.ticka.application.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,18 +15,9 @@ import java.nio.charset.StandardCharsets;
 
 public class JSONUtils {
 
-    private static JSONObject jsonObject = null;
-
-    private static JSONObject getJsonObject(){
-        if(jsonObject == null){
-            jsonObject = new JSONObject();
-        }
-        return jsonObject;
-    }
-
     public static JSONObject getJsonPhone(String phone){
 
-        JSONObject json = getJsonObject();
+        JSONObject json = new JSONObject();
 
         try{
             json.put("userName" , phone);
@@ -36,7 +30,7 @@ public class JSONUtils {
 
     public static JSONObject getJsonCode(@NonNull String userName , @NonNull String verificationCode){
 
-        JSONObject json = getJsonObject();
+        JSONObject json = new JSONObject();
 
         try{
             json.put("userName" , userName);
@@ -54,16 +48,41 @@ public class JSONUtils {
         return json;
     }
 
+    public static JsonObject getSaveJson2(@NonNull String base64){
+
+        JSONObject json = new JSONObject();
+        JsonObject object = new JsonObject();
+
+        try{
+
+            json.put("Name" , "photo.jpeg");
+            json.put("Type" , 1);
+            json.put("Size" , 1);
+            json.put("HasThumbnail" , true);
+            json.put("Base64Content" , "data:image/jpeg;base64," + base64);
+
+            JsonParser parser = new JsonParser();
+            object = (JsonObject) parser.parse(json.toString());
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        return object;
+    }
+
     public static JSONObject getSaveJson(@NonNull String base64){
 
         JSONObject json = new JSONObject();
 
         try{
+
             json.put("Name" , "photo.jpeg");
-            json.put("Type" , 4);
+            json.put("Type" , 1);
             json.put("Size" , 1);
             json.put("HasThumbnail" , true);
             json.put("Base64Content" , "data:image/jpeg;base64," + base64);
+
         }catch(JSONException e){
             e.printStackTrace();
         }
