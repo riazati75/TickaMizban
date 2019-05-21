@@ -85,6 +85,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void insertStates(List<State> stateList){
 
+        deleteTableState(getWritableDatabase());
+        createTableState(getWritableDatabase());
+
         SQLiteDatabase database = getWritableDatabase();
         ContentValues contentValues = getContentValues();
 
@@ -99,6 +102,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertCities(List<City> cityList){
+
+        deleteTableCity(getWritableDatabase());
+        createTableCity(getWritableDatabase());
 
         SQLiteDatabase database = getWritableDatabase();
         ContentValues contentValues = getContentValues();

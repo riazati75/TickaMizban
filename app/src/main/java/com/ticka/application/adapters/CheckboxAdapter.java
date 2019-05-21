@@ -3,7 +3,6 @@ package com.ticka.application.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +19,11 @@ import java.util.List;
 
 public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
 
-    private Context context;
     private LayoutInflater layoutInflater;
     private List<FacilityData> facilityData;
     private List<Integer> selectedList = new ArrayList<>();
 
-    public CheckboxAdapter(Context context , @Nullable List<FacilityData> facilityData) {
-        this.context = context;
+    public CheckboxAdapter(Context context , List<FacilityData> facilityData) {
         this.facilityData = facilityData;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
