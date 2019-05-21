@@ -64,8 +64,8 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
         if(!isReviewed){
             String[] values = {
                     homesModel.getHomeTitle(),
-                    databaseHelper.getStatesById(homesModel.getHomeStateId()),
-                    databaseHelper.getStatesById(homesModel.getHomeStateId()),
+                    databaseHelper.getStateNameById(homesModel.getHomeStateId()),
+                    databaseHelper.getCityNameById(homesModel.getHomeCityId()),
                     homesModel.getHomeAddress(),
                     homesModel.getHomeDescription(),
                     homesModel.getBuildingType(),

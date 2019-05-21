@@ -12,7 +12,7 @@ import com.ticka.application.utils.JSONUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateHelper {
+public class BuildingHelper {
 
     private static Gson gson;
 

@@ -17,9 +17,9 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.adapters.StateCityAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
-import com.ticka.application.helpers.SpinnerHelper;
 import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.models.cities.City;
 import com.ticka.application.models.states.State;
@@ -95,7 +95,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             list.add(databaseHelperStates.get(i).getName());
         }
 
-        stateList.setAdapter(SpinnerHelper.getSpinnerAdapter(context , list));
+        stateList.setAdapter(new StateCityAdapter(context , list));
         stateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -120,14 +120,14 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
     private void initSpinnerCity(final String stateId){
 
         List<String> list = new ArrayList<>();
-        final List<City> databaseHelperCities = databaseHelper.getCities(stateId);
+        final List<City> databaseHelperCities = databaseHelper.getAllCitiesById(stateId);
         list.add("انتخاب کنید");
 
         for(int i = 0; i < databaseHelperCities.size(); i++){
             list.add(databaseHelperCities.get(i).getName());
         }
 
-        cityList.setAdapter(SpinnerHelper.getSpinnerAdapter(context , list));
+        cityList.setAdapter(new StateCityAdapter(context , list));
         cityList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
