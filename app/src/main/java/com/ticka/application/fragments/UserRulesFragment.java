@@ -97,17 +97,19 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
 
         dialog = new MaterialDialog.Builder(context)
                 .customView(R.layout.dialog_review_homes, false)
-                .autoDismiss(false).positiveText("تایید")
-                .negativeText("لغو")
+                .autoDismiss(false).cancelable(false)
+                .positiveText("تایید").negativeText("لغو")
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         isReviewed = true;
+                        dialog.dismiss();
                     }
 
                     @Override
                     public void onNegative(MaterialDialog dialog) {
                         isReviewed = false;
+                        dialog.dismiss();
                     }
                 }).build();
 
