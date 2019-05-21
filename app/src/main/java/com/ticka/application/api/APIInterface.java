@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -30,7 +32,26 @@ public interface APIInterface {
     @POST(APIClient.URL_INSERT_HOME)
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
-    Call<String> insertDate(@Body RequestBody body);
+    @FormUrlEncoded
+    Call<String> insertDate(
+            @Field("name") String name,
+            @Field("address") String address,
+            @Field("description") String description,
+            @Field("home_status_id") Integer home_status_id,
+            @Field("city_id") Integer city_id,
+            @Field("home_type") Integer home_type,
+            @Field("place_area") Integer place_area,
+            @Field("room_count") Integer room_count,
+            @Field("base_capacity") String base_capacity,
+            @Field("max_capacity") String max_capacity,
+            @Field("single_bed") Integer single_bed,
+            @Field("double_bed") Integer double_bed,
+            @Field("extra_bed") Integer extra_bed,
+            @Field("facility_id") String facility_id,
+            @Field("phone") String phone,
+            @Field("cellphone") String cellphone,
+            @Field("src") String src
+    );
 
     @GET(APIClient.URL_GET_HOME)
     @Headers({"accept: application/json",

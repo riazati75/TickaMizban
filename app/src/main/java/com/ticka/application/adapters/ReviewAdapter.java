@@ -31,7 +31,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holder> {
             "تعداد تخت 1 نفره:",
             "تعداد تخت 2 نفره:",
             "تعداد رخت خواب اضافه:",
-            "توضیحات ظرفیت:",
             "امکانات:",
             "توضیحات امکانات:",
             "قوانین:",

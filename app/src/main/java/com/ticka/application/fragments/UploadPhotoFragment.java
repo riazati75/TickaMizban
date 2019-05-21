@@ -206,7 +206,6 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     homesModel.getSingleBed() + " تخت",
                     homesModel.getDoubleBed() + " تخت",
                     homesModel.getExtraBed() + " دست",
-                    homesModel.getCapacityDescription(),
                     facilities,
                     homesModel.getFacilitiesDescription(),
                     rules,

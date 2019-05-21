@@ -5,6 +5,7 @@
     <string name="general_title"><b><font color='#000'><font color="red">*</font> عنوان اقامتگاه :</font></b></string>
     <string name="general_state"><b><font color='#000'><font color="red">*</font> استان :</font></b></string>
     <string name="general_city"><b><font color='#000'><font color="red">*</font> شهر :</font></b></string>
+    <string name="general_phone"><b><font color='#000'><font color="red">*</font> تلفن اقامتگاه :</font></b></string>
     <string name="general_address"><b><font color='#000'><font color="red">*</font> آدرس :</font></b></string>
     <string name="general_description"><b><font color='#000'>متن اختیاری :</font></b></string>
 

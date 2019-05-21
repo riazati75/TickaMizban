@@ -23,7 +23,6 @@ public class APIClient {
 
     static final String URL_LOGIN             = "Account/SendLoginCode";
     static final String URL_VERIFICATION_CODE = "Account/Token";
-    static final String URL_SAVE_PHOTO        = "upload";
     static final String URL_GET_PHOTO         = "File/{id}";
     static final String URL_GET_FACILITY      = "facility";
     static final String URL_INSERT_HOME       = "insert-home";
@@ -60,20 +59,6 @@ public class APIClient {
         return API;
     }
 
-    private static Retrofit getCDN(){
-
-        if(CDN == null){
-
-            CDN = new Retrofit.Builder()
-                    .baseUrl(BASE_URL_CDN)
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create(getGson()))
-                    .build();
-        }
-
-        return CDN;
-    }
-
     private static Retrofit getTEST(){
 
         if(TEST == null){
@@ -90,10 +75,6 @@ public class APIClient {
 
     public static APIInterface getAPIClient(){
         return APIClient.getAPI().create(APIInterface.class);
-    }
-
-    public static APIInterface getCDNClient(){
-        return APIClient.getCDN().create(APIInterface.class);
     }
 
     public static APIInterface getTESTClient(){

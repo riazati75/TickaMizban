@@ -29,7 +29,6 @@ public class HomeDataModel implements Serializable {
     private Integer singleBed = -1;
     private Integer doubleBed = -1;
     private Integer extraBed = -1;
-    private String capacityDescription = "";
     private String facilitiesArray = "";
     private String facilitiesDescription = "";
     private String rulesArray = "";
@@ -163,14 +162,6 @@ public class HomeDataModel implements Serializable {
         this.extraBed = extraBed;
     }
 
-    public String getCapacityDescription() {
-        return capacityDescription;
-    }
-
-    public void setCapacityDescription(String capacityDescription) {
-        this.capacityDescription = capacityDescription;
-    }
-
     public String getFacilitiesArray() {
         return facilitiesArray;
     }
@@ -221,7 +212,6 @@ public class HomeDataModel implements Serializable {
                 ", singleBed=" + singleBed +
                 ", doubleBed=" + doubleBed +
                 ", extraBed=" + extraBed +
-                ", capacityDescription='" + capacityDescription +
                 "', facilitiesArray=" + facilitiesArray +
                 ", facilitiesDescription='" + facilitiesDescription +
                 "', rulesArray=" + rulesArray +

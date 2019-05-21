@@ -31,10 +31,9 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
-    private View view;
-    private TextView title , state , city , address , description;
+    private TextView title , state , city , phone , address , description;
     private Spinner stateList , cityList;
-    private EditText inputTitle , inputAddress , inputDescription;
+    private EditText inputTitle , inputPhone , inputAddress , inputDescription;
     private DatabaseHelper databaseHelper;
     private int stateIdSelected = -1 , cityIdSelected = -1;
 
@@ -44,7 +43,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_general_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_general_details, container, false);
         context = container.getContext();
         databaseHelper = DatabaseHelper.getInstance(context);
 
@@ -60,11 +59,13 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
         title = view.findViewById(R.id.title);
         state = view.findViewById(R.id.state);
         city = view.findViewById(R.id.city);
+        phone = view.findViewById(R.id.phone);
         address = view.findViewById(R.id.address);
         description = view.findViewById(R.id.description);
         stateList = view.findViewById(R.id.stateList);
         cityList = view.findViewById(R.id.cityList);
         inputTitle = view.findViewById(R.id.inputTitle);
+        inputPhone = view.findViewById(R.id.inputPhone);
         inputAddress = view.findViewById(R.id.inputAddress);
         inputDescription = view.findViewById(R.id.inputDescription);
     }
@@ -73,6 +74,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
         title.setText(R.string.general_title);
         state.setText(R.string.general_state);
         city.setText(R.string.general_city);
+        phone.setText(R.string.general_phone);
         address.setText(R.string.general_address);
         description.setText(R.string.general_description);
     }
@@ -168,11 +170,16 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
     public VerificationError verifyStep() {
 
         String title   = getText(inputTitle);
+        String phone   = getText(inputPhone);
         String address = getText(inputAddress);
         String desc    = getText(inputDescription);
 
         if(title.equals("")){
             setError(inputTitle);
+            return new VerificationError("فیلد ها را با دقت پر کنید");
+        }
+        else if(phone.equals("")){
+            setError(inputPhone);
             return new VerificationError("فیلد ها را با دقت پر کنید");
         }
         else if(address.equals("")){

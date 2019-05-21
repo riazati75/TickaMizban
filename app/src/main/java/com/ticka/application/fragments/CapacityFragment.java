@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.stepstone.stepper.BlockingStep;
@@ -25,7 +24,6 @@ public class CapacityFragment extends Fragment implements BlockingStep {
     private HomeDataModel homesModel = HomeDataModel.getInstance();
     private TextView ca1 , ca2 , ca3 , ca4 , ca5 , description;
     private ValueChanger c1 , c2 , c3 , c4 , c5;
-    private EditText inputDescription;
 
     public CapacityFragment() {
         // Required empty public constructor
@@ -48,7 +46,6 @@ public class CapacityFragment extends Fragment implements BlockingStep {
         ca4 = view.findViewById(R.id.ca4);
         ca5 = view.findViewById(R.id.ca5);
         description = view.findViewById(R.id.description);
-        inputDescription = view.findViewById(R.id.inputDescription);
 
         ca1.setText(R.string.capacity_1);
         ca2.setText(R.string.capacity_2);

@@ -98,6 +98,29 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:padding="5dp"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/inputPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/selector_edt"
+                    android:padding="10dp"
+                    android:inputType="phone"
+                    android:textColor="@color/colorBlack"
+                    tools:ignore="Autofill,LabelFor" />
+
+                <TextView
                     android:id="@+id/address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
