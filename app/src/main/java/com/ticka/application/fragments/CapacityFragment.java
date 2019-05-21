@@ -72,7 +72,6 @@ public class CapacityFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-        Logger.Log(homesModel.parsData());
         callback.goToNextStep();
     }
 
@@ -94,6 +93,7 @@ public class CapacityFragment extends Fragment implements BlockingStep {
         homesModel.setSingleBed(c3.getValue());
         homesModel.setDoubleBed(c4.getValue());
         homesModel.setExtraBed(c5.getValue());
+        Logger.Log(homesModel.parsData());
         return null;
     }
 

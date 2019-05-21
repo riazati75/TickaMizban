@@ -30,8 +30,8 @@ public class HomeDataModel implements Serializable {
     private Integer doubleBed;
     private Integer extraBed;
     private String capacityDescription = "";
-    private String possibilitiesList = "";
-    private String possibilitiesDescription = "";
+    private String facilitiesList = "";
+    private String facilitiesDescription = "";
     private String rulesList = "";
     private String ruleDescription = "";
 
@@ -171,20 +171,20 @@ public class HomeDataModel implements Serializable {
         this.capacityDescription = capacityDescription;
     }
 
-    public String getPossibilitiesList() {
-        return possibilitiesList;
+    public String getFacilitiesList() {
+        return facilitiesList;
     }
 
-    public void setPossibilitiesList(String possibilitiesList) {
-        this.possibilitiesList = possibilitiesList;
+    public void setFacilitiesList(String facilitiesList) {
+        this.facilitiesList = facilitiesList;
     }
 
-    public String getPossibilitiesDescription() {
-        return possibilitiesDescription;
+    public String getFacilitiesDescription() {
+        return facilitiesDescription;
     }
 
-    public void setPossibilitiesDescription(String possibilitiesDescription) {
-        this.possibilitiesDescription = possibilitiesDescription;
+    public void setFacilitiesDescription(String facilitiesDescription) {
+        this.facilitiesDescription = facilitiesDescription;
     }
 
     public String getRulesList() {
@@ -222,8 +222,8 @@ public class HomeDataModel implements Serializable {
                 ", doubleBed=" + doubleBed +
                 ", extraBed=" + extraBed +
                 ", capacityDescription='" + capacityDescription +
-                "', possibilitiesList=" + possibilitiesList +
-                ", possibilitiesDescription='" + possibilitiesDescription +
+                "', facilitiesList=" + facilitiesList +
+                ", facilitiesDescription='" + facilitiesDescription +
                 "', rulesList=" + rulesList +
                 ", ruleDescription='" + ruleDescription + "'}";
     }

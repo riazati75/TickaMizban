@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,7 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ir.farsroidx.StringImageUtils;
@@ -50,8 +51,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private ImageView imageView;
     private boolean isSuccess = false;
     private String errorMessage = null;
+    private List<Long> photoArrayList = new ArrayList<>();
     private long result = 0;
-    private int errorCode = 0;
 
     public UploadPhotoFragment() {
         // Required empty public constructor
@@ -125,16 +126,13 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     isSuccess = response.getBoolean("succeed");
                     errorMessage = response.getString("errorMessage");
                     result = response.getLong("result");
-                    errorCode = response.getInt("errorCode");
                 }catch(JSONException e){
                     e.printStackTrace();
                 }
 
-                //Logger.Log("isSuccess: " + isSuccess + "\nerrorMessage: " + errorMessage + "\nresult: " + result + "\nerrorCode: " + errorCode);
-
                 if(isSuccess){
-                    Logger.Log("fileId: " + result);
-                    Toast.makeText(context, "ارسال موفق", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "ارسال موفق آمیز بود", Toast.LENGTH_SHORT).show();
+                    photoArrayList.add(result);
                     adapter.setItemCount(adapter.getItemCount() + 1);
                 }else {
                     Logger.Log("error: " + errorMessage);
@@ -175,20 +173,16 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         callback.goToPrevStep();
     }
 
-    @Nullable
     @Override
     public VerificationError verifyStep() {
-//        if(path1.getText().toString().equals("")){
-//            return new VerificationError("حداقل یک عکس باید انتخاب کنید");
-//        }
-//        else{
-//            homesModel.setPhotoLocation1(imgP1);
-//            homesModel.setPhotoLocation1(imgP2);
-//            homesModel.setPhotoLocation1(imgP3);
-//            return null;
-//        }
-
-        return null;
+        if(photoArrayList.size() == 0 || photoArrayList == null){
+            return new VerificationError("حداقل یک عکس باید انتخاب کنید");
+        }
+        else{
+            homesModel.setPhotoArray(photoArrayList.toString());
+            Logger.Log(homesModel.parsData());
+            return null;
+        }
     }
 
     @Override

@@ -40,7 +40,6 @@ public class PriceFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
-        Logger.Log(homesModel.parsData());
         callback.complete();
     }
 
@@ -52,6 +51,7 @@ public class PriceFragment extends Fragment implements BlockingStep {
     @Nullable
     @Override
     public VerificationError verifyStep() {
+        Logger.Log(homesModel.parsData());
         return null;
     }
 

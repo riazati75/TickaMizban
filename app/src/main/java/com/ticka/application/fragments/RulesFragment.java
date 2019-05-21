@@ -50,7 +50,6 @@ public class RulesFragment extends Fragment implements BlockingStep{
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
         if(isDone){
-            Logger.Log(homesModel.parsData());
             callback.goToNextStep();
         }
         else {

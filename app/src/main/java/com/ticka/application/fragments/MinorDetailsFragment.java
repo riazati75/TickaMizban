@@ -109,7 +109,6 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-        Logger.Log(homesModel.parsData());
         callback.goToNextStep();
     }
 
@@ -147,6 +146,7 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
             homesModel.setBuildingType(typeIdSelected);
             homesModel.setLocationType(locationIdSelected);
             homesModel.setRoomNumber(roomsCounter.getValue());
+            Logger.Log(homesModel.parsData());
             return null;
         }
     }

@@ -150,7 +150,6 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-        Logger.Log(homesModel.parsData());
         callback.goToNextStep();
     }
 
@@ -189,6 +188,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             homesModel.setHomeDescription(desc);
             homesModel.setHomeStateId(stateIdSelected);
             homesModel.setHomeCityId(cityIdSelected);
+            Logger.Log(homesModel.parsData());
             return null;
         }
     }
