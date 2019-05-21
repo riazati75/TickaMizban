@@ -19,20 +19,20 @@ import com.ticka.application.adapters.CheckboxAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomeDataModel;
 
-public class PossibilitiesFragment extends Fragment implements BlockingStep {
+public class FacilitiesFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private RecyclerView recyclerView;
     private CheckboxAdapter adapter;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
 
-    public PossibilitiesFragment() {
+    public FacilitiesFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_possibilities, container, false);
+        View root = inflater.inflate(R.layout.fragment_fasilities, container, false);
         context = container.getContext();
 
         recyclerView = root.findViewById(R.id.recycler);
