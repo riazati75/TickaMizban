@@ -9,13 +9,13 @@ public class FacilityModel implements Serializable {
 
     @SerializedName("data")
     @Expose
-    private List<Data> data = null;
+    private List<FacilityData> data = null;
 
-    public List<Data> getData() {
+    public List<FacilityData> getData() {
         return data;
     }
 
-    public void setData(List<Data> data) {
+    public void setData(List<FacilityData> data) {
         this.data = data;
     }
 

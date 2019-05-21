@@ -25,7 +25,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_STATE    = "state";
 
     // Facility
-    private static final String FACILITY_ID = "_id";
+    private static final String FACILITY_PRIMARY = "_id";
+    private static final String FACILITY_ID      = "id";
+    private static final String FACILITY_NAME    = "name";
 
     // City
     private static final String CITY_PRIMARY  = "_id";
@@ -168,6 +170,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        db.execSQL("CREATE TABLE " + TABLE_FACILITY + " (" + FACILITY_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
+                FACILITY_ID + " TEXT ," +
+                FACILITY_NAME + " TEXT " +
+                ")");
 
         db.execSQL("CREATE TABLE " + TABLE_STATE + " (" + STATE_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
                 STATE_ID + " TEXT ," +
