@@ -19,20 +19,20 @@ public class HomeDataModel implements Serializable {
     private String homeAddress = "";
     private String homeDescription = "";
     private Integer buildingType = -1;
-    private Integer locationType;
-    private Integer roomNumber;
-    private Integer landArea;
-    private Integer buildingArea;
+    private Integer locationType = -1;
+    private Integer roomNumber = -1;
+    private Integer landArea = -1;
+    private Integer buildingArea = -1;
     private String photoArray = "";
-    private Integer standardCapacity;
-    private Integer maximumCapacity;
-    private Integer singleBed;
-    private Integer doubleBed;
-    private Integer extraBed;
+    private Integer standardCapacity = -1;
+    private Integer maximumCapacity = -1;
+    private Integer singleBed = -1;
+    private Integer doubleBed = -1;
+    private Integer extraBed = -1;
     private String capacityDescription = "";
-    private String facilitiesList = "";
+    private String facilitiesArray = "";
     private String facilitiesDescription = "";
-    private String rulesList = "";
+    private String rulesArray = "";
     private String ruleDescription = "";
 
     public String getHomeTitle() {
@@ -171,12 +171,12 @@ public class HomeDataModel implements Serializable {
         this.capacityDescription = capacityDescription;
     }
 
-    public String getFacilitiesList() {
-        return facilitiesList;
+    public String getFacilitiesArray() {
+        return facilitiesArray;
     }
 
-    public void setFacilitiesList(String facilitiesList) {
-        this.facilitiesList = facilitiesList;
+    public void setFacilitiesArray(String facilitiesArray) {
+        this.facilitiesArray = facilitiesArray;
     }
 
     public String getFacilitiesDescription() {
@@ -187,12 +187,12 @@ public class HomeDataModel implements Serializable {
         this.facilitiesDescription = facilitiesDescription;
     }
 
-    public String getRulesList() {
-        return rulesList;
+    public String getRulesArray() {
+        return rulesArray;
     }
 
-    public void setRulesList(String rulesList) {
-        this.rulesList = rulesList;
+    public void setRulesArray(String rulesArray) {
+        this.rulesArray = rulesArray;
     }
 
     public String getRuleDescription() {
@@ -222,9 +222,9 @@ public class HomeDataModel implements Serializable {
                 ", doubleBed=" + doubleBed +
                 ", extraBed=" + extraBed +
                 ", capacityDescription='" + capacityDescription +
-                "', facilitiesList=" + facilitiesList +
+                "', facilitiesArray=" + facilitiesArray +
                 ", facilitiesDescription='" + facilitiesDescription +
-                "', rulesList=" + rulesList +
+                "', rulesArray=" + rulesArray +
                 ", ruleDescription='" + ruleDescription + "'}";
     }
 }

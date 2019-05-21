@@ -77,7 +77,7 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
     @Nullable
     @Override
     public VerificationError verifyStep() {
-        homesModel.setFacilitiesList(adapter.getSelectedList().toString());
+        homesModel.setFacilitiesArray(adapter.getSelectedList().toString());
         homesModel.setFacilitiesDescription(inputDescription.getText().toString());
         Logger.Log(homesModel.parsData());
         return null;

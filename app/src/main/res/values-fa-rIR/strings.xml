@@ -7,7 +7,7 @@
     <string name="general_state"><b><font color='#000'><font color="red">*</font> استان :</font></b></string>
     <string name="general_city"><b><font color='#000'><font color="red">*</font> شهر :</font></b></string>
     <string name="general_address"><b><font color='#000'><font color="red">*</font> آدرس :</font></b></string>
-    <string name="general_description"><b><font color='#000'>معرفی اختیاری :</font></b></string>
+    <string name="general_description"><b><font color='#000'>متن اختیاری :</font></b></string>
 
     <string name="capacity_1"><b><font color='#000'><font color="red">*</font> ظرفیت استاندارد :</font></b></string>
     <string name="capacity_2"><b><font color='#000'><font color="red">*</font> حداکثر ظرفیت :</font></b></string>
