@@ -89,6 +89,11 @@ public class CapacityFragment extends Fragment implements BlockingStep {
     @Nullable
     @Override
     public VerificationError verifyStep() {
+        homesModel.setStandardCapacity(c1.getValue());
+        homesModel.setMaximumCapacity(c2.getValue());
+        homesModel.setSingleBed(c3.getValue());
+        homesModel.setDoubleBed(c4.getValue());
+        homesModel.setExtraBed(c5.getValue());
         return null;
     }
 

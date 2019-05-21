@@ -44,6 +44,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="16dp"
+                        app:vcMinValue="1"
                         app:vcAccompanyingText=" نفر" />
 
                     <TextView
@@ -64,6 +65,7 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="16dp"
                         android:layout_marginEnd="16dp"
+                        app:vcMinValue="1"
                         app:vcAccompanyingText=" نفر" />
 
                     <LinearLayout
@@ -138,7 +140,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="16dp"
-                        app:vcAccompanyingText=" عدد" />
+                        app:vcMaxValue="10"
+                        app:vcAccompanyingText=" تخت" />
 
                     <TextView
                         android:id="@+id/ca4"
@@ -157,7 +160,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="16dp"
-                        app:vcAccompanyingText=" عدد" />
+                        app:vcMaxValue="10"
+                        app:vcAccompanyingText=" تخت" />
 
                     <TextView
                         android:id="@+id/ca5"
@@ -177,7 +181,8 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
-                        app:vcAccompanyingText=" عدد" />
+                        app:vcMaxValue="15"
+                        app:vcAccompanyingText=" دست" />
 
                 </LinearLayout>
 

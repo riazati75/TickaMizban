@@ -29,7 +29,6 @@ public class HomeDataModel implements Serializable {
     private String photoLocation3;
     private Integer standardCapacity;
     private Integer maximumCapacity;
-    private Integer pricePerPersonAdded;
     private Integer singleBed;
     private Integer doubleBed;
     private Integer extraBed;
@@ -159,14 +158,6 @@ public class HomeDataModel implements Serializable {
         this.maximumCapacity = maximumCapacity;
     }
 
-    public Integer getPricePerPersonAdded() {
-        return pricePerPersonAdded;
-    }
-
-    public void setPricePerPersonAdded(Integer pricePerPersonAdded) {
-        this.pricePerPersonAdded = pricePerPersonAdded;
-    }
-
     public Integer getSingleBed() {
         return singleBed;
     }
@@ -248,7 +239,6 @@ public class HomeDataModel implements Serializable {
                 "', photoLocation3='" + photoLocation3 +
                 "', standardCapacity=" + standardCapacity +
                 ", maximumCapacity=" + maximumCapacity +
-                ", pricePerPersonAdded=" + pricePerPersonAdded +
                 ", singleBed=" + singleBed +
                 ", doubleBed=" + doubleBed +
                 ", extraBed=" + extraBed +

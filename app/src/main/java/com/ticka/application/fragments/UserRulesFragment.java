@@ -79,7 +79,7 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
                     homesModel.getMaximumCapacity() + " نفر",
                     homesModel.getSingleBed() + " تخت",
                     homesModel.getDoubleBed() + " تخت",
-                    homesModel.getExtraBed() + " رخت خواب",
+                    homesModel.getExtraBed() + " دست",
                     homesModel.getCapacityDescription(),
                     homesModel.getPossibilitiesDescription(),
                     homesModel.getPossibilitiesDescription(),
