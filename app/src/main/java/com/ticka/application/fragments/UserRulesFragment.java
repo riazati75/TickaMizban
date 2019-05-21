@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
     private HomeDataModel homesModel = HomeDataModel.getInstance();
     private RecyclerView recyclerView;
     private CheckboxAdapter adapter;
+    private boolean isReviewed = false;
 
     public UserRulesFragment() {
         // Required empty public constructor
@@ -51,13 +53,22 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-        Logger.Log(homesModel.parsData());
-        callback.goToNextStep();
     }
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
 
+        if(!isReviewed){
+
+            AlertDialog dialog = new AlertDialog.Builder(context)
+                    .create();
+
+            dialog.show();
+        }
+        else {
+            Logger.Log(homesModel.parsData());
+            callback.complete();
+        }
     }
 
     @Override

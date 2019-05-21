@@ -24,7 +24,7 @@
         app:srcCompat="@drawable/camera_selector" />
 
     <TextView
-        android:id="@+id/txt"
+        android:id="@+id/txtValue"
         android:gravity="center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

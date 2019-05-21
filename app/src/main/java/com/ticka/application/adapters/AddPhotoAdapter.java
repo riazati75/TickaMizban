@@ -68,7 +68,7 @@ public class AddPhotoAdapter extends RecyclerView.Adapter<AddPhotoAdapter.ViewHo
 
             photo = itemView.findViewById(R.id.photo);
             upload = itemView.findViewById(R.id.upload);
-            txt = itemView.findViewById(R.id.txt);
+            txt = itemView.findViewById(R.id.txtValue);
 
         }
     }

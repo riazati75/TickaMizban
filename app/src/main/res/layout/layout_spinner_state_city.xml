@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:textColor="@color/colorBlack"
     android:textSize="18sp"
-    android:id="@+id/txt"
+    android:id="@+id/txtValue"
     android:padding="2.5dp"
     android:gravity="center"
     android:layout_height="wrap_content"/>
