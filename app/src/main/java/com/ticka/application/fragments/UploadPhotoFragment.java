@@ -175,44 +175,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
-
-        if(!isReviewed){
-
-            String facilities = "";
-            String rules = "";
-
-            List<String> facilitiesList = databaseHelper.getFacilitiesById(homesModel.getFacilitiesArray());
-            for(int i = 0; i < facilitiesList.size(); i++){
-                facilities = facilities + facilitiesList.get(i) + "\n";
-            }
-
-            String[] values = {
-                    homesModel.getHomeTitle(),
-                    databaseHelper.getStateNameById(homesModel.getHomeStateId()),
-                    databaseHelper.getCityNameById(homesModel.getHomeCityId()),
-                    homesModel.getHomeAddress(),
-                    homesModel.getHomeDescription(),
-                    buildingHelper.getBuildingTypeById(homesModel.getBuildingType()),
-                    buildingHelper.getBuildingLocationById(homesModel.getLocationType()),
-                    homesModel.getRoomNumber() + " اتاق",
-                    homesModel.getLandArea() + " متر مربع",
-                    homesModel.getBuildingArea() + " متر مربع",
-                    homesModel.getStandardCapacity() + " نفر",
-                    homesModel.getMaximumCapacity() + " نفر",
-                    homesModel.getSingleBed() + " تخت",
-                    homesModel.getDoubleBed() + " تخت",
-                    homesModel.getExtraBed() + " دست",
-                    homesModel.getCapacityDescription(),
-                    facilities,
-                    homesModel.getFacilitiesDescription(),
-                    rules,
-                    homesModel.getRuleDescription()
-            };
-            showDialog(values);
-        }else{
-            Logger.Log(homesModel.parsData());
-            callback.complete();
-        }
+        callback.complete();
     }
 
     private void setDialog() {
@@ -261,11 +224,50 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     @Override
     public VerificationError verifyStep() {
+
         if(photoArrayList.size() == 0 || photoArrayList == null){
             return new VerificationError("حداقل یک عکس باید انتخاب کنید");
         }
-        else{
+        else if(!isReviewed){
+
             homesModel.setPhotoArray(photoArrayList.toString());
+
+            String facilities = "";
+            String rules = "";
+
+            List<String> facilitiesList = databaseHelper.getFacilitiesById(homesModel.getFacilitiesArray());
+            for(int i = 0; i < facilitiesList.size(); i++){
+                facilities = facilities + facilitiesList.get(i) + "\n";
+            }
+
+            String[] values = {
+                    homesModel.getHomeTitle(),
+                    databaseHelper.getStateNameById(homesModel.getHomeStateId()),
+                    databaseHelper.getCityNameById(homesModel.getHomeCityId()),
+                    homesModel.getHomeAddress(),
+                    homesModel.getHomeDescription(),
+                    buildingHelper.getBuildingTypeById(homesModel.getBuildingType()),
+                    buildingHelper.getBuildingLocationById(homesModel.getLocationType()),
+                    homesModel.getRoomNumber() + " اتاق",
+                    homesModel.getLandArea() + " متر مربع",
+                    homesModel.getBuildingArea() + " متر مربع",
+                    homesModel.getStandardCapacity() + " نفر",
+                    homesModel.getMaximumCapacity() + " نفر",
+                    homesModel.getSingleBed() + " تخت",
+                    homesModel.getDoubleBed() + " تخت",
+                    homesModel.getExtraBed() + " دست",
+                    homesModel.getCapacityDescription(),
+                    facilities,
+                    homesModel.getFacilitiesDescription(),
+                    rules,
+                    homesModel.getRuleDescription()
+            };
+            showDialog(values);
+            Logger.Log(homesModel.parsData());
+
+            return new VerificationError("بازبینی اطلاعات");
+        }
+        else {
             Logger.Log(homesModel.parsData());
             return null;
         }
