@@ -54,28 +54,28 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 return step3;
 
             case 3:
-                UploadPhotoFragment step4 = new UploadPhotoFragment();
+                CapacityFragment step4 = new CapacityFragment();
                 Bundle b4 = new Bundle();
                 b4.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step4.setArguments(b4);
                 return step4;
 
             case 4:
-                CapacityFragment step5 = new CapacityFragment();
+                FacilitiesFragment step5 = new FacilitiesFragment();
                 Bundle b5 = new Bundle();
                 b5.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step5.setArguments(b5);
                 return step5;
 
             case 5:
-                FacilitiesFragment step6 = new FacilitiesFragment();
+                UserRulesFragment step6 = new UserRulesFragment();
                 Bundle b6 = new Bundle();
                 b6.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step6.setArguments(b6);
                 return step6;
 
             case 6:
-                UserRulesFragment step7 = new UserRulesFragment();
+                UploadPhotoFragment step7 = new UploadPhotoFragment();
                 Bundle b7 = new Bundle();
                 b7.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step7.setArguments(b7);
@@ -125,32 +125,32 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                     .create();
 
             case 3: return new StepViewModel.Builder(context)
-                        .setTitle("تصاویر")
-                        .setSubtitle("تصاویر اقامتگاه")
-                        .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
-                        .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
-                        .create();
-
-            case 4: return new StepViewModel.Builder(context)
                         .setTitle("ظرفیت")
                         .setSubtitle("اطلاعات مربوط به نفرات")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
 
-            case 5: return new StepViewModel.Builder(context)
+            case 4: return new StepViewModel.Builder(context)
                         .setTitle("امکانات")
                         .setSubtitle("امکانات موجود در اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
 
-            case 6: return new StepViewModel.Builder(context)
+            case 5: return new StepViewModel.Builder(context)
                         .setTitle("قوانین")
                         .setSubtitle("قوانین اقامتگاه")
                         .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                         .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                         .create();
+
+            case 6: return new StepViewModel.Builder(context)
+                    .setTitle("تصاویر")
+                    .setSubtitle("تصاویر اقامتگاه")
+                    .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
+                    .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
+                    .create();
 
             case 7: return new StepViewModel.Builder(context)
                         .setTitle("قیمت گذاری")

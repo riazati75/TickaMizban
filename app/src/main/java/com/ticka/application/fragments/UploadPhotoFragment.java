@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -26,7 +27,10 @@ import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.AddPhotoAdapter;
+import com.ticka.application.adapters.ReviewAdapter;
 import com.ticka.application.core.Logger;
+import com.ticka.application.database.DatabaseHelper;
+import com.ticka.application.helpers.BuildingHelper;
 import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.utils.JSONUtils;
 
@@ -47,12 +51,17 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
+    private BuildingHelper buildingHelper = BuildingHelper.getInstance();
+    private DatabaseHelper databaseHelper;
     private AddPhotoAdapter adapter;
     private ImageView imageView;
+    private RecyclerView recyclerView;
     private boolean isSuccess = false;
     private String errorMessage = null;
     private List<Long> photoArrayList = new ArrayList<>();
     private long result = 0;
+    private MaterialDialog dialog;
+    private boolean isReviewed = false;
 
     public UploadPhotoFragment() {
         // Required empty public constructor
@@ -62,7 +71,9 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upload_photo, container, false);
         context = container.getContext();
+        databaseHelper = DatabaseHelper.getInstance(context);
         initViews(view);
+        setDialog();
         return view;
     }
 
@@ -159,13 +170,88 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-        Logger.Log(homesModel.parsData());
-        callback.goToNextStep();
+
     }
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
 
+        if(!isReviewed){
+
+            String facilities = "";
+            String rules = "";
+
+            List<String> facilitiesList = databaseHelper.getFacilitiesById(homesModel.getFacilitiesArray());
+            for(int i = 0; i < facilitiesList.size(); i++){
+                facilities = facilities + facilitiesList.get(i) + "\n";
+            }
+
+            String[] values = {
+                    homesModel.getHomeTitle(),
+                    databaseHelper.getStateNameById(homesModel.getHomeStateId()),
+                    databaseHelper.getCityNameById(homesModel.getHomeCityId()),
+                    homesModel.getHomeAddress(),
+                    homesModel.getHomeDescription(),
+                    buildingHelper.getBuildingTypeById(homesModel.getBuildingType()),
+                    buildingHelper.getBuildingLocationById(homesModel.getLocationType()),
+                    homesModel.getRoomNumber() + " اتاق",
+                    homesModel.getLandArea() + " متر مربع",
+                    homesModel.getBuildingArea() + " متر مربع",
+                    homesModel.getStandardCapacity() + " نفر",
+                    homesModel.getMaximumCapacity() + " نفر",
+                    homesModel.getSingleBed() + " تخت",
+                    homesModel.getDoubleBed() + " تخت",
+                    homesModel.getExtraBed() + " دست",
+                    homesModel.getCapacityDescription(),
+                    facilities,
+                    homesModel.getFacilitiesDescription(),
+                    rules,
+                    homesModel.getRuleDescription()
+            };
+            showDialog(values);
+        }else{
+            Logger.Log(homesModel.parsData());
+            callback.complete();
+        }
+    }
+
+    private void setDialog() {
+
+        dialog = new MaterialDialog.Builder(context)
+                .customView(R.layout.dialog_review_homes, false)
+                .autoDismiss(false).cancelable(false)
+                .positiveText("تایید").negativeText("لغو")
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        isReviewed = true;
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        isReviewed = false;
+                        dialog.dismiss();
+                    }
+                }).build();
+
+        recyclerView = (RecyclerView) dialog.findViewById(R.id.recycler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(
+                new LinearLayoutManager(
+                        context, LinearLayoutManager.VERTICAL, false
+                )
+        );
+
+        if(dialog.getWindow() != null){
+            dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.dialog_background));
+        }
+    }
+
+    private void showDialog(String[] values){
+        ReviewAdapter ra = new ReviewAdapter(context , values);
+        recyclerView.setAdapter(ra);
+        dialog.show();
     }
 
     @Override
