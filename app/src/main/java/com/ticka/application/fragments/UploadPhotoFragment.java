@@ -1,6 +1,7 @@
 package com.ticka.application.fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -61,6 +62,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private List<Long> photoArrayList = new ArrayList<>();
     private long result = 0;
     private MaterialDialog dialog;
+    private ProgressDialog progressDialog;
     private boolean isReviewed = false;
 
     public UploadPhotoFragment() {
@@ -214,8 +216,14 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             Logger.Log(homesModel.parsData());
         }
         else {
-            callback.complete();
+            sendToServer();
         }
+    }
+
+    private void sendToServer(){
+
+        progressDialog.show();
+
     }
 
     private void setDialog() {
@@ -229,6 +237,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     public void onPositive(MaterialDialog dialog) {
                         isReviewed = true;
                         dialog.dismiss();
+                        sendToServer();
                     }
 
                     @Override
@@ -249,6 +258,14 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         if(dialog.getWindow() != null){
             dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.dialog_background));
         }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setCancelable(false);
+        progressDialog.setTitle("در حال ثبت اقامتگاه");
+        progressDialog.setMessage("لطفا صبر کنید...");
+        progressDialog.setIcon(R.drawable.icon_cloud_upload);
     }
 
     private void showDialog(String[] values){
@@ -266,7 +283,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     public VerificationError verifyStep() {
 
         if(photoArrayList.size() == 0 || photoArrayList == null){
-            return new VerificationError("حداقل یک عکس باید انتخاب کنید");
+            return new VerificationError("حداقل یک عکس");
         }
         else {
             Logger.Log(homesModel.parsData());
