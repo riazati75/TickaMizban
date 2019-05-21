@@ -19,12 +19,13 @@ public class APIClient {
 
     private static final String BASE_URL_API  = "http://api.ticka.com/";
     private static final String BASE_URL_CDN  = "http://cdn.ticka.com/";
-    private static final String BASE_URL_TEST = "http://193.176.242.60:5030/ticka/home/public/api/v1/";
+    private static final String BASE_URL_TEST = "http://193.176.242.60:7060/ticka/home/public/api/v1/";
 
     static final String URL_LOGIN             = "Account/SendLoginCode";
     static final String URL_VERIFICATION_CODE = "Account/Token";
     static final String URL_SAVE_PHOTO        = "upload";
     static final String URL_GET_PHOTO         = "File/{id}";
+    static final String URL_GET_FACILITY      = "facility";
     static final String URL_INSERT_HOME       = "insert-home";
     static final String URL_GET_HOME          = "home";
 

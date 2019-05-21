@@ -9,13 +9,21 @@ import android.widget.LinearLayout;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.adapters.StepperAdapter;
+import com.ticka.application.api.APIClient;
+import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.OptionActivity;
+import com.ticka.application.database.DatabaseHelper;
+import com.ticka.application.models.facility.FacilityModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NewActivity extends OptionActivity {
 
     private LinearLayout root;
     private StepperLayout stepperLayout;
-    private StepperAdapter stepperAdapter;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +35,20 @@ public class NewActivity extends OptionActivity {
     @Override
     protected void init() {
 
+        databaseHelper = DatabaseHelper.getInstance(this);
+        getFacility();
+
         root = findViewById(R.id.root);
         stepperLayout = findViewById(R.id.stepperLayout);
 
-        stepperAdapter = new StepperAdapter(getSupportFragmentManager(), this);
-        stepperLayout.setAdapter(stepperAdapter , 0);
+        initViews();
+    }
+
+    @Override
+    protected void initViews() {
+
+        StepperAdapter stepperAdapter = new StepperAdapter(getSupportFragmentManager(), this);
+        stepperLayout.setAdapter(stepperAdapter, 0);
         stepperLayout.setListener(new StepperLayout.StepperListener() {
             @Override
             public void onCompleted(View completeButton) {
@@ -61,13 +78,25 @@ public class NewActivity extends OptionActivity {
                 finish();
             }
         });
-
-        initViews();
     }
 
-    @Override
-    protected void initViews() {
+    private void getFacility(){
 
+        APIInterface api = APIClient.getTESTClient();
+        api.getFacility().enqueue(new Callback<FacilityModel>() {
+            @Override
+            public void onResponse(Call<FacilityModel> call, Response<FacilityModel> response) {
+
+                if(response.isSuccessful()){
+                    databaseHelper.insertFacility(response.body().getData());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FacilityModel> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -75,12 +104,12 @@ public class NewActivity extends OptionActivity {
         super.attachBaseContext(newBase);
     }
 
+    public void back(View view) {
+        onBackPressed();
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    public void back(View view) {
-        onBackPressed();
     }
 }

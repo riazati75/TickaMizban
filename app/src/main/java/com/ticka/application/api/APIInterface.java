@@ -2,6 +2,7 @@ package com.ticka.application.api;
 
 import com.ticka.application.models.callback.LoginCallback;
 import com.ticka.application.models.callback.SaveCallback;
+import com.ticka.application.models.facility.FacilityModel;
 import com.ticka.application.models.home.HomeModel;
 
 import org.json.JSONObject;
@@ -36,9 +37,10 @@ public interface APIInterface {
             "Content-Type: application/json"})
     Call<HomeModel> getHomes();
 
-    @POST(APIClient.URL_SAVE_PHOTO)
-    @Headers({"Content-Type: application/json"})
-    Call<SaveCallback> savePhoto(@Body JSONObject body);
+    @GET(APIClient.URL_GET_FACILITY)
+    @Headers({"accept: application/json",
+            "Content-Type: application/json"})
+    Call<FacilityModel> getFacility();
 
     @GET(APIClient.URL_GET_PHOTO)
     @Headers({"accept: application/json",
