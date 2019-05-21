@@ -10,17 +10,38 @@ import android.widget.TextView;
 
 import com.ticka.application.R;
 
-public class ReviewAdaptert extends RecyclerView.Adapter<ReviewAdaptert.Holder> {
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holder> {
 
     private Context context;
     private LayoutInflater layoutInflater;
+    private String[] values;
     private String[] titles = {
-            "عنوان اقامتگاه:"
+            "عنوان اقامتگاه:",
+            "استان:",
+            "شهر:",
+            "آدرس دقیق:",
+            "توضیحات آدرس:",
+            "نوع ساختمان:",
+            "نوع منطقه ای:",
+            "تعداد اتاق:",
+            "متراژ زمین:",
+            "متراژ ساختمان:",
+            "ظرفیت استاندارد:",
+            "حداکثر ظرفیت:",
+            "تعداد تخت 1 نفره:",
+            "تعداد تخت 2 نفره:",
+            "تعداد تشک اضافه:",
+            "توضیحات ظرفیت:",
+            "امکانات:",
+            "توضیحات امکانات:",
+            "قوانین:",
+            "ظرفیت قوانین:"
     };
 
-    public ReviewAdaptert(Context context) {
+    public ReviewAdapter(Context context , String[] values) {
         this.context = context;
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.values = values;
     }
 
     @NonNull
@@ -32,6 +53,7 @@ public class ReviewAdaptert extends RecyclerView.Adapter<ReviewAdaptert.Holder> 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         holder.txtTitle.setText(titles[position]);
+        holder.txtValue.setText(values[position]);
     }
 
     @Override

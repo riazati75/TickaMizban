@@ -32,7 +32,7 @@ public class HomeDataModel implements Serializable {
     private Integer pricePerPersonAdded;
     private Integer singleBed;
     private Integer doubleBed;
-    private Integer matsAdded;
+    private Integer extraBed;
     private String capacityDescription;
     private List<Integer> possibilitiesList;
     private String possibilitiesDescription;
@@ -183,12 +183,12 @@ public class HomeDataModel implements Serializable {
         this.doubleBed = doubleBed;
     }
 
-    public Integer getMatsAdded() {
-        return matsAdded;
+    public Integer getExtraBed() {
+        return extraBed;
     }
 
-    public void setMatsAdded(Integer matsAdded) {
-        this.matsAdded = matsAdded;
+    public void setExtraBed(Integer extraBed) {
+        this.extraBed = extraBed;
     }
 
     public String getCapacityDescription() {
@@ -251,7 +251,7 @@ public class HomeDataModel implements Serializable {
                 ", pricePerPersonAdded=" + pricePerPersonAdded +
                 ", singleBed=" + singleBed +
                 ", doubleBed=" + doubleBed +
-                ", matsAdded=" + matsAdded +
+                ", extraBed=" + extraBed +
                 ", capacityDescription='" + capacityDescription +
                 "', possibilitiesList=" + possibilitiesList +
                 ", possibilitiesDescription='" + possibilitiesDescription +

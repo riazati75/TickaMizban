@@ -17,15 +17,17 @@ import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.CheckboxAdapter;
-import com.ticka.application.adapters.ReviewAdaptert;
+import com.ticka.application.adapters.ReviewAdapter;
 import com.ticka.application.core.Logger;
+import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.HomeDataModel;
 
 public class UserRulesFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
-    private RecyclerView recyclerView;
+    private DatabaseHelper databaseHelper;
+    private RecyclerView recyclerView , rv;
     private CheckboxAdapter adapter;
     private MaterialDialog dialog;
     private boolean isReviewed = false;
@@ -39,6 +41,7 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
 
         View root = inflater.inflate(R.layout.fragment_user_rules, container, false);
         context = container.getContext();
+        databaseHelper = DatabaseHelper.getInstance(context);
         setDialog();
 
         recyclerView = root.findViewById(R.id.recycler);
@@ -59,7 +62,29 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
 
         if(!isReviewed){
-            dialog.show();
+            String[] values = {
+                    homesModel.getHomeTitle(),
+                    databaseHelper.getStatesById(homesModel.getHomeStateId()),
+                    databaseHelper.getStatesById(homesModel.getHomeStateId()),
+                    homesModel.getHomeAddress(),
+                    homesModel.getHomeDescription(),
+                    homesModel.getBuildingType(),
+                    homesModel.getLocationType(),
+                    homesModel.getRoomNumber() + " اتاق",
+                    homesModel.getLandArea() + " متر مربع",
+                    homesModel.getBuildingArea() + " متر مربع",
+                    homesModel.getStandardCapacity() + " نفر",
+                    homesModel.getMaximumCapacity() + " نفر",
+                    homesModel.getSingleBed() + " تخت",
+                    homesModel.getDoubleBed() + " تخت",
+                    homesModel.getExtraBed() + " رخت خواب",
+                    homesModel.getCapacityDescription(),
+                    homesModel.getPossibilitiesDescription(),
+                    homesModel.getPossibilitiesDescription(),
+                    homesModel.getRuleDescription(),
+                    homesModel.getRuleDescription()
+            };
+            showDialog(values);
         }else{
             Logger.Log(homesModel.parsData());
             callback.complete();
@@ -84,15 +109,23 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
                     }
                 }).build();
 
-        RecyclerView rv = (RecyclerView) dialog.findViewById(R.id.recycler);
+        rv = (RecyclerView) dialog.findViewById(R.id.recycler);
         rv.setHasFixedSize(true);
-        rv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        ReviewAdaptert ra = new ReviewAdaptert(context);
-        rv.setAdapter(ra);
+        rv.setLayoutManager(
+                new LinearLayoutManager(
+                        context, LinearLayoutManager.VERTICAL, false
+                )
+        );
 
         if(dialog.getWindow() != null){
             dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.dialog_background));
         }
+    }
+
+    private void showDialog(String[] values){
+        ReviewAdapter ra = new ReviewAdapter(context , values);
+        rv.setAdapter(ra);
+        dialog.show();
     }
 
     @Override
