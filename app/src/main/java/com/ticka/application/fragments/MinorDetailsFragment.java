@@ -19,6 +19,7 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.StateCityAdapter;
 import com.ticka.application.core.Logger;
+import com.ticka.application.helpers.BuildingHelper;
 import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.custom.ValueChanger;
 
@@ -35,45 +36,7 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
     private ValueChanger roomsCounter;
     private TextView ca1 , ca2;
     private int typeIdSelected = -1 , locationIdSelected = -1;
-
-    private String[] type = {
-            "نوع ساختمان",
-            "ویلایی",
-            "آپارتمان",
-            "سویت",
-            "خانه",
-            "کلبه"
-    };
-
-    private int[] typeId = {
-            0,
-            1,
-            2,
-            3,
-            4,
-            5
-
-    };
-
-    private String[] location = {
-            "نوع منطقه ای",
-            "ساحلی",
-            "شهری",
-            "جنگلی",
-            "کوهستانی",
-            "کویری",
-            "روستایی"
-    };
-
-    private int[] locationId = {
-            01,
-            12,
-            23,
-            34,
-            45,
-            56,
-            67
-    };
+    private BuildingHelper buildingHelper = BuildingHelper.getInstance();
 
     public MinorDetailsFragment() {
         // Required empty public constructor
@@ -101,13 +64,13 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
         ca1          = view.findViewById(R.id.ca1);
         ca2          = view.findViewById(R.id.ca2);
 
-        spLocation.setAdapter(new StateCityAdapter(context , getList(location)));
-        spType.setAdapter(new StateCityAdapter(context , getList(type)));
+        spLocation.setAdapter(new StateCityAdapter(context , getList(buildingHelper.getBuildingLocation())));
+        spType.setAdapter(new StateCityAdapter(context , getList(buildingHelper.getBuildingType())));
 
         spLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                locationIdSelected = locationId[position];
+                locationIdSelected = buildingHelper.getBuildingLocationId()[position];
             }
 
             @Override
@@ -119,7 +82,7 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
         spType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                typeIdSelected = typeId[position];
+                typeIdSelected = buildingHelper.getBuildingTypeId()[position];
             }
 
             @Override
@@ -181,8 +144,8 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
         else {
             homesModel.setBuildingArea(Integer.valueOf(ba));
             homesModel.setLandArea(Integer.valueOf(la));
-            homesModel.setBuildingType(String.valueOf(typeIdSelected));
-            homesModel.setLocationType(String.valueOf(locationIdSelected));
+            homesModel.setBuildingType(typeIdSelected);
+            homesModel.setLocationType(locationIdSelected);
             homesModel.setRoomNumber(roomsCounter.getValue());
             return null;
         }

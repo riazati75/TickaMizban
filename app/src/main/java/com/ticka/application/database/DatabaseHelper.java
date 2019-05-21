@@ -118,7 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Recycle")
-    public String getStateNameById(Integer stateId){
+    public String getStateNameById(int stateId){
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT " + STATE_NAME + " FROM " + TABLE_STATE + " WHERE " + STATE_ID + " = " + stateId , null);
         cursor.moveToFirst();
@@ -127,7 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Recycle")
-    public String getCityNameById(Integer cityId){
+    public String getCityNameById(int cityId){
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT " + CITY_NAME + " FROM " + TABLE_CITY + " WHERE " + CITY_ID + " = " + cityId , null);
         cursor.moveToFirst();

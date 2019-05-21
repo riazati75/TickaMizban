@@ -20,12 +20,14 @@ import com.ticka.application.adapters.CheckboxAdapter;
 import com.ticka.application.adapters.ReviewAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
+import com.ticka.application.helpers.BuildingHelper;
 import com.ticka.application.models.HomeDataModel;
 
 public class UserRulesFragment extends Fragment implements BlockingStep {
 
     private Context context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
+    private BuildingHelper buildingHelper = BuildingHelper.getInstance();
     private DatabaseHelper databaseHelper;
     private RecyclerView recyclerView , rv;
     private CheckboxAdapter adapter;
@@ -68,8 +70,8 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
                     databaseHelper.getCityNameById(homesModel.getHomeCityId()),
                     homesModel.getHomeAddress(),
                     homesModel.getHomeDescription(),
-                    homesModel.getBuildingType(),
-                    homesModel.getLocationType(),
+                    buildingHelper.getBuildingTypeById(homesModel.getBuildingType()),
+                    buildingHelper.getBuildingLocationById(homesModel.getLocationType()),
                     homesModel.getRoomNumber() + " اتاق",
                     homesModel.getLandArea() + " متر مربع",
                     homesModel.getBuildingArea() + " متر مربع",
