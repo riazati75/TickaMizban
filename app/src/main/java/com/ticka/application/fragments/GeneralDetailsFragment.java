@@ -134,7 +134,6 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
                 if(position != 0){
                     String city_id = databaseHelperCities.get((position - 1)).getId();
-                    Logger.Log(city_id);
                     cityIdSelected = Integer.parseInt(city_id);
                 }
                 else {

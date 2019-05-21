@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
-import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.models.home.HomeData;
 import com.ticka.application.models.home.HomeModel;
@@ -73,7 +72,6 @@ public class MainActivity extends OptionActivity {
 
                 if(response.body() != null){
                          List<HomeData> model = response.body().getData();
-                    Logger.Log("Response: " + response.body().getCurrentPage());
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();

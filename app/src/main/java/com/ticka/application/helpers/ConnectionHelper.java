@@ -143,7 +143,6 @@ public class ConnectionHelper {
 
                 if (e != null){
                     e.printStackTrace();
-                    Logger.Log("Response: 1 " + e.getMessage());
                     onGetResponse.notConnectToServer();
                 }
                 else if (result.equals("null")){
@@ -185,10 +184,9 @@ public class ConnectionHelper {
         AsyncHttpClient.getDefaultInstance().execute(post, new HttpConnectCallback() {
             @Override
             public void onConnectCompleted(Exception e, AsyncHttpResponse result) {
-                Logger.Log("Response: 0");
+
                 if (e != null){
                     e.printStackTrace();
-                    Logger.Log("Response: 1 " + e.getMessage());
                     onGetResponse.notConnectToServer();
                 }
                 else if (result.toString().equals("null")){

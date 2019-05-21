@@ -19,6 +19,9 @@ import com.ticka.application.adapters.CheckboxAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.HomeDataModel;
+import com.ticka.application.models.facility.FacilityData;
+
+import java.util.List;
 
 public class FacilitiesFragment extends Fragment implements BlockingStep {
 
@@ -40,11 +43,15 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
 
         recyclerView = root.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(
-                context, 2
+                context, 3
         ));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new CheckboxAdapter(context , databaseHelper.getFacilities());
+        List<FacilityData> facilityData = databaseHelper.getFacilities();
+
+        Logger.Log("facility: " + facilityData.size());
+
+        adapter = new CheckboxAdapter(context , facilityData);
         recyclerView.setAdapter(adapter);
 
         return root;
