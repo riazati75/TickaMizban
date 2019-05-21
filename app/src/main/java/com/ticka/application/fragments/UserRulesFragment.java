@@ -50,7 +50,7 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new CheckboxAdapter(context, null);
+        adapter = new CheckboxAdapter(context , CheckboxAdapter.RULES_TYPE);
         recyclerView.setAdapter(adapter);
 
         return root;

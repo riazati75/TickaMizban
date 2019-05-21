@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.ticka.application.R;
+import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.facility.FacilityData;
 
 import java.util.ArrayList;
@@ -19,13 +20,28 @@ import java.util.List;
 
 public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
 
+    public static final int FACILITY_TYPE = 12;
+    public static final int RULES_TYPE = 58;
+
     private LayoutInflater layoutInflater;
     private List<FacilityData> facilityData;
+    private DatabaseHelper databaseHelper;
     private List<Integer> selectedList = new ArrayList<>();
 
-    public CheckboxAdapter(Context context , List<FacilityData> facilityData) {
-        this.facilityData = facilityData;
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public CheckboxAdapter(Context context , int type) {
+        this.databaseHelper = DatabaseHelper.getInstance(context);
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        switch(type){
+
+            case FACILITY_TYPE:
+                this.facilityData = databaseHelper.getFacilities();
+                break;
+
+            case RULES_TYPE:
+                this.facilityData = databaseHelper.getFacilities();
+                break;
+        }
     }
 
     @NonNull

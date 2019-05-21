@@ -26,6 +26,7 @@ import java.util.List;
 public class FacilitiesFragment extends Fragment implements BlockingStep {
 
     private Context context;
+    private View root;
     private RecyclerView recyclerView;
     private CheckboxAdapter adapter;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
@@ -37,21 +38,21 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_fasilities, container, false);
+        root = inflater.inflate(R.layout.fragment_fasilities, container, false);
         context = container.getContext();
         databaseHelper = DatabaseHelper.getInstance(context);
 
         recyclerView = root.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(
-                context, 3
+                context, 2
         ));
         recyclerView.setHasFixedSize(true);
 
         List<FacilityData> facilityData = databaseHelper.getFacilities();
 
-        Logger.Log("facility: " + facilityData.size());
+        Logger.Log("facility: " + facilityData.get(12).getName());
 
-        adapter = new CheckboxAdapter(context , facilityData);
+        adapter = new CheckboxAdapter(context , CheckboxAdapter.FACILITY_TYPE);
         recyclerView.setAdapter(adapter);
 
         return root;

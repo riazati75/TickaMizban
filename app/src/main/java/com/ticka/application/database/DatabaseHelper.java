@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 
 import com.ticka.application.models.cities.City;
@@ -17,9 +18,9 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-//    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-//    private static final String DATABASE_NAME = path + "/Android/ticka.db";
-    private static final String DATABASE_NAME = "ticka.db";
+    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+    private static final String DATABASE_NAME = path + "/Android/ticka.db";
+    //private static final String DATABASE_NAME = "ticka.db";
     private static final int DATABASE_VERSION = 1;
 
     // Table name
