@@ -34,6 +34,17 @@ public class FacilityData implements Serializable {
     @Expose
     private String updatedAt;
 
+    public FacilityData(Integer id, String name, Object englishName, Object description,
+                        Object isRemoved, String createdAt, String updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.englishName = englishName;
+        this.description = description;
+        this.isRemoved = isRemoved;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public Integer getId() {
         return id;
     }

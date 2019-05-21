@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
 
 import com.ticka.application.models.cities.City;
+import com.ticka.application.models.facility.FacilityData;
 import com.ticka.application.models.states.State;
 
 import java.util.ArrayList;
@@ -62,6 +63,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return contentValues;
     }
 
+    public void insertFacility(List<FacilityData> facilityData){
+
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues contentValues = getContentValues();
+
+        for(int i = 0; i < facilityData.size(); i++){
+            contentValues.clear();
+            contentValues.put(FACILITY_ID, facilityData.get(i).getId());
+            contentValues.put(FACILITY_NAME, facilityData.get(i).getName());
+            database.insert(TABLE_FACILITY , null , contentValues);
+        }
+
+        database.close();
+    }
+
     public void insertStates(List<State> stateList){
 
         SQLiteDatabase database = getWritableDatabase();
@@ -91,6 +107,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         database.close();
+    }
+
+    @SuppressLint("Recycle")
+    public List<FacilityData> getFacilities(){
+
+        List<FacilityData> facilityData = new ArrayList<>();
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_FACILITY , null);
+
+        if(cursor.moveToFirst()){
+            do{
+
+                Integer id  = Integer.valueOf(cursor.getString(cursor.getColumnIndex(FACILITY_ID)));
+                String name = cursor.getString(cursor.getColumnIndex(FACILITY_NAME));
+
+                facilityData.add(
+                        new FacilityData(
+                                id,
+                                name ,
+                                null ,
+                                null ,
+                                null ,
+                                null ,
+                                null
+                        )
+                );
+            }
+            while(cursor.moveToNext());
+        }
+
+        database.close();
+        return facilityData;
     }
 
     @SuppressLint("Recycle")
