@@ -144,7 +144,7 @@
                     android:minLines="2"
                     android:padding="10dp"
                     android:textColorHint="@color/gray500"
-                    android:hint="مثل: کوچه و بلوار های فرعی"
+                    android:hint="مثل فاصله از موقعیت های خاص"
                     android:textColor="@color/colorBlack"
                     tools:ignore="Autofill,LabelFor" />
 

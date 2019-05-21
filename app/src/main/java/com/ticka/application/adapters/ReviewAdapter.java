@@ -19,7 +19,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holder> {
             "عنوان اقامتگاه:",
             "استان:",
             "شهر:",
-            "آدرس دقیق:",
+            "آدرس:",
             "معرفی اقامتگاه:",
             "نوع ساختمان:",
             "نوع منطقه ای:",

@@ -5,14 +5,14 @@
     <string name="general_title"><b><font color='#000'><font color="red">*</font> عنوان اقامتگاه :</font></b></string>
     <string name="general_state"><b><font color='#000'><font color="red">*</font> استان :</font></b></string>
     <string name="general_city"><b><font color='#000'><font color="red">*</font> شهر :</font></b></string>
-    <string name="general_address"><b><font color='#000'><font color="red">*</font> آدرس دقیق :</font></b></string>
-    <string name="general_description"><b><font color='#000'>توضیحات اختیاری :</font></b></string>
+    <string name="general_address"><b><font color='#000'><font color="red">*</font> آدرس :</font></b></string>
+    <string name="general_description"><b><font color='#000'>معرفی اختیاری :</font></b></string>
 
     <string name="capacity_1"><b><font color='#000'><font color="red">*</font> ظرفیت استاندارد :</font></b></string>
     <string name="capacity_2"><b><font color='#000'><font color="red">*</font> حداکثر ظرفیت :</font></b></string>
     <string name="capacity_3"><b><font color='#000'><font color="red">*</font> تعداد تخت خواب 1 نفره :</font></b></string>
     <string name="capacity_4"><b><font color='#000'><font color="red">*</font> تعداد تخت خواب 2 نفره :</font></b></string>
-    <string name="capacity_5"><b><font color='#000'><font color="red">*</font> تعداد تشک اضافه :</font></b></string>
+    <string name="capacity_5"><b><font color='#000'><font color="red">*</font> تعداد سرویس خواب اضافه :</font></b></string>
 
     <string name="minor_1"><b><font color='#000'><font color="red">*</font> حداقل شب و روز اقامت :</font></b></string>
     <string name="minor_2"><b><font color='#000'><font color="red">*</font> حداکثر شب و روز اقامت :</font></b></string>
