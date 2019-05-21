@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 
 import com.ticka.application.core.Logger;
@@ -16,6 +15,7 @@ import com.ticka.application.models.states.State;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -163,48 +163,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor;
 
         List<String> facilitiesList = new ArrayList<>();
-        int[] arrayInt = convert(array);
+        List<Integer> arrayInt = convert(array);
 
-        for(int i = 0; i < arrayInt.length; i++){
-            cursor = database.rawQuery("SELECT " + FACILITY_NAME + " FROM " + TABLE_FACILITY + " WHERE " + FACILITY_ID + " = " + arrayInt[i], null);
+        for(int i = 0; i < arrayInt.size(); i++){
+            cursor = database.rawQuery("SELECT " + FACILITY_NAME + " FROM " + TABLE_FACILITY + " WHERE " + FACILITY_ID + " = " + arrayInt.get(i), null);
             cursor.moveToFirst();
-
             String text = cursor.getString(cursor.getColumnIndex(FACILITY_NAME));
             Logger.Log(text);
-
             facilitiesList.add(text);
         }
 
-//        for(int i : arrayInt){
-//            cursor = database.rawQuery("SELECT " + FACILITY_NAME + " FROM " + TABLE_FACILITY + " WHERE " + FACILITY_ID + " = " + i, null);
-//            cursor.moveToFirst();
-//
-//            String text = cursor.getString(cursor.getColumnIndex(FACILITY_NAME));
-//            Logger.Log(text);
-//
-//            facilitiesList.add(text);
-//        }
         database.close();
         return facilitiesList;
     }
 
-    private int[] convert(String string) {
-
-        int all = Integer.parseInt(string.replaceAll("[\\D]",""));
-
-        Logger.Log(all);
-
-//        String textArray = string.replace("[" , "");
-//        textArray = textArray.replace("]" , "");
-//        textArray = textArray.replace(" " , "");
-//        textArray = textArray.replace("," , "");
-
-        String number = String.valueOf(all);
-        int[] facilities = new int[number.length()];
-        for(int i = 0; i < number.length(); i++) {
-            facilities[i] = Character.digit(number.charAt(i), 10);
+    private List<Integer> convert(String string) {
+        List<Integer> facilitiesList = new ArrayList<>();
+        String textArray = string.replace("[" , "");
+        textArray = textArray.replace("]" , "");
+        textArray = textArray.replace(" " , "");
+        StringTokenizer facility = new StringTokenizer(textArray, ",");
+        while (facility.hasMoreElements()) {
+            facilitiesList.add(Integer.valueOf(facility.nextElement().toString()));
         }
-        return facilities;
+        return facilitiesList;
     }
 
     @SuppressLint("Recycle")
