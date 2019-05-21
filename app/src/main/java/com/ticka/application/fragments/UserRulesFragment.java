@@ -42,12 +42,10 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
         setDialog();
 
         recyclerView = root.findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(
-                context, LinearLayoutManager.VERTICAL , false
-        ));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new CheckboxAdapter(context , null);
+        adapter = new CheckboxAdapter(context, null);
         recyclerView.setAdapter(adapter);
 
         return root;
@@ -62,19 +60,17 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
 
         if(!isReviewed){
             dialog.show();
-        }
-        else {
+        }else{
             Logger.Log(homesModel.parsData());
             callback.complete();
         }
     }
 
-    private void setDialog(){
+    private void setDialog() {
 
         dialog = new MaterialDialog.Builder(context)
-                .customView(R.layout.dialog_review_homes , false)
-                .autoDismiss(false)
-                .positiveText("تایید")
+                .customView(R.layout.dialog_review_homes, false)
+                .autoDismiss(false).positiveText("تایید")
                 .negativeText("لغو")
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
@@ -86,16 +82,17 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
                     public void onNegative(MaterialDialog dialog) {
                         isReviewed = false;
                     }
-                })
-                .build();
+                }).build();
 
         RecyclerView rv = (RecyclerView) dialog.findViewById(R.id.recycler);
         rv.setHasFixedSize(true);
-        rv.setLayoutManager(new LinearLayoutManager(
-                context , LinearLayoutManager.VERTICAL , false
-        ));
+        rv.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
         ReviewAdaptert ra = new ReviewAdaptert(context);
         rv.setAdapter(ra);
+
+        if(dialog.getWindow() != null){
+            dialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.dialog_background));
+        }
     }
 
     @Override
