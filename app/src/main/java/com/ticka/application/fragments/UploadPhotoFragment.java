@@ -238,6 +238,49 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 );
 
         APIInterface api = APIClient.getTESTClient();
+
+        Map<String , Object> request = new HashMap<>();
+        request.put("name"           , homesModel.getHomeTitle());
+        request.put("address"        , homesModel.getHomeAddress());
+        request.put("description"    , homesModel.getHomeDescription());
+        request.put("home_status_id" , homesModel.getHomeStateId());
+        request.put("city_id"        , homesModel.getHomeCityId());
+        request.put("home_type"      , homesModel.getBuildingType());
+        request.put("place_area"     , homesModel.getLocationType());
+        request.put("room_count"     , homesModel.getRoomNumber());
+        request.put("base_capacity"  , homesModel.getStandardCapacity());
+        request.put("max_capacity"   , homesModel.getMaximumCapacity());
+        request.put("single_bed"     , homesModel.getSingleBed());
+        request.put("double_bed"     , homesModel.getDoubleBed());
+        request.put("extra_bed"      , homesModel.getExtraBed());
+        request.put("facility_id"    , homesModel.getFacilitiesArray());
+        request.put("phone"          , homesModel.getPhone());
+        request.put("cellphone"      , cellphone);
+        request.put("src"            , homesModel.getPhotoArray());
+//        api.insertDate(request).enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//
+//                if(response.isSuccessful()){
+//                    Logger.Log("Success: " + response.body());
+//                }
+//                else {
+//                    Logger.Log("Error: " + response.body());
+//                }
+//
+//                progressDialog.dismiss();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//
+//                progressDialog.dismiss();
+//
+//                Logger.Log("Throwable: " + t.getMessage());
+//
+//            }
+//        });
+
         api.insertDate(
                 homesModel.getHomeTitle(),
                 homesModel.getHomeAddress(),
@@ -278,6 +321,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 Logger.Log("Throwable: " + t.getMessage());
             }
         });
+
     }
 
     private void setDialog() {

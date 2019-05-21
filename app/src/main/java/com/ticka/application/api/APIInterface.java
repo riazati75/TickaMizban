@@ -5,7 +5,7 @@ import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.models.facility.FacilityModel;
 import com.ticka.application.models.home.HomeModel;
 
-import org.json.JSONObject;
+import java.util.Map;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -16,6 +16,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 public interface APIInterface {
 
@@ -52,6 +53,11 @@ public interface APIInterface {
             @Field("cellphone") String cellphone,
             @Field("src") String src
     );
+
+    @POST(APIClient.URL_INSERT_HOME)
+    @Headers({"accept: application/json",
+            "Content-Type: application/json"})
+    Call<String> insertDate(@QueryMap(encoded=true) Map<String, Object> options);
 
     @GET(APIClient.URL_GET_HOME)
     @Headers({"accept: application/json",

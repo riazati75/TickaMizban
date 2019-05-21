@@ -191,6 +191,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
         }
         else {
             homesModel.setHomeTitle(title);
+            homesModel.setPhone(phone);
             homesModel.setHomeAddress(address);
             homesModel.setHomeDescription(desc);
             homesModel.setHomeStateId(stateIdSelected);
