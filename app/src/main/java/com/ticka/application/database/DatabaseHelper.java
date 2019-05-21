@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 
+import com.ticka.application.core.Logger;
 import com.ticka.application.models.cities.City;
 import com.ticka.application.models.facility.FacilityData;
 import com.ticka.application.models.states.State;
@@ -18,9 +19,9 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-    private static final String DATABASE_NAME = path + "/Android/ticka.db";
-    //private static final String DATABASE_NAME = "ticka.db";
+//    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+//    private static final String DATABASE_NAME = path + "/Android/ticka.db";
+    private static final String DATABASE_NAME = "ticka.db";
     private static final int DATABASE_VERSION = 1;
 
     // Table name
@@ -153,6 +154,57 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         database.close();
         return facilityData;
+    }
+
+    @SuppressLint("Recycle")
+    public List<String> getFacilitiesById(String array){
+
+        SQLiteDatabase database = getReadableDatabase();
+        Cursor cursor;
+
+        List<String> facilitiesList = new ArrayList<>();
+        int[] arrayInt = convert(array);
+
+        for(int i = 0; i < arrayInt.length; i++){
+            cursor = database.rawQuery("SELECT " + FACILITY_NAME + " FROM " + TABLE_FACILITY + " WHERE " + FACILITY_ID + " = " + arrayInt[i], null);
+            cursor.moveToFirst();
+
+            String text = cursor.getString(cursor.getColumnIndex(FACILITY_NAME));
+            Logger.Log(text);
+
+            facilitiesList.add(text);
+        }
+
+//        for(int i : arrayInt){
+//            cursor = database.rawQuery("SELECT " + FACILITY_NAME + " FROM " + TABLE_FACILITY + " WHERE " + FACILITY_ID + " = " + i, null);
+//            cursor.moveToFirst();
+//
+//            String text = cursor.getString(cursor.getColumnIndex(FACILITY_NAME));
+//            Logger.Log(text);
+//
+//            facilitiesList.add(text);
+//        }
+        database.close();
+        return facilitiesList;
+    }
+
+    private int[] convert(String string) {
+
+        int all = Integer.parseInt(string.replaceAll("[\\D]",""));
+
+        Logger.Log(all);
+
+//        String textArray = string.replace("[" , "");
+//        textArray = textArray.replace("]" , "");
+//        textArray = textArray.replace(" " , "");
+//        textArray = textArray.replace("," , "");
+
+        String number = String.valueOf(all);
+        int[] facilities = new int[number.length()];
+        for(int i = 0; i < number.length(); i++) {
+            facilities[i] = Character.digit(number.charAt(i), 10);
+        }
+        return facilities;
     }
 
     @SuppressLint("Recycle")

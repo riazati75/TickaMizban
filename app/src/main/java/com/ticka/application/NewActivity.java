@@ -42,6 +42,7 @@ public class NewActivity extends OptionActivity {
     protected void init() {
 
         databaseHelper = DatabaseHelper.getInstance(this);
+        setOfflineCity();
         getFacility();
 
         root = findViewById(R.id.root);
@@ -102,7 +103,6 @@ public class NewActivity extends OptionActivity {
 
                 if(response.isSuccessful()){
                     databaseHelper.insertFacility(response.body().getData());
-                    setOfflineCity();
                 }
             }
 

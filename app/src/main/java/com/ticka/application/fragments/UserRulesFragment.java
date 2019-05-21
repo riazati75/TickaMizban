@@ -23,6 +23,8 @@ import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.helpers.BuildingHelper;
 import com.ticka.application.models.HomeDataModel;
 
+import java.util.List;
+
 public class UserRulesFragment extends Fragment implements BlockingStep {
 
     private Context context;
@@ -58,12 +60,22 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+
     }
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
 
         if(!isReviewed){
+
+            String facilities = "";
+            String rules = "";
+
+            List<String> facilitiesList = databaseHelper.getFacilitiesById(homesModel.getFacilitiesArray());
+            for(int i = 0; i < facilitiesList.size(); i++){
+                facilities = facilities + facilitiesList.get(i) + " , ";
+            }
+
             String[] values = {
                     homesModel.getHomeTitle(),
                     databaseHelper.getStateNameById(homesModel.getHomeStateId()),
@@ -81,9 +93,9 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
                     homesModel.getDoubleBed() + " تخت",
                     homesModel.getExtraBed() + " دست",
                     homesModel.getCapacityDescription(),
+                    facilities,
                     homesModel.getFacilitiesDescription(),
-                    homesModel.getFacilitiesDescription(),
-                    homesModel.getRuleDescription(),
+                    rules,
                     homesModel.getRuleDescription()
             };
             showDialog(values);

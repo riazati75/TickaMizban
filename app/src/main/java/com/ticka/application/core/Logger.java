@@ -8,4 +8,23 @@ public class Logger {
         Log.d("CentralCore" , msg);
     }
 
+    public static void Log(int msg){
+        Log.d("CentralCore" , String.valueOf(msg));
+    }
+
+    public static void Log(float msg){
+        Log.d("CentralCore" , String.valueOf(msg));
+    }
+
+    public static void Log(long msg){
+        Log.d("CentralCore" , String.valueOf(msg));
+    }
+
+    public static void Log(double msg){
+        Log.d("CentralCore" , String.valueOf(msg));
+    }
+
+    public static void Log(short msg){
+        Log.d("CentralCore" , String.valueOf(msg));
+    }
 }

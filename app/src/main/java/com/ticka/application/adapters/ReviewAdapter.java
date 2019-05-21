@@ -35,7 +35,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.Holder> {
             "امکانات:",
             "توضیحات امکانات:",
             "قوانین:",
-            "ظرفیت قوانین:"
+            "توضیحات قوانین:"
     };
 
     public ReviewAdapter(Context context , String[] values) {

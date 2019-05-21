@@ -20,6 +20,8 @@ import com.ticka.application.adapters.CheckboxAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomeDataModel;
 
+import java.util.Arrays;
+
 public class FacilitiesFragment extends Fragment implements BlockingStep {
 
     private Context context;
