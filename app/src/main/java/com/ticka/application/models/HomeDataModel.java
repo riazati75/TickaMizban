@@ -17,6 +17,7 @@ public class HomeDataModel implements Serializable {
     private Integer homeStateId = -1;
     private Integer homeCityId = -1;
     private String homeAddress = "";
+    private String phone = "";
     private String homeDescription = "";
     private Integer buildingType = -1;
     private Integer locationType = -1;
@@ -56,6 +57,14 @@ public class HomeDataModel implements Serializable {
 
     public void setHomeCityId(Integer homeCityId) {
         this.homeCityId = homeCityId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getHomeAddress() {

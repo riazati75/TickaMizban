@@ -10,7 +10,7 @@ public class UserHelper {
     private SPUtils spUtils;
 
     private static final String KEY_USER_IS_JOIN  = "userIsJoin";
-    private static final String KEY_USER_PHONE    = "userPhone";
+    public  static final String KEY_USER_PHONE    = "userPhone";
     private static final String KEY_USER_TOKEN    = "userToken";
     private static final String KEY_REFRESH_TOKEN = "refreshToken";
 

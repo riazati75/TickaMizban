@@ -29,11 +29,14 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.AddPhotoAdapter;
 import com.ticka.application.adapters.ReviewAdapter;
+import com.ticka.application.api.APIClient;
+import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.helpers.BuildingHelper;
 import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.utils.JSONUtils;
+import com.ticka.application.utils.SPUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +48,11 @@ import java.util.List;
 import java.util.Map;
 
 import ir.farsroidx.StringImageUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.ticka.application.helpers.UserHelper.KEY_USER_PHONE;
 
 public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
@@ -223,6 +231,53 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
         progressDialog.show();
 
+        String cellphone = SPUtils.getInstance(context)
+                .readString(
+                        KEY_USER_PHONE,
+                        ""
+                );
+
+        APIInterface api = APIClient.getTESTClient();
+        api.insertDate(
+                homesModel.getHomeTitle(),
+                homesModel.getHomeAddress(),
+                homesModel.getHomeDescription(),
+                homesModel.getHomeStateId(),
+                homesModel.getHomeCityId(),
+                homesModel.getBuildingType(),
+                homesModel.getLocationType(),
+                homesModel.getRoomNumber(),
+                homesModel.getStandardCapacity(),
+                homesModel.getMaximumCapacity(),
+                homesModel.getSingleBed(),
+                homesModel.getDoubleBed(),
+                homesModel.getExtraBed(),
+                homesModel.getFacilitiesArray(),
+                homesModel.getPhone(),
+                cellphone,
+                homesModel.getPhotoArray()
+        ).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+                if(response.isSuccessful()){
+                    Logger.Log("Success: " + response.body());
+                }
+                else {
+                    Logger.Log("Error: " + response.body());
+                }
+
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+                progressDialog.dismiss();
+
+                Logger.Log("Throwable: " + t.getMessage());
+            }
+        });
     }
 
     private void setDialog() {
