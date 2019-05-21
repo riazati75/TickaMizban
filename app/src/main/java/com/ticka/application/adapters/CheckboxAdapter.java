@@ -1,5 +1,6 @@
 package com.ticka.application.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.ticka.application.R;
+import com.ticka.application.models.facility.FacilityData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +22,13 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<String> list;
-    private List<String> selectedList = new ArrayList<>();
+    private List<FacilityData> facilityData;
+    private List<Integer> selectedList = new ArrayList<>();
 
-    public CheckboxAdapter(Context context , @Nullable List<String> list) {
+    public CheckboxAdapter(Context context , @Nullable List<FacilityData> facilityData) {
         this.context = context;
+        this.facilityData = facilityData;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.list = list;
     }
 
     @NonNull
@@ -36,21 +38,19 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VH vh, final int position) {
+    public void onBindViewHolder(@NonNull VH vh, @SuppressLint("RecyclerView") final int position) {
 
-        final String text = "آیتم " + position;
-
-        vh.title.setText(text);
+        vh.title.setText(facilityData.get(position).getName());
 
         vh.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked){
-                    selectedList.add(text);
+                    selectedList.add(facilityData.get(position).getId());
                 }
                 else {
-                    selectedList.remove(text);
+                    selectedList.remove(facilityData.get(position).getId());
                 }
             }
         });
@@ -58,11 +58,10 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
 
     @Override
     public int getItemCount() {
-        //return list.size();
-        return 12;
+        return facilityData.size();
     }
 
-    public List<String> getSelectedList() {
+    public List<Integer> getSelectedList() {
         return selectedList;
     }
 

@@ -6,14 +6,20 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.google.gson.Gson;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.adapters.StepperAdapter;
 import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
+import com.ticka.application.core.CentralCore;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.database.DatabaseHelper;
+import com.ticka.application.models.cities.CitiesModel;
 import com.ticka.application.models.facility.FacilityModel;
+import com.ticka.application.models.states.StatesModel;
+import com.ticka.application.utils.JSONUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -80,6 +86,13 @@ public class NewActivity extends OptionActivity {
         });
     }
 
+    private void setOfflineCity(){
+        String states = JSONUtils.openJsonFromAssets(this , "json/states.json");
+        String cities = JSONUtils.openJsonFromAssets(this , "json/cities.json");
+        databaseHelper.insertStates(CentralCore.getGson().fromJson(states , StatesModel.class).getStates());
+        databaseHelper.insertCities(CentralCore.getGson().fromJson(cities , CitiesModel.class).getCities());
+    }
+
     private void getFacility(){
 
         APIInterface api = APIClient.getTESTClient();
@@ -89,6 +102,7 @@ public class NewActivity extends OptionActivity {
 
                 if(response.isSuccessful()){
                     databaseHelper.insertFacility(response.body().getData());
+                    setOfflineCity();
                 }
             }
 

@@ -17,6 +17,7 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.CheckboxAdapter;
 import com.ticka.application.core.Logger;
+import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.HomeDataModel;
 
 public class FacilitiesFragment extends Fragment implements BlockingStep {
@@ -25,6 +26,7 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
     private RecyclerView recyclerView;
     private CheckboxAdapter adapter;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
+    private DatabaseHelper databaseHelper;
 
     public FacilitiesFragment() {
         // Required empty public constructor
@@ -34,6 +36,7 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_fasilities, container, false);
         context = container.getContext();
+        databaseHelper = DatabaseHelper.getInstance(context);
 
         recyclerView = root.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new GridLayoutManager(
@@ -41,7 +44,7 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
         ));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new CheckboxAdapter(context , null);
+        adapter = new CheckboxAdapter(context , databaseHelper.getFacilities());
         recyclerView.setAdapter(adapter);
 
         return root;

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 
 import com.ticka.application.models.cities.City;
@@ -18,8 +17,9 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-    private static final String DATABASE_NAME = path + "/Android/ticka.db";
+//    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+//    private static final String DATABASE_NAME = path + "/Android/ticka.db";
+    private static final String DATABASE_NAME = "ticka.db";
     private static final int DATABASE_VERSION = 1;
 
     // Table name
@@ -126,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do{
 
-                Integer id  = Integer.valueOf(cursor.getString(cursor.getColumnIndex(FACILITY_ID)));
+                Integer id  = cursor.getInt(cursor.getColumnIndex(FACILITY_ID));
                 String name = cursor.getString(cursor.getColumnIndex(FACILITY_NAME));
 
                 facilityData.add(
@@ -226,7 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void createTableFacility(SQLiteDatabase db){
 
         db.execSQL("CREATE TABLE " + TABLE_FACILITY + " (" + FACILITY_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
-                FACILITY_ID + " TEXT ," +
+                FACILITY_ID + " INTEGER ," +
                 FACILITY_NAME + " TEXT " +
                 ")");
     }
