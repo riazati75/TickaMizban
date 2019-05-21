@@ -1,7 +1,6 @@
 package com.ticka.application.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class HomeDataModel implements Serializable {
 
@@ -14,29 +13,27 @@ public class HomeDataModel implements Serializable {
         return homesModel;
     }
 
-    private String homeTitle;
-    private Integer homeStateId;
-    private Integer homeCityId;
-    private String homeAddress;
-    private String homeDescription;
-    private Integer buildingType;
+    private String homeTitle = "";
+    private Integer homeStateId = -1;
+    private Integer homeCityId = -1;
+    private String homeAddress = "";
+    private String homeDescription = "";
+    private Integer buildingType = -1;
     private Integer locationType;
     private Integer roomNumber;
     private Integer landArea;
     private Integer buildingArea;
-    private String photoLocation1;
-    private String photoLocation2;
-    private String photoLocation3;
+    private String photoArray = "";
     private Integer standardCapacity;
     private Integer maximumCapacity;
     private Integer singleBed;
     private Integer doubleBed;
     private Integer extraBed;
-    private String capacityDescription;
-    private List<Integer> possibilitiesList;
-    private String possibilitiesDescription;
-    private List<Integer> rulesList;
-    private String ruleDescription;
+    private String capacityDescription = "";
+    private String possibilitiesList = "";
+    private String possibilitiesDescription = "";
+    private String rulesList = "";
+    private String ruleDescription = "";
 
     public String getHomeTitle() {
         return homeTitle;
@@ -118,28 +115,12 @@ public class HomeDataModel implements Serializable {
         this.buildingArea = buildingArea;
     }
 
-    public String getPhotoLocation1() {
-        return photoLocation1;
+    public String getPhotoArray() {
+        return photoArray;
     }
 
-    public void setPhotoLocation1(String photoLocation1) {
-        this.photoLocation1 = photoLocation1;
-    }
-
-    public String getPhotoLocation2() {
-        return photoLocation2;
-    }
-
-    public void setPhotoLocation2(String photoLocation2) {
-        this.photoLocation2 = photoLocation2;
-    }
-
-    public String getPhotoLocation3() {
-        return photoLocation3;
-    }
-
-    public void setPhotoLocation3(String photoLocation3) {
-        this.photoLocation3 = photoLocation3;
+    public void setPhotoArray(String photoArray) {
+        this.photoArray = photoArray;
     }
 
     public Integer getStandardCapacity() {
@@ -190,11 +171,11 @@ public class HomeDataModel implements Serializable {
         this.capacityDescription = capacityDescription;
     }
 
-    public List<Integer> getPossibilitiesList() {
+    public String getPossibilitiesList() {
         return possibilitiesList;
     }
 
-    public void setPossibilitiesList(List<Integer> possibilitiesList) {
+    public void setPossibilitiesList(String possibilitiesList) {
         this.possibilitiesList = possibilitiesList;
     }
 
@@ -206,11 +187,11 @@ public class HomeDataModel implements Serializable {
         this.possibilitiesDescription = possibilitiesDescription;
     }
 
-    public List<Integer> getRulesList() {
+    public String getRulesList() {
         return rulesList;
     }
 
-    public void setRulesList(List<Integer> rulesList) {
+    public void setRulesList(String rulesList) {
         this.rulesList = rulesList;
     }
 
@@ -234,9 +215,7 @@ public class HomeDataModel implements Serializable {
                 "', roomNumber=" + roomNumber +
                 ", landArea=" + landArea +
                 ", buildingArea=" + buildingArea +
-                ", photoLocation1='" + photoLocation1 +
-                "', photoLocation2='" + photoLocation2 +
-                "', photoLocation3='" + photoLocation3 +
+                ", photoArray='" + photoArray +
                 "', standardCapacity=" + standardCapacity +
                 ", maximumCapacity=" + maximumCapacity +
                 ", singleBed=" + singleBed +
