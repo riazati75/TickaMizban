@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 
 import com.ticka.application.models.cities.City;
@@ -17,7 +18,8 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "ticka.db";
+    private static String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+    private static final String DATABASE_NAME = path + "/Android/ticka.db";
     private static final int DATABASE_VERSION = 1;
 
     // Table name
@@ -64,6 +66,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertFacility(List<FacilityData> facilityData){
+
+        deleteTableFacility(getWritableDatabase());
+        createTableFacility(getWritableDatabase());
 
         SQLiteDatabase database = getWritableDatabase();
         ContentValues contentValues = getContentValues();
@@ -218,18 +223,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return stateList;
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
+    private void createTableFacility(SQLiteDatabase db){
 
         db.execSQL("CREATE TABLE " + TABLE_FACILITY + " (" + FACILITY_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
                 FACILITY_ID + " TEXT ," +
                 FACILITY_NAME + " TEXT " +
                 ")");
+    }
+
+    private void createTableState(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + TABLE_STATE + " (" + STATE_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
                 STATE_ID + " TEXT ," +
                 STATE_NAME + " TEXT " +
                 ")");
+    }
+
+    private void createTableCity(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + TABLE_CITY + " (" + CITY_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
                 CITY_STATE_ID + " TEXT ," +
@@ -239,11 +249,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    public void onCreate(SQLiteDatabase db) {
+        createTableFacility(db);
+        createTableState(db);
+        createTableCity(db);
+    }
+
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if(newVersion > oldVersion){
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_CITY);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATE);
+            deleteTableFacility(db);
+            deleteTableState(db);
+            deleteTableCity(db);
             onCreate(db);
         }
+    }
+
+    private void deleteTableFacility(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FACILITY);
+    }
+
+    private void deleteTableState(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STATE);
+    }
+
+    private void deleteTableCity(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CITY);
     }
 }
