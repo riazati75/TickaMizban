@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -54,7 +55,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     private static final int PICK_PHOTO_REQUEST = 100;
 
-    private Context context;
+    private AppCompatActivity context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
     private BuildingHelper buildingHelper = BuildingHelper.getInstance();
     private DatabaseHelper databaseHelper;
@@ -76,7 +77,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upload_photo, container, false);
-        context = container.getContext();
+        context = (AppCompatActivity) container.getContext();
         databaseHelper = DatabaseHelper.getInstance(context);
         initViews(view);
         setDialog();
@@ -227,7 +228,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
         progressDialog.show();
 
-        String cellphone = SPUtils.getInstance(context)
+        final String cellphone = SPUtils.getInstance(context)
                 .readString(
                         KEY_USER_PHONE,
                         ""
@@ -263,8 +264,13 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     @Override
                     public void onSuccessResponse(String result) {
                         progressDialog.dismiss();
-                        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
-                        Logger.Log("Response: " + result);
+
+                        if(result.contains("")){
+                            Intent intent = new Intent();
+                            intent.putExtra("callback" , "ok");
+                            context.setResult(Activity.RESULT_OK , intent);
+                            context.finish();
+                        }
                     }
 
                     @Override

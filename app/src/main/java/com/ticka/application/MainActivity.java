@@ -1,8 +1,10 @@
 package com.ticka.application;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.transition.Fade;
 import android.view.View;
@@ -21,6 +23,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends OptionActivity {
+
+    private static final int REQUEST_CODE = 1080;
 
     private FloatingActionButton fab;
 
@@ -51,10 +55,10 @@ public class MainActivity extends OptionActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(
+                startActivityForResult(
                         new Intent(
                                 MainActivity.this , NewActivity.class
-                        )
+                        ),REQUEST_CODE
                 );
             }
         });
@@ -84,6 +88,13 @@ public class MainActivity extends OptionActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            Toast.makeText(this, "اطلاعات ثبت و برای بازبینی ارسال شد", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
