@@ -1,6 +1,5 @@
 package com.ticka.application.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,13 +15,9 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
-import com.ticka.application.core.Logger;
-import com.ticka.application.models.HomeDataModel;
 
 public class RulesFragment extends Fragment implements BlockingStep{
 
-    private Context context;
-    private HomeDataModel homesModel = HomeDataModel.getInstance();
     private boolean isDone = false;
 
     public RulesFragment() {
@@ -32,7 +27,6 @@ public class RulesFragment extends Fragment implements BlockingStep{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rules, container, false);
-        context = container.getContext();
         initViews(view);
         return view;
     }
@@ -53,7 +47,7 @@ public class RulesFragment extends Fragment implements BlockingStep{
             callback.goToNextStep();
         }
         else {
-            Toast.makeText(context, "ابتدا شرایط را کامل مطالعه و قبول کنید", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "ابتدا شرایط را کامل مطالعه و قبول کنید", Toast.LENGTH_SHORT).show();
         }
     }
 

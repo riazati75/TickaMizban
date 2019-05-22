@@ -1,6 +1,5 @@
 package com.ticka.application.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,10 +18,6 @@ import com.ticka.application.adapters.CheckboxAdapter;
 
 public class UserRulesFragment extends Fragment implements BlockingStep {
 
-    private Context context;
-    private RecyclerView recyclerView;
-    private CheckboxAdapter adapter;
-
     public UserRulesFragment() {
         // Required empty public constructor
     }
@@ -31,13 +26,12 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_user_rules, container, false);
-        context = container.getContext();
 
-        recyclerView = root.findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+        RecyclerView recyclerView = root.findViewById(R.id.recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new CheckboxAdapter(context , CheckboxAdapter.RULES_TYPE);
+        CheckboxAdapter adapter = new CheckboxAdapter(getContext(), CheckboxAdapter.RULES_TYPE);
         recyclerView.setAdapter(adapter);
 
         return root;

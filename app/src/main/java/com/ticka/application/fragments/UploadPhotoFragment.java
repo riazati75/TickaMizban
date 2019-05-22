@@ -2,7 +2,6 @@ package com.ticka.application.fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -77,7 +76,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_upload_photo, container, false);
-        context = (AppCompatActivity) container.getContext();
+        context = (AppCompatActivity) getContext();
         databaseHelper = DatabaseHelper.getInstance(context);
         initViews(view);
         setDialog();

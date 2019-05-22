@@ -1,6 +1,5 @@
 package com.ticka.application.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,9 +19,7 @@ import com.ticka.application.custom.ValueChanger;
 
 public class CapacityFragment extends Fragment implements BlockingStep {
 
-    private Context context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
-    private TextView ca1 , ca2 , ca3 , ca4 , ca5 , description;
     private ValueChanger c1 , c2 , c3 , c4 , c5;
 
     public CapacityFragment() {
@@ -32,7 +29,6 @@ public class CapacityFragment extends Fragment implements BlockingStep {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_capacity, container, false);
-        context = container.getContext();
         initViews(view);
         init();
         return view;
@@ -40,12 +36,12 @@ public class CapacityFragment extends Fragment implements BlockingStep {
 
     private void initViews(View view){
 
-        ca1 = view.findViewById(R.id.ca1);
-        ca2 = view.findViewById(R.id.ca2);
-        ca3 = view.findViewById(R.id.ca3);
-        ca4 = view.findViewById(R.id.ca4);
-        ca5 = view.findViewById(R.id.ca5);
-        description = view.findViewById(R.id.description);
+        TextView ca1 = view.findViewById(R.id.ca1);
+        TextView ca2 = view.findViewById(R.id.ca2);
+        TextView ca3 = view.findViewById(R.id.ca3);
+        TextView ca4 = view.findViewById(R.id.ca4);
+        TextView ca5 = view.findViewById(R.id.ca5);
+        TextView description = view.findViewById(R.id.description);
 
         ca1.setText(R.string.capacity_1);
         ca2.setText(R.string.capacity_2);
@@ -82,7 +78,6 @@ public class CapacityFragment extends Fragment implements BlockingStep {
         callback.goToPrevStep();
     }
 
-    @Nullable
     @Override
     public VerificationError verifyStep() {
         homesModel.setStandardCapacity(c1.getValue());

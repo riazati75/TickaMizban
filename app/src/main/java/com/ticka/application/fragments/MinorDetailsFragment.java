@@ -1,6 +1,5 @@
 package com.ticka.application.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,12 +28,10 @@ import java.util.List;
 
 public class MinorDetailsFragment extends Fragment implements BlockingStep {
 
-    private Context context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
     private EditText buildingArea , landArea;
     private Spinner spLocation, spType;
     private ValueChanger roomsCounter;
-    private TextView ca1 , ca2;
     private int typeIdSelected = -1 , locationIdSelected = -1;
     private BuildingHelper buildingHelper = BuildingHelper.getInstance();
 
@@ -46,7 +43,6 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_minor_details, container, false);
-        context = container.getContext();
 
         initViews(view);
         init();
@@ -61,11 +57,11 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
         roomsCounter = view.findViewById(R.id.roomsCounter);
         spLocation   = view.findViewById(R.id.spLeft);
         spType       = view.findViewById(R.id.spRight);
-        ca1          = view.findViewById(R.id.ca1);
-        ca2          = view.findViewById(R.id.ca2);
+        TextView ca1 = view.findViewById(R.id.ca1);
+        TextView ca2 = view.findViewById(R.id.ca2);
 
-        spLocation.setAdapter(new StateCityAdapter(context , getList(buildingHelper.getBuildingLocation())));
-        spType.setAdapter(new StateCityAdapter(context , getList(buildingHelper.getBuildingType())));
+        spLocation.setAdapter(new StateCityAdapter(getContext() , getList(buildingHelper.getBuildingLocation())));
+        spType.setAdapter(new StateCityAdapter(getContext() , getList(buildingHelper.getBuildingType())));
 
         spLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

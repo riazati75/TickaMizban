@@ -14,7 +14,6 @@ import com.ticka.application.fragments.CapacityFragment;
 import com.ticka.application.fragments.GeneralDetailsFragment;
 import com.ticka.application.fragments.MinorDetailsFragment;
 import com.ticka.application.fragments.FacilitiesFragment;
-import com.ticka.application.fragments.PriceFragment;
 import com.ticka.application.fragments.RulesFragment;
 import com.ticka.application.fragments.UploadPhotoFragment;
 import com.ticka.application.fragments.UserRulesFragment;
@@ -80,13 +79,6 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                 b7.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step7.setArguments(b7);
                 return step7;
-
-            case 7:
-                PriceFragment step8 = new PriceFragment();
-                Bundle b8 = new Bundle();
-                b8.putInt(CURRENT_STEP_POSITION_KEY, position);
-                step8.setArguments(b8);
-                return step8;
         }
 
         return null;
@@ -151,13 +143,6 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
                     .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
                     .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
                     .create();
-
-            case 7: return new StepViewModel.Builder(context)
-                        .setTitle("قیمت گذاری")
-                        .setSubtitle("قیمت گذاری برای رزرو اقامتگاه")
-                        .setNextButtonEndDrawableResId(R.drawable.icon_arrow_right)
-                        .setBackButtonStartDrawableResId(R.drawable.icon_arrow_left)
-                        .create();
 
             default: return null;
         }

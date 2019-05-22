@@ -1,6 +1,5 @@
 package com.ticka.application.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,7 +28,6 @@ import java.util.List;
 
 public class GeneralDetailsFragment extends Fragment implements BlockingStep {
 
-    private Context context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
     private TextView title , state , city , phone , address , description;
     private Spinner stateList , cityList;
@@ -44,8 +42,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_general_details, container, false);
-        context = container.getContext();
-        databaseHelper = DatabaseHelper.getInstance(context);
+        databaseHelper = DatabaseHelper.getInstance(getContext());
 
         initViews(view);
         init();
@@ -97,7 +94,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             list.add(databaseHelperStates.get(i).getName());
         }
 
-        stateList.setAdapter(new StateCityAdapter(context , list));
+        stateList.setAdapter(new StateCityAdapter(getContext() , list));
         stateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -129,7 +126,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             list.add(databaseHelperCities.get(i).getName());
         }
 
-        cityList.setAdapter(new StateCityAdapter(context , list));
+        cityList.setAdapter(new StateCityAdapter(getContext() , list));
         cityList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

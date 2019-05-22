@@ -1,6 +1,5 @@
 package com.ticka.application.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,11 +19,8 @@ import com.ticka.application.adapters.CheckboxAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomeDataModel;
 
-import java.util.Arrays;
-
 public class FacilitiesFragment extends Fragment implements BlockingStep {
 
-    private Context context;
     private View root;
     private RecyclerView recyclerView;
     private EditText inputDescription;
@@ -38,7 +34,6 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_fasilities, container, false);
-        context = container.getContext();
         initView();
         initRecyclerView();
         return root;
@@ -52,11 +47,11 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
     private void initRecyclerView(){
 
         recyclerView.setLayoutManager(new GridLayoutManager(
-                context, 2
+                getContext(), 2
         ));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new CheckboxAdapter(context , CheckboxAdapter.FACILITY_TYPE);
+        adapter = new CheckboxAdapter(getContext() , CheckboxAdapter.FACILITY_TYPE);
         recyclerView.setAdapter(adapter);
 
     }
