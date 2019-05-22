@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 
 import com.koushikdutta.async.http.AsyncHttpClient;
+import com.koushikdutta.async.http.AsyncHttpGet;
 import com.koushikdutta.async.http.AsyncHttpPost;
+import com.koushikdutta.async.http.AsyncHttpRequest;
 import com.koushikdutta.async.http.AsyncHttpResponse;
 import com.koushikdutta.async.http.Headers;
 import com.koushikdutta.async.http.body.MultipartFormDataBody;
@@ -23,67 +25,114 @@ public class ConnectionHelper {
 
     public static final String METHOD_POST = "POST";
     public static final String METHOD_GET  = "GET";
-    public static final String METHOD_HEAD = "HEAD";
 
     private int timeOut;
+    private String requestMethod;
+    private AsyncHttpRequest asyncHttpRequest;
     private MultipartFormDataBody body;
-    private AsyncHttpPost post;
-    private Handler handler = new Handler();
+    private AsyncHttpPost post = null;
+    private AsyncHttpGet get = null;
+    private Handler handler;
 
-    public ConnectionHelper(@NonNull String configUrl , int timeOut){
+    public ConnectionHelper(@NonNull String configUrl , int timeOut , @ConnectionMethod String requestMethod){
         this.timeOut = timeOut;
-        this.post = new AsyncHttpPost(configUrl);
+        this.requestMethod = requestMethod;
+        initMethod(configUrl,requestMethod);
         this.body = new MultipartFormDataBody();
+        this.handler = new Handler();
     }
 
-    public ConnectionHelper setProxyRequest(String host , int port){
+    private void initMethod(String configUrl , @ConnectionMethod String requestMethod){
+
+        switch(requestMethod){
+
+            case METHOD_POST:
+                this.post = new AsyncHttpPost(configUrl);
+                break;
+
+            case METHOD_GET:
+                this.get = new AsyncHttpGet(configUrl);
+                break;
+        }
+    }
+
+    public void setProxyRequest(String host , int port){
         this.post.enableProxy(host , port);
-        return this;
     }
 
-    public ConnectionHelper setMethodRequest(@ConnectionMethod String method){
-        this.post.setMethod(method);
-        return this;
+    public void setMethodRequest(@ConnectionMethod String method){
+        this.asyncHttpRequest.setMethod(method);
     }
 
-    public ConnectionHelper setHeaderRequest(String name , String value){
-        this.post.setHeader(name , value);
-        return this;
+    public void setHeaderRequest(String name , String value){
+        this.asyncHttpRequest.setHeader(name , value);
     }
 
-    public ConnectionHelper addHeaderRequest(String key , String value){
-        this.post.addHeader(key , value);
-        return this;
+    public void addHeaderRequest(String key , String value){
+        this.asyncHttpRequest.addHeader(key , value);
     }
 
     public ConnectionHelper addRequest(Headers headers){
-        this.body.addPart(new Part(headers));
+
+        if(requestMethod.equals(METHOD_POST)){
+            this.body.addPart(new Part(headers));
+        }
+        else {
+            throw new UnsupportedOperationException("can't use this method on a request method of GET");
+        }
         return this;
     }
 
     public ConnectionHelper addRequest(Part part){
-        this.body.addPart(part);
+        if(requestMethod.equals(METHOD_POST)){
+            this.body.addPart(part);
+        }
+        else {
+            throw new UnsupportedOperationException("can't use this method on a request method of GET");
+        }
         return this;
     }
 
     public ConnectionHelper addStringRequest(String key , String value){
-        this.body.addStringPart(key , value);
+        if(requestMethod.equals(METHOD_POST)){
+            this.body.addStringPart(key , value);
+        }
+        else {
+            throw new UnsupportedOperationException("can't use this method on a request method of GET");
+        }
         return this;
     }
 
     public ConnectionHelper addFileRequest(String key , String path){
-        this.body.addFilePart(key , new File(path));
+        if(requestMethod.equals(METHOD_POST)){
+            this.body.addFilePart(key , new File(path));
+        }
+        else {
+            throw new UnsupportedOperationException("can't use this method on a request method of GET");
+        }
         return this;
     }
 
     public ConnectionHelper addFileRequest(String key , File file){
-        this.body.addFilePart(key , file);
+        if(requestMethod.equals(METHOD_POST)){
+            this.body.addFilePart(key , file);
+        }
+        else {
+            throw new UnsupportedOperationException("can't use this method on a request method of GET");
+        }
         return this;
     }
 
-    private ConnectionHelper disableProxy(){
-        this.post.disableProxy();
-        return this;
+    public void disableProxy(){
+        this.asyncHttpRequest.disableProxy();
+    }
+
+    public void enableProxy(String host , int port){
+        this.asyncHttpRequest.enableProxy(host,port);
+    }
+
+    public String getRequestMethod(){
+        return this.asyncHttpRequest.getMethod();
     }
 
     public void getStringResponse(final OnStringResponse onStringResponse) {
@@ -91,7 +140,9 @@ public class ConnectionHelper {
         this.post.setTimeout(timeOut);
         this.post.setBody(body);
 
-        AsyncHttpClient.getDefaultInstance().executeString(post, new AsyncHttpClient.StringCallback() {
+        this.asyncHttpRequest = post;
+
+        AsyncHttpClient.getDefaultInstance().executeString(asyncHttpRequest, new AsyncHttpClient.StringCallback() {
             @Override
             public void onCompleted(final Exception e, AsyncHttpResponse source, final String result) {
 
@@ -133,7 +184,7 @@ public class ConnectionHelper {
         this.post.setTimeout(timeOut);
         this.post.setBody(body);
 
-        AsyncHttpClient.getDefaultInstance().executeJSONObject(post, new AsyncHttpClient.JSONObjectCallback() {
+        AsyncHttpClient.getDefaultInstance().executeJSONObject(asyncHttpRequest, new AsyncHttpClient.JSONObjectCallback() {
             @Override
             public void onCompleted(final Exception e, AsyncHttpResponse source, final JSONObject result) {
 
@@ -174,7 +225,7 @@ public class ConnectionHelper {
         this.post.setTimeout(timeOut);
         this.post.setBody(body);
 
-        AsyncHttpClient.getDefaultInstance().executeFile(post, fileName , new AsyncHttpClient.FileCallback() {
+        AsyncHttpClient.getDefaultInstance().executeFile(asyncHttpRequest, fileName , new AsyncHttpClient.FileCallback() {
 
             @Override
             public void onCompleted(final Exception e, AsyncHttpResponse source, final File result) {
@@ -222,10 +273,6 @@ public class ConnectionHelper {
         });
     }
 
-    public String getRequestMethod(){
-        return this.post.getMethod();
-    }
-
     public interface OnStringResponse {
 
         void notConnectToServer();
@@ -262,7 +309,6 @@ public class ConnectionHelper {
     @StringDef(
             value = {
                     ConnectionHelper.METHOD_GET ,
-                    ConnectionHelper.METHOD_HEAD ,
                     ConnectionHelper.METHOD_POST
             })
     public @interface ConnectionMethod {}
