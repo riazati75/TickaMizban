@@ -74,10 +74,16 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
     @Nullable
     @Override
     public VerificationError verifyStep() {
-        homesModel.setFacilitiesArray(adapter.getSelectedList());
-        homesModel.setFacilitiesDescription(inputDescription.getText().toString());
-        Logger.Log(homesModel.parsData());
-        return null;
+
+        if(adapter.getSelectedList().size() <= 3){
+            return new VerificationError("حداقل 4 مورد را انتخاب کنید ");
+        }
+        else {
+            homesModel.setFacilitiesArray(adapter.getSelectedList());
+            homesModel.setFacilitiesDescription(inputDescription.getText().toString());
+            Logger.Log(homesModel.parsData());
+            return null;
+        }
     }
 
     @Override

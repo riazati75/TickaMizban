@@ -34,7 +34,6 @@ import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.helpers.BuildingHelper;
-import com.ticka.application.helpers.ConnectionHelper;
 import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.utils.JSONUtils;
 import com.ticka.application.utils.SPUtils;
@@ -51,7 +50,6 @@ import java.util.Map;
 import ir.farsroidx.StringImageUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okio.BufferedSink;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -227,11 +225,11 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             Logger.Log(homesModel.parsData());
         }
         else {
-            sendToServe(true);
+            sendToServe();
         }
     }
 
-    private void sendToServe(boolean b){
+    private void sendToServe(){
 
         progressDialog.show();
 
@@ -282,138 +280,6 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         });
     }
 
-    private void sendToServe(int i){
-
-        progressDialog.show();
-
-        final String cellphone = SPUtils.getInstance(context)
-                .readString(
-                        KEY_USER_PHONE,
-                        ""
-                );
-
-        APIInterface api = APIClient.getTESTClient();
-
-        Map<String , Object> map = new HashMap<>();
-        map.put("name"           , homesModel.getHomeTitle());
-        map.put("cellphone"      , cellphone);
-        map.put("phone"          , homesModel.getPhone());
-        map.put("address"        , homesModel.getHomeAddress());
-        map.put("description"    , homesModel.getHomeDescription());
-        map.put("home_status_id" , homesModel.getHomeStateId());
-        map.put("city_id"        , homesModel.getHomeCityId());
-        map.put("home_type"      , homesModel.getBuildingType());
-        map.put("place_area"     , homesModel.getLocationType());
-        map.put("building_size"  , homesModel.getBuildingArea());
-        map.put("area_size"      , homesModel.getLandArea());
-        map.put("room_count"     , homesModel.getRoomNumber());
-        map.put("base_capacity"  , homesModel.getStandardCapacity());
-        map.put("max_capacity"   , homesModel.getMaximumCapacity());
-        map.put("single_bed"     , homesModel.getSingleBed());
-        map.put("double_bed"     , homesModel.getDoubleBed());
-        map.put("extra_bed"      , homesModel.getExtraBed());
-        map.put("facility_array" , homesModel.getFacilitiesArray());
-        map.put("rules"          , homesModel.getRuleDescription());
-        map.put("rules_array"    , homesModel.getRulesArray());
-        map.put("image_array"    , homesModel.getPhotoArray());
-
-        api.insert(map).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                progressDialog.dismiss();
-
-                if(response.isSuccessful()){
-
-                    Logger.Log(response.body());
-
-                    if(response.body().contains(APIClient.CREATE_HOME_SUCCESS)){
-                        Intent intent = new Intent();
-                        intent.putExtra("callback" , "ok");
-                        context.setResult(Activity.RESULT_OK , intent);
-                        context.finish();
-                    }
-                    else {
-                        Logger.Log(response.body());
-                        Toast.makeText(context, "ثبت اقامتگاه با خطا مواجه شد مجدد تست کنید", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
-                    Logger.Log(response.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                progressDialog.dismiss();
-                Logger.Log("Throwable: => " + t.getMessage());
-            }
-        });
-    }
-
-    private void sendToServe(){
-
-        progressDialog.show();
-
-        final String cellphone = SPUtils.getInstance(context)
-                .readString(
-                        KEY_USER_PHONE,
-                        ""
-                );
-
-        new ConnectionHelper("http://193.176.242.60:7060/ticka/home/public/api/v1/insert-home" , 5000 , ConnectionHelper.POST)
-                .addStringRequest("name"           , homesModel.getHomeTitle())
-                .addStringRequest("address"        , homesModel.getHomeAddress())
-                .addStringRequest("description"    , homesModel.getHomeDescription())
-                .addStringRequest("home_status_id" , String.valueOf(homesModel.getHomeStateId()))
-                .addStringRequest("city_id"        , String.valueOf(homesModel.getHomeCityId()))
-                .addStringRequest("home_type"      , String.valueOf(homesModel.getBuildingType()))
-                .addStringRequest("place_area"     , String.valueOf(homesModel.getLocationType()))
-                .addStringRequest("building_size"  , String.valueOf(homesModel.getBuildingArea()))
-                .addStringRequest("area_size"      , String.valueOf(homesModel.getLandArea()))
-                .addStringRequest("room_count"     , String.valueOf(homesModel.getRoomNumber()))
-                .addStringRequest("base_capacity"  , String.valueOf(homesModel.getStandardCapacity()))
-                .addStringRequest("max_capacity"   , String.valueOf(homesModel.getMaximumCapacity()))
-                .addStringRequest("single_bed"     , String.valueOf(homesModel.getSingleBed()))
-                .addStringRequest("double_bed"     , String.valueOf(homesModel.getDoubleBed()))
-                .addStringRequest("extra_bed"      , String.valueOf(homesModel.getExtraBed()))
-                .addStringRequest("facility_array" , homesModel.getFacilitiesArray().toString())
-                .addStringRequest("rules"          , String.valueOf(homesModel.getRuleDescription()))
-                .addStringRequest("rules_array"    , homesModel.getRulesArray().toString())
-                .addStringRequest("image_array"    , photoArrayList.toString())
-                .addStringRequest("phone"          , homesModel.getPhone())
-                .addStringRequest("cellphone"      , cellphone)
-                .getStringResponse(new ConnectionHelper.OnStringResponse() {
-                    @Override
-                    public void notConnectToServer() {
-                        progressDialog.dismiss();
-                        Logger.Log("not connection");
-                    }
-
-                    @Override
-                    public void onSuccessResponse(String result) {
-                        progressDialog.dismiss();
-
-                        Logger.Log(result);
-
-                        if(result.contains(APIClient.CREATE_HOME_SUCCESS)){
-                            Intent intent = new Intent();
-                            intent.putExtra("callback" , "ok");
-                            context.setResult(Activity.RESULT_OK , intent);
-                            context.finish();
-                        }
-                        else {
-                            Toast.makeText(context, "ثبت اقامتگاه با خطا مواجه شد مجدد تست کنید", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onNullResponse() {
-                        progressDialog.dismiss();
-                        Logger.Log("Null");
-                    }
-                });
-    }
-
     private void setDialog() {
 
         dialog = new MaterialDialog.Builder(context)
@@ -425,7 +291,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     public void onPositive(MaterialDialog dialog) {
                         isReviewed = true;
                         dialog.dismiss();
-                        sendToServe(false);
+                        sendToServe();
                     }
 
                     @Override
