@@ -14,6 +14,7 @@ import com.ticka.application.adapters.StepperAdapter;
 import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.CentralCore;
+import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.cities.CitiesModel;
@@ -108,7 +109,7 @@ public class NewActivity extends OptionActivity {
 
             @Override
             public void onFailure(Call<FacilityModel> call, Throwable t) {
-
+                Logger.Log(t.getMessage());
             }
         });
     }

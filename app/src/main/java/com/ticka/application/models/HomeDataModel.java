@@ -24,15 +24,15 @@ public class HomeDataModel implements Serializable {
     private Integer roomNumber = -1;
     private Integer landArea = -1;
     private Integer buildingArea = -1;
-    private String photoArray = "";
+    private String photoArray = "[]";
     private Integer standardCapacity = -1;
     private Integer maximumCapacity = -1;
     private Integer singleBed = -1;
     private Integer doubleBed = -1;
     private Integer extraBed = -1;
-    private String facilitiesArray = "";
+    private String facilitiesArray = "[]";
     private String facilitiesDescription = "";
-    private String rulesArray = "";
+    private String rulesArray = "[1,2]";
     private String ruleDescription = "";
 
     public String getHomeTitle() {

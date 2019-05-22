@@ -251,10 +251,9 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 .addStringRequest("double_bed"     , String.valueOf(homesModel.getDoubleBed()))
                 .addStringRequest("extra_bed"      , String.valueOf(homesModel.getExtraBed()))
                 .addStringRequest("facility_array" , homesModel.getFacilitiesArray())
-                .addStringRequest("facilities"     , homesModel.getFacilitiesDescription())
                 .addStringRequest("rules"          , String.valueOf(homesModel.getRuleDescription()))
                 .addStringRequest("rules_array"    , homesModel.getRulesArray())
-                .addStringRequest("image_array"    , homesModel.getPhotoArray())
+                .addStringRequest("image_array"    , photoArrayList.toString())
                 .addStringRequest("phone"          , homesModel.getPhone())
                 .addStringRequest("cellphone"      , cellphone)
                 .getStringResponse(new ConnectionHelper.OnStringResponse() {
@@ -267,6 +266,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     @Override
                     public void onSuccessResponse(String result) {
                         progressDialog.dismiss();
+
+                        Logger.Log(result);
 
                         if(result.contains(APIClient.CREATE_HOME_SUCCESS)){
                             Intent intent = new Intent();
