@@ -132,10 +132,10 @@ public class MainActivity extends OptionActivity {
             public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
 
                 if(response.body() != null){
+                    isConnect = true;
                     List<HomeData> model = response.body().getData();
 
                     if(model.size() > 0){
-                        isConnect = true;
                         adapter = new HomesAdapter(MainActivity.this , model);
 
                         recyclerView.setVisibility(View.VISIBLE);
