@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
+import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.models.home.HomeData;
 import com.ticka.application.models.home.HomeModel;
@@ -63,7 +64,6 @@ public class MainActivity extends OptionActivity {
             }
         });
 
-
         getHome();
     }
 
@@ -76,16 +76,22 @@ public class MainActivity extends OptionActivity {
 
                 if(response.body() != null){
                          List<HomeData> model = response.body().getData();
+
+                    Toast.makeText(MainActivity.this, "" + model.size(), Toast.LENGTH_SHORT).show();
+
+
+
                 }
                 else {
-                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    Logger.Log("Error: => " );
+                    Toast.makeText(MainActivity.this, "خطای شناخته نشده ای رخ داده است", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<HomeModel> call, Throwable t) {
-
+                Logger.Log("Throwable: => " + t.getMessage());
+                Toast.makeText(MainActivity.this, "خطا در دریافت لیست اقامتگاه های شما", Toast.LENGTH_SHORT).show();
             }
         });
     }
