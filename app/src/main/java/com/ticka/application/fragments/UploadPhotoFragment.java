@@ -241,6 +241,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 .addStringRequest("city_id"        , String.valueOf(homesModel.getHomeCityId()))
                 .addStringRequest("home_type"      , String.valueOf(homesModel.getBuildingType()))
                 .addStringRequest("place_area"     , String.valueOf(homesModel.getLocationType()))
+                .addStringRequest("building_size"  , String.valueOf(homesModel.getBuildingArea()))
+                .addStringRequest("area_size"      , String.valueOf(homesModel.getLandArea()))
                 .addStringRequest("room_count"     , String.valueOf(homesModel.getRoomNumber()))
                 .addStringRequest("base_capacity"  , String.valueOf(homesModel.getStandardCapacity()))
                 .addStringRequest("max_capacity"   , String.valueOf(homesModel.getMaximumCapacity()))

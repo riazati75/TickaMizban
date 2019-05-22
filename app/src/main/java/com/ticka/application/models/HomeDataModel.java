@@ -204,26 +204,28 @@ public class HomeDataModel implements Serializable {
     }
 
     public String parsData() {
-        return "\n\nHomeDataModel{" +
-                "homeTitle='" + homeTitle +
-                "', homeStateId=" + homeStateId +
-                ", homeCityId=" + homeCityId +
-                ", homeAddress='" + homeAddress +
-                "', homeDescription='" + homeDescription +
-                "', buildingType='" + buildingType +
-                "', locationType='" + locationType +
-                "', roomNumber=" + roomNumber +
-                ", landArea=" + landArea +
-                ", buildingArea=" + buildingArea +
-                ", photoArray='" + photoArray +
-                "', standardCapacity=" + standardCapacity +
-                ", maximumCapacity=" + maximumCapacity +
-                ", singleBed=" + singleBed +
-                ", doubleBed=" + doubleBed +
-                ", extraBed=" + extraBed +
-                "', facilitiesArray=" + facilitiesArray +
-                ", facilitiesDescription='" + facilitiesDescription +
-                "', rulesArray=" + rulesArray +
-                ", ruleDescription='" + ruleDescription + "'}";
+        return "HomeDataModel{" + "homeTitle='" +
+                homeTitle + '\'' + ", homeStateId=" +
+                homeStateId + ", homeCityId=" +
+                homeCityId + ", homeAddress='" +
+                homeAddress + '\'' + ", phone='" +
+                phone + '\'' + ", homeDescription='" +
+                homeDescription + '\'' + ", buildingType=" +
+                buildingType + ", locationType=" +
+                locationType + ", roomNumber=" +
+                roomNumber + ", landArea=" +
+                landArea + ", buildingArea=" +
+                buildingArea + ", photoArray='" +
+                photoArray + '\'' + ", standardCapacity=" +
+                standardCapacity + ", maximumCapacity=" +
+                maximumCapacity + ", singleBed=" +
+                singleBed + ", doubleBed=" +
+                doubleBed + ", extraBed=" +
+                extraBed + ", facilitiesArray='" +
+                facilitiesArray + '\'' + ", facilitiesDescription='" +
+                facilitiesDescription + '\'' + ", rulesArray='" +
+                rulesArray + '\'' + ", ruleDescription='" +
+                ruleDescription + '\'' +
+                '}';
     }
 }
