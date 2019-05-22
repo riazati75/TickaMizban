@@ -3,7 +3,6 @@ package com.ticka.application.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomeDataModel;
 
 import org.json.JSONArray;

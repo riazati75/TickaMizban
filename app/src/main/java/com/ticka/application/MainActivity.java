@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -102,6 +103,7 @@ public class MainActivity extends OptionActivity {
                                     MainActivity.this , NewActivity.class
                             ),REQUEST_CODE
                     );
+                    overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
                 }
                 else {
                     showSnackbar(v);
@@ -182,8 +184,22 @@ public class MainActivity extends OptionActivity {
         super.attachBaseContext(newBase);
     }
 
+    private boolean isExit = false;
     @Override
     public void onBackPressed() {
-        finish();
+
+        if(!isExit){
+            isExit = true;
+            Toast.makeText(this, "برای خروج مجدد ضربه بزنید", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isExit = false;
+                }
+            } , 2000);
+        }
+        else{
+            finish();
+        }
     }
 }

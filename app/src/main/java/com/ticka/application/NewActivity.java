@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.google.gson.Gson;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.adapters.StepperAdapter;
@@ -126,5 +125,6 @@ public class NewActivity extends OptionActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
     }
 }
