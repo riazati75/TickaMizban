@@ -29,6 +29,7 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.AddPhotoAdapter;
 import com.ticka.application.adapters.ReviewAdapter;
+import com.ticka.application.api.APIClient;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.helpers.BuildingHelper;
@@ -249,10 +250,13 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 .addStringRequest("single_bed"     , String.valueOf(homesModel.getSingleBed()))
                 .addStringRequest("double_bed"     , String.valueOf(homesModel.getDoubleBed()))
                 .addStringRequest("extra_bed"      , String.valueOf(homesModel.getExtraBed()))
-                //.addStringRequest("facility_id"    , homesModel.getFacilitiesArray())
+                .addStringRequest("facility_array" , homesModel.getFacilitiesArray())
+                .addStringRequest("facilities"     , homesModel.getFacilitiesDescription())
+                .addStringRequest("rules"          , String.valueOf(homesModel.getRuleDescription()))
+                .addStringRequest("rules_array"    , homesModel.getRulesArray())
+                .addStringRequest("image_array"    , homesModel.getPhotoArray())
                 .addStringRequest("phone"          , homesModel.getPhone())
                 .addStringRequest("cellphone"      , cellphone)
-                .addStringRequest("image_array"    , homesModel.getPhotoArray())
                 .getStringResponse(new ConnectionHelper.OnStringResponse() {
                     @Override
                     public void notConnectToServer() {
@@ -264,11 +268,14 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     public void onSuccessResponse(String result) {
                         progressDialog.dismiss();
 
-                        if(result.contains("")){
+                        if(result.contains(APIClient.CREATE_HOME_SUCCESS)){
                             Intent intent = new Intent();
                             intent.putExtra("callback" , "ok");
                             context.setResult(Activity.RESULT_OK , intent);
                             context.finish();
+                        }
+                        else {
+                            Toast.makeText(context, "ثبت اقامتگاه با خطا مواجه شد مجدد تست کنید", Toast.LENGTH_SHORT).show();
                         }
                     }
 
