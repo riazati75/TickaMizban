@@ -16,7 +16,7 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
-import com.ticka.application.adapters.StateCityAdapter;
+import com.ticka.application.adapters.DropDownAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.HomeDataModel;
@@ -94,7 +94,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             list.add(databaseHelperStates.get(i).getName());
         }
 
-        stateList.setAdapter(new StateCityAdapter(getContext() , list));
+        stateList.setAdapter(new DropDownAdapter(getContext() , list));
         stateList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -126,7 +126,7 @@ public class GeneralDetailsFragment extends Fragment implements BlockingStep {
             list.add(databaseHelperCities.get(i).getName());
         }
 
-        cityList.setAdapter(new StateCityAdapter(getContext() , list));
+        cityList.setAdapter(new DropDownAdapter(getContext() , list));
         cityList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

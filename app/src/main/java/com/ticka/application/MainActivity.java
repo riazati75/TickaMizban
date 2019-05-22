@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ticka.application.adapters.HomesAdapter;
 import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
@@ -22,6 +26,7 @@ import com.ticka.application.models.home.HomeData;
 import com.ticka.application.models.home.HomeModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +38,7 @@ public class MainActivity extends OptionActivity {
 
     private LinearLayout notFound;
     private RecyclerView recyclerView;
+    private HomesAdapter adapter;
     private FloatingActionButton fab;
     private boolean isConnect = false;
 
@@ -61,6 +67,11 @@ public class MainActivity extends OptionActivity {
 
     @Override
     protected void initViews() {
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(
+                this , LinearLayoutManager.VERTICAL , false
+        ));
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,18 +113,15 @@ public class MainActivity extends OptionActivity {
             public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
 
                 if(response.body() != null){
-
                     isConnect = true;
-
                     List<HomeData> model = response.body().getData();
+                    adapter = new HomesAdapter(MainActivity.this , model);
 
-                    Toast.makeText(MainActivity.this, "" + model.size(), Toast.LENGTH_SHORT).show();
+                    recyclerView.setVisibility(View.VISIBLE);
+                    notFound.setVisibility(View.GONE);
 
-
-
-
-
-
+                    recyclerView.setAdapter(adapter);
+                    runLayoutAnimation(recyclerView);
                 }
                 else {
                     isConnect = false;
@@ -129,6 +137,16 @@ public class MainActivity extends OptionActivity {
                 showSnackbar(fab);
             }
         });
+    }
+
+    private void runLayoutAnimation(final RecyclerView recyclerView) {
+        final Context context = recyclerView.getContext();
+        final LayoutAnimationController controller =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.animation_recycler_view);
+
+        recyclerView.setLayoutAnimation(controller);
+        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
+        recyclerView.scheduleLayoutAnimation();
     }
 
     @Override

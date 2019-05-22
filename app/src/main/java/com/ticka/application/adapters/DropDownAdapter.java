@@ -15,13 +15,13 @@ import com.ticka.application.R;
 
 import java.util.List;
 
-public class StateCityAdapter extends ArrayAdapter<String> {
+public class DropDownAdapter extends ArrayAdapter<String> {
 
     private LayoutInflater layoutInflater;
     private List<String> objects;
     private Typeface typeface;
 
-    public StateCityAdapter(Context context, List<String> objects) {
+    public DropDownAdapter(Context context, List<String> objects) {
         super(context, R.layout.layout_spinner_state_city, objects);
         this.objects = objects;
         this.typeface = ResourcesCompat.getFont(context, R.font.yekan_mobile_regular);

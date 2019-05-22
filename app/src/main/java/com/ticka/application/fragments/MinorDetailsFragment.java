@@ -16,7 +16,7 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
-import com.ticka.application.adapters.StateCityAdapter;
+import com.ticka.application.adapters.DropDownAdapter;
 import com.ticka.application.core.Logger;
 import com.ticka.application.helpers.BuildingHelper;
 import com.ticka.application.models.HomeDataModel;
@@ -60,8 +60,8 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
         TextView ca1 = view.findViewById(R.id.ca1);
         TextView ca2 = view.findViewById(R.id.ca2);
 
-        spLocation.setAdapter(new StateCityAdapter(getContext() , getList(buildingHelper.getBuildingLocation())));
-        spType.setAdapter(new StateCityAdapter(getContext() , getList(buildingHelper.getBuildingType())));
+        spLocation.setAdapter(new DropDownAdapter(getContext() , getList(buildingHelper.getBuildingLocation())));
+        spType.setAdapter(new DropDownAdapter(getContext() , getList(buildingHelper.getBuildingType())));
 
         spLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
