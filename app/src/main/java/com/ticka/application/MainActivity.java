@@ -125,8 +125,7 @@ public class MainActivity extends OptionActivity {
                 }
                 else {
                     isConnect = false;
-                    Logger.Log("Error: => " );
-                    Toast.makeText(MainActivity.this, "خطای شناخته نشده ای رخ داده است", Toast.LENGTH_SHORT).show();
+                    showSnackbar(fab);
                 }
             }
 
@@ -134,7 +133,6 @@ public class MainActivity extends OptionActivity {
             public void onFailure(Call<HomeModel> call, Throwable t) {
                 isConnect = false;
                 Logger.Log("Throwable: => " + t.getMessage());
-                showSnackbar(fab);
             }
         });
     }
