@@ -26,15 +26,11 @@ public class ConnectionHelper {
     public static final String METHOD_POST = "POST";
     public static final String METHOD_GET  = "GET";
 
-    private String requestMethod;
     private AsyncHttpRequest asyncHttpRequest;
     private MultipartFormDataBody body;
-    private AsyncHttpPost post = null;
-    private AsyncHttpGet get = null;
     private Handler handler;
 
     public ConnectionHelper(@NonNull String configUrl , int timeOut , @ConnectionMethod String requestMethod){
-        this.requestMethod = requestMethod;
         initMethod(configUrl,requestMethod);
         this.asyncHttpRequest.setTimeout(timeOut);
         this.body = new MultipartFormDataBody();
@@ -46,11 +42,11 @@ public class ConnectionHelper {
         switch(requestMethod){
 
             case METHOD_POST:
-                this.post = new AsyncHttpPost(configUrl);
+                this.asyncHttpRequest = new AsyncHttpPost(configUrl);
                 break;
 
             case METHOD_GET:
-                this.get = new AsyncHttpGet(configUrl);
+                this.asyncHttpRequest = new AsyncHttpGet(configUrl);
                 break;
         }
     }
@@ -112,13 +108,6 @@ public class ConnectionHelper {
 
         this.asyncHttpRequest.setBody(body);
 
-        if(requestMethod.equals(METHOD_POST)){
-            this.asyncHttpRequest = post;
-        }
-        else if(requestMethod.equals(METHOD_GET)){
-            this.asyncHttpRequest = get;
-        }
-
         AsyncHttpClient.getDefaultInstance().executeString(asyncHttpRequest, new AsyncHttpClient.StringCallback() {
             @Override
             public void onCompleted(final Exception e, AsyncHttpResponse source, final String result) {
@@ -160,13 +149,6 @@ public class ConnectionHelper {
 
         this.asyncHttpRequest.setBody(body);
 
-        if(requestMethod.equals(METHOD_POST)){
-            this.asyncHttpRequest = post;
-        }
-        else if(requestMethod.equals(METHOD_GET)){
-            this.asyncHttpRequest = get;
-        }
-
         AsyncHttpClient.getDefaultInstance().executeJSONObject(asyncHttpRequest, new AsyncHttpClient.JSONObjectCallback() {
             @Override
             public void onCompleted(final Exception e, AsyncHttpResponse source, final JSONObject result) {
@@ -206,13 +188,6 @@ public class ConnectionHelper {
     public void getFileResponse(final OnFileResponse onFileResponse , String fileName) {
 
         this.asyncHttpRequest.setBody(body);
-
-        if(requestMethod.equals(METHOD_POST)){
-            this.asyncHttpRequest = post;
-        }
-        else if(requestMethod.equals(METHOD_GET)){
-            this.asyncHttpRequest = get;
-        }
 
         AsyncHttpClient.getDefaultInstance().executeFile(asyncHttpRequest, fileName , new AsyncHttpClient.FileCallback() {
 
