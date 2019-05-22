@@ -3,11 +3,15 @@ package com.ticka.application;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ticka.application.api.APIClient;
@@ -27,7 +31,10 @@ public class MainActivity extends OptionActivity {
 
     private static final int REQUEST_CODE = 1080;
 
+    private LinearLayout notFound;
+    private RecyclerView recyclerView;
     private FloatingActionButton fab;
+    private boolean isConnect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,8 @@ public class MainActivity extends OptionActivity {
         getWindow().setEnterTransition(fade);
         getWindow().setExitTransition(fade);
 
+        recyclerView = findViewById(R.id.recyclerView);
+        notFound = findViewById(R.id.notFound);
         fab = findViewById(R.id.fab);
 
         initViews();
@@ -56,15 +65,33 @@ public class MainActivity extends OptionActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(
-                        new Intent(
-                                MainActivity.this , NewActivity.class
-                        ),REQUEST_CODE
-                );
+
+                if(isConnect){
+                    startActivityForResult(
+                            new Intent(
+                                    MainActivity.this , NewActivity.class
+                            ),REQUEST_CODE
+                    );
+                }
+                else {
+                    showSnackbar(v);
+                }
             }
         });
 
         getHome();
+    }
+
+    private void showSnackbar(View view){
+
+        Snackbar.make(view , "ارتباط با سرور برقرار نیست" , Snackbar.LENGTH_INDEFINITE)
+                .setAction("برسی مجدد", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getHome();
+                    }
+                }).setActionTextColor(Color.YELLOW).show();
+
     }
 
     private void getHome(){
@@ -75,14 +102,21 @@ public class MainActivity extends OptionActivity {
             public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
 
                 if(response.body() != null){
-                         List<HomeData> model = response.body().getData();
+
+                    isConnect = true;
+
+                    List<HomeData> model = response.body().getData();
 
                     Toast.makeText(MainActivity.this, "" + model.size(), Toast.LENGTH_SHORT).show();
 
 
 
+
+
+
                 }
                 else {
+                    isConnect = false;
                     Logger.Log("Error: => " );
                     Toast.makeText(MainActivity.this, "خطای شناخته نشده ای رخ داده است", Toast.LENGTH_SHORT).show();
                 }
@@ -90,8 +124,9 @@ public class MainActivity extends OptionActivity {
 
             @Override
             public void onFailure(Call<HomeModel> call, Throwable t) {
+                isConnect = false;
                 Logger.Log("Throwable: => " + t.getMessage());
-                Toast.makeText(MainActivity.this, "خطا در دریافت لیست اقامتگاه های شما", Toast.LENGTH_SHORT).show();
+                showSnackbar(fab);
             }
         });
     }
