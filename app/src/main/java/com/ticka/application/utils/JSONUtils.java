@@ -56,10 +56,6 @@ public class JSONUtils {
         JSONArray rulesArray = new JSONArray(homesModel.getRulesArray());
         JSONArray photoArray = new JSONArray(homesModel.getPhotoArray());
 
-        Logger.Log(facilityArray.toString());
-        Logger.Log(rulesArray.toString());
-        Logger.Log(photoArray.toString());
-
         try{
 
             json.put("name"           , homesModel.getHomeTitle());
@@ -81,7 +77,7 @@ public class JSONUtils {
             json.put("extra_bed"      , homesModel.getExtraBed());
             json.put("facility_array" , facilityArray);
             json.put("rules"          , homesModel.getRuleDescription());
-            //json.put("rules_array"    , rulesArray);
+            json.put("rules_array"    , rulesArray);
             json.put("image_array"    , photoArray);
 
         }catch(JSONException e){

@@ -67,8 +67,8 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
             return new VerificationError("حداقل 4 مورد را انتخاب کنید ");
         }
         else {
-            homesModel.setFacilitiesArray(adapter.getSelectedList());
-            homesModel.setFacilitiesDescription(inputDescription.getText().toString());
+            homesModel.setRulesArray(adapter.getSelectedList());
+            homesModel.setRuleDescription(inputDescription.getText().toString());
             Logger.Log(homesModel.parsData());
             return null;
         }
