@@ -86,7 +86,7 @@ public class ConnectionHelper {
         return this;
     }
 
-    private void getString(final OnStringResponse onStringResponse) {
+    public void getStringResponse(final OnStringResponse onStringResponse) {
 
         this.post.setTimeout(timeOut);
         this.post.setBody(body);
@@ -118,19 +118,17 @@ public class ConnectionHelper {
 
             @Override
             public void onProgress(AsyncHttpResponse response, long downloaded, long total) {
-                super.onProgress(response, downloaded, total);
-                Logger.Log("Response: onProgress");
+
             }
 
             @Override
             public void onConnect(AsyncHttpResponse response) {
-                super.onConnect(response);
-                Logger.Log("Response: onConnect");
+
             }
         });
     }
 
-    private void getJsonObject(final OnJsonObjectResponse onJsonObjectResponse) {
+    public void getJsonObjectResponse(final OnJsonObjectResponse onJsonObjectResponse) {
 
         this.post.setTimeout(timeOut);
         this.post.setBody(body);
@@ -161,17 +159,17 @@ public class ConnectionHelper {
 
             @Override
             public void onProgress(AsyncHttpResponse response, long downloaded, long total) {
-                super.onProgress(response, downloaded, total);
+
             }
 
             @Override
             public void onConnect(AsyncHttpResponse response) {
-                super.onConnect(response);
+
             }
         });
     }
 
-    private void getFile(final OnFileResponse onFileResponse , String fileName) {
+    public void getFileResponse(final OnFileResponse onFileResponse , String fileName) {
 
         this.post.setTimeout(timeOut);
         this.post.setBody(body);
@@ -179,50 +177,49 @@ public class ConnectionHelper {
         AsyncHttpClient.getDefaultInstance().executeFile(post, fileName , new AsyncHttpClient.FileCallback() {
 
             @Override
-            public void onCompleted(Exception e, AsyncHttpResponse source, File result) {
+            public void onCompleted(final Exception e, AsyncHttpResponse source, final File result) {
 
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (e != null){
+                            e.printStackTrace();
+                            onFileResponse.notConnectToServer();
+                        }
+                        else if (result.toString().equals("null")){
+                            onFileResponse.onNullResponse();
+                        }
+                        else {
+                            Logger.Log("Response: empty");
+                        }
+                    }
+                });
             }
 
             @Override
-            public void onProgress(AsyncHttpResponse response, long downloaded, long total) {
+            public void onProgress(final AsyncHttpResponse response, final long downloaded, final long total) {
 
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        boolean isSuccessful = response.code() == 200;
+                        onFileResponse.onProgressDownload(isSuccessful , downloaded , total);
+                    }
+                });
             }
 
             @Override
-            public void onConnect(AsyncHttpResponse response) {
+            public void onConnect(final AsyncHttpResponse response) {
 
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        boolean isSuccessful = response.code() == 200;
+                        onFileResponse.onConnected(isSuccessful , response.message());
+                    }
+                });
             }
         });
-    }
-
-    public void getStringResponse(final OnStringResponse onStringResponse){
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getString(onStringResponse);
-            }
-        }).start();
-    }
-
-    public void getJsonObjectResponse(final OnJsonObjectResponse onJsonObjectResponse){
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getJsonObject(onJsonObjectResponse);
-            }
-        }).start();
-    }
-
-    public void getFileResponse(final OnFileResponse onFileResponse , final String fileName){
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                getFile(onFileResponse , fileName);
-            }
-        }).start();
     }
 
     public String getRequestMethod(){
@@ -253,7 +250,9 @@ public class ConnectionHelper {
 
         void notConnectToServer();
 
-        void onSuccessResponse(JSONObject jsonObject);
+        void onConnected(boolean isSuccessful , String message);
+
+        void onProgressDownload(boolean isSuccessful , long downloaded, long total);
 
         void onNullResponse();
 

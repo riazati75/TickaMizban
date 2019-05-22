@@ -261,6 +261,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     @Override
                     public void onSuccessResponse(String result) {
                         progressDialog.dismiss();
+                        Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
                         Logger.Log("Response: " + result);
                     }
 
