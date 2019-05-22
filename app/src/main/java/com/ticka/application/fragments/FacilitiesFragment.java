@@ -71,7 +71,6 @@ public class FacilitiesFragment extends Fragment implements BlockingStep {
         callback.goToPrevStep();
     }
 
-    @Nullable
     @Override
     public VerificationError verifyStep() {
 

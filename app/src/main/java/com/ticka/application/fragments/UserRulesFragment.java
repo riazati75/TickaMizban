@@ -61,7 +61,6 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
         callback.goToPrevStep();
     }
 
-    @Nullable
     @Override
     public VerificationError verifyStep() {
         if(adapter.getSelectedList().size() <= 3){
