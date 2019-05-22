@@ -11,24 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.CheckboxAdapter;
-import com.ticka.application.adapters.ReviewAdapter;
-import com.ticka.application.core.Logger;
-import com.ticka.application.database.DatabaseHelper;
-import com.ticka.application.helpers.BuildingHelper;
-import com.ticka.application.models.HomeDataModel;
-
-import java.util.List;
 
 public class UserRulesFragment extends Fragment implements BlockingStep {
 
     private Context context;
-    private RecyclerView recyclerView , rv;
+    private RecyclerView recyclerView;
     private CheckboxAdapter adapter;
 
     public UserRulesFragment() {

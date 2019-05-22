@@ -29,11 +29,10 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.AddPhotoAdapter;
 import com.ticka.application.adapters.ReviewAdapter;
-import com.ticka.application.api.APIClient;
-import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.helpers.BuildingHelper;
+import com.ticka.application.helpers.ConnectionHelper;
 import com.ticka.application.models.HomeDataModel;
 import com.ticka.application.utils.JSONUtils;
 import com.ticka.application.utils.SPUtils;
@@ -48,9 +47,6 @@ import java.util.List;
 import java.util.Map;
 
 import ir.farsroidx.StringImageUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.ticka.application.helpers.UserHelper.KEY_USER_PHONE;
 
@@ -223,11 +219,11 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             Logger.Log(homesModel.parsData());
         }
         else {
-            sendToServer();
+            sendToServerConnectionHelper();
         }
     }
 
-    private void sendToServer(){
+    private void sendToServerConnectionHelper(){
 
         progressDialog.show();
 
@@ -237,91 +233,43 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                         ""
                 );
 
-        APIInterface api = APIClient.getTESTClient();
+        new ConnectionHelper("http://193.176.242.60:7060/ticka/home/public/api/v1/insert-home" , 5000)
+                .addStringRequest("name"           , homesModel.getHomeTitle())
+                .addStringRequest("address"        , homesModel.getHomeAddress())
+                .addStringRequest("description"    , homesModel.getHomeDescription())
+                .addStringRequest("home_status_id" , String.valueOf(homesModel.getHomeStateId()))
+                .addStringRequest("city_id"        , String.valueOf(homesModel.getHomeCityId()))
+                .addStringRequest("home_type"      , String.valueOf(homesModel.getBuildingType()))
+                .addStringRequest("place_area"     , String.valueOf(homesModel.getLocationType()))
+                .addStringRequest("room_count"     , String.valueOf(homesModel.getRoomNumber()))
+                .addStringRequest("base_capacity"  , String.valueOf(homesModel.getStandardCapacity()))
+                .addStringRequest("max_capacity"   , String.valueOf(homesModel.getMaximumCapacity()))
+                .addStringRequest("single_bed"     , String.valueOf(homesModel.getSingleBed()))
+                .addStringRequest("double_bed"     , String.valueOf(homesModel.getDoubleBed()))
+                .addStringRequest("extra_bed"      , String.valueOf(homesModel.getExtraBed()))
+                //.addStringRequest("facility_id"    , homesModel.getFacilitiesArray())
+                .addStringRequest("phone"          , homesModel.getPhone())
+                .addStringRequest("cellphone"      , cellphone)
+                //.addStringRequest("src"            , homesModel.getPhotoArray())
+                .getStringResponse(new ConnectionHelper.OnGetResponse() {
+                    @Override
+                    public void notConnectToServer() {
+                        progressDialog.dismiss();
+                        Logger.Log("not connection");
+                    }
 
-        Map<String , Object> request = new HashMap<>();
-        request.put("name"           , homesModel.getHomeTitle());
-        request.put("address"        , homesModel.getHomeAddress());
-        request.put("description"    , homesModel.getHomeDescription());
-        request.put("home_status_id" , homesModel.getHomeStateId());
-        request.put("city_id"        , homesModel.getHomeCityId());
-        request.put("home_type"      , homesModel.getBuildingType());
-        request.put("place_area"     , homesModel.getLocationType());
-        request.put("room_count"     , homesModel.getRoomNumber());
-        request.put("base_capacity"  , homesModel.getStandardCapacity());
-        request.put("max_capacity"   , homesModel.getMaximumCapacity());
-        request.put("single_bed"     , homesModel.getSingleBed());
-        request.put("double_bed"     , homesModel.getDoubleBed());
-        request.put("extra_bed"      , homesModel.getExtraBed());
-        request.put("facility_id"    , homesModel.getFacilitiesArray());
-        request.put("phone"          , homesModel.getPhone());
-        request.put("cellphone"      , cellphone);
-        request.put("src"            , homesModel.getPhotoArray());
-//        api.insertDate(request).enqueue(new Callback<String>() {
-//            @Override
-//            public void onResponse(Call<String> call, Response<String> response) {
-//
-//                if(response.isSuccessful()){
-//                    Logger.Log("Success: " + response.body());
-//                }
-//                else {
-//                    Logger.Log("Error: " + response.body());
-//                }
-//
-//                progressDialog.dismiss();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<String> call, Throwable t) {
-//
-//                progressDialog.dismiss();
-//
-//                Logger.Log("Throwable: " + t.getMessage());
-//
-//            }
-//        });
+                    @Override
+                    public void onSuccessResponse(String result) {
+                        progressDialog.dismiss();
+                        Logger.Log("Response: " + result);
+                    }
 
-        api.insertDate(
-                homesModel.getHomeTitle(),
-                homesModel.getHomeAddress(),
-                homesModel.getHomeDescription(),
-                homesModel.getHomeStateId(),
-                homesModel.getHomeCityId(),
-                homesModel.getBuildingType(),
-                homesModel.getLocationType(),
-                homesModel.getRoomNumber(),
-                homesModel.getStandardCapacity(),
-                homesModel.getMaximumCapacity(),
-                homesModel.getSingleBed(),
-                homesModel.getDoubleBed(),
-                homesModel.getExtraBed(),
-                homesModel.getFacilitiesArray(),
-                homesModel.getPhone(),
-                cellphone,
-                homesModel.getPhotoArray()
-        ).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-
-                if(response.isSuccessful()){
-                    Logger.Log("Success: " + response.body());
-                }
-                else {
-                    Logger.Log("Error: " + response.body());
-                }
-
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-
-                progressDialog.dismiss();
-
-                Logger.Log("Throwable: " + t.getMessage());
-            }
-        });
-
+                    @Override
+                    public void onNullResponse() {
+                        progressDialog.dismiss();
+                        Logger.Log("Null");
+                    }
+                });
     }
 
     private void setDialog() {
@@ -335,7 +283,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     public void onPositive(MaterialDialog dialog) {
                         isReviewed = true;
                         dialog.dismiss();
-                        sendToServer();
+                        sendToServerConnectionHelper();
                     }
 
                     @Override
