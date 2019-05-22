@@ -1,6 +1,7 @@
 package com.ticka.application.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeDataModel implements Serializable {
@@ -25,15 +26,15 @@ public class HomeDataModel implements Serializable {
     private Integer roomNumber = -1;
     private Integer landArea = -1;
     private Integer buildingArea = -1;
-    private List<Long> photoArray = null;
+    private List<Long> photoArray = new ArrayList<>();
     private Integer standardCapacity = -1;
     private Integer maximumCapacity = -1;
     private Integer singleBed = -1;
     private Integer doubleBed = -1;
     private Integer extraBed = -1;
-    private List<Integer> facilitiesArray = null;
+    private List<Integer> facilitiesArray = new ArrayList<>();
     private String facilitiesDescription = "";
-    private List<Integer> rulesArray = null;
+    private List<Integer> rulesArray = new ArrayList<>();
     private String ruleDescription = "";
 
     public String getHomeTitle() {

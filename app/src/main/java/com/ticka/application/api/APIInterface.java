@@ -41,7 +41,7 @@ public interface APIInterface {
             "Content-Type: application/json"})
     Call<FacilityModel> getFacility();
 
-    @GET(APIClient.URL_GET_FACILITY)
+    @POST(APIClient.URL_GET_FACILITY)
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
     @FormUrlEncoded
@@ -69,15 +69,12 @@ public interface APIInterface {
             @Field("image_array") List<Long> imageArray
     );
 
-    @GET(APIClient.URL_GET_FACILITY)
+    @POST(APIClient.URL_INSERT_HOME)
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
     @FormUrlEncoded
     Call<String> insert(
-            @FieldMap Map<String , Object> map,
-            @Field("facility_array") List<Integer> facilityArray,
-            @Field("rules_array") List<Integer> rulesArray,
-            @Field("image_array") List<Long> imageArray
+            @FieldMap Map<String , Object> map
     );
 
     @GET(APIClient.URL_GET_PHOTO)

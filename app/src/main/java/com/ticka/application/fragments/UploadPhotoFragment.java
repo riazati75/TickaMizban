@@ -242,6 +242,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
         Map<String , Object> map = new HashMap<>();
         map.put("name"           , homesModel.getHomeTitle());
+        map.put("cellphone"      , cellphone);
+        map.put("phone"          , homesModel.getPhone());
         map.put("address"        , homesModel.getHomeAddress());
         map.put("description"    , homesModel.getHomeDescription());
         map.put("home_status_id" , homesModel.getHomeStateId());
@@ -256,16 +258,12 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         map.put("single_bed"     , homesModel.getSingleBed());
         map.put("double_bed"     , homesModel.getDoubleBed());
         map.put("extra_bed"      , homesModel.getExtraBed());
+        map.put("facility_array" , homesModel.getFacilitiesArray());
         map.put("rules"          , homesModel.getRuleDescription());
-        map.put("phone"          , homesModel.getPhone());
-        map.put("cellphone"      , cellphone);
+        map.put("rules_array"    , homesModel.getRulesArray());
+        map.put("image_array"    , homesModel.getPhotoArray());
 
-        api.insert(
-                map,
-                homesModel.getFacilitiesArray(),
-                homesModel.getRulesArray(),
-                homesModel.getPhotoArray()
-        ).enqueue(new Callback<String>() {
+        api.insert(map).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 progressDialog.dismiss();
