@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -73,6 +74,24 @@ public class MainActivity extends OptionActivity {
                 this , LinearLayoutManager.VERTICAL , false
         ));
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+
+                if(dx < dy){
+                    fab.hide();
+                }
+                else {
+                    fab.show();
+                }
+            }
+        });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,15 +132,18 @@ public class MainActivity extends OptionActivity {
             public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
 
                 if(response.body() != null){
-                    isConnect = true;
                     List<HomeData> model = response.body().getData();
-                    adapter = new HomesAdapter(MainActivity.this , model);
 
-                    recyclerView.setVisibility(View.VISIBLE);
-                    notFound.setVisibility(View.GONE);
+                    if(model.size() > 0){
+                        isConnect = true;
+                        adapter = new HomesAdapter(MainActivity.this , model);
 
-                    recyclerView.setAdapter(adapter);
-                    runLayoutAnimation(recyclerView);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        notFound.setVisibility(View.GONE);
+
+                        recyclerView.setAdapter(adapter);
+                        runLayoutAnimation(recyclerView);
+                    }
                 }
                 else {
                     isConnect = false;
@@ -151,6 +173,7 @@ public class MainActivity extends OptionActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
             Toast.makeText(this, "اطلاعات ثبت و برای بازبینی ارسال شد", Toast.LENGTH_SHORT).show();
+            getHome();
         }
     }
 
