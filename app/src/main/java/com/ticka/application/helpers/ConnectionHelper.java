@@ -10,8 +10,9 @@ import com.koushikdutta.async.http.AsyncHttpResponse;
 import com.koushikdutta.async.http.Headers;
 import com.koushikdutta.async.http.body.MultipartFormDataBody;
 import com.koushikdutta.async.http.body.Part;
-import com.koushikdutta.async.http.callback.HttpConnectCallback;
 import com.ticka.application.core.Logger;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.lang.annotation.Retention;
@@ -75,7 +76,12 @@ public class ConnectionHelper {
         return this;
     }
 
-    private void getString(final OnGetResponse onGetResponse) {
+    public ConnectionHelper addFileRequest(String key , File file){
+        this.body.addFilePart(key , file);
+        return this;
+    }
+
+    private void getString(final OnStringResponse onStringResponse) {
 
         this.post.setTimeout(timeOut);
         this.post.setBody(body);
@@ -90,13 +96,13 @@ public class ConnectionHelper {
 
                         if (e != null){
                             e.printStackTrace();
-                            onGetResponse.notConnectToServer();
+                            onStringResponse.notConnectToServer();
                         }
                         else if (result.equals("null")){
-                            onGetResponse.onNullResponse(); //result is Null
+                            onStringResponse.onNullResponse(); //result is Null
                         }
                         else if (!result.equals("")){
-                            onGetResponse.onSuccessResponse(result); //result is JSON callback
+                            onStringResponse.onSuccessResponse(result); //result is JSON callback
                         }
                         else {
                             Logger.Log("Response: empty");
@@ -119,48 +125,63 @@ public class ConnectionHelper {
         });
     }
 
-    private void getJsonObject(final OnGetResponse onGetResponse) {
+    private void getJsonObject(final OnJsonObjectResponse onJsonObjectResponse) {
 
         this.post.setTimeout(timeOut);
         this.post.setBody(body);
 
-        AsyncHttpClient.getDefaultInstance().execute(post, new HttpConnectCallback() {
+        AsyncHttpClient.getDefaultInstance().executeJSONObject(post, new AsyncHttpClient.JSONObjectCallback() {
             @Override
-            public void onConnectCompleted(Exception e, AsyncHttpResponse result) {
+            public void onCompleted(final Exception e, AsyncHttpResponse source, final JSONObject result) {
 
-                if (e != null){
-                    e.printStackTrace();
-                    onGetResponse.notConnectToServer();
-                }
-                else if (result.toString().equals("null")){
-                    onGetResponse.onNullResponse(); //result is Null
-                }
-                else if (!result.toString().equals("")){
-                    onGetResponse.onSuccessResponse(result.toString()); //result is JSON callback
-                }
-                else {
-                    Logger.Log("Response: empty");
-                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (e != null){
+                            e.printStackTrace();
+                            onJsonObjectResponse.notConnectToServer();
+                        }
+                        else if (result.toString().equals("null")){
+                            onJsonObjectResponse.onNullResponse();
+                        }
+                        else if (!result.toString().equals("")){
+                            onJsonObjectResponse.onSuccessResponse(result);
+                        }
+                        else {
+                            Logger.Log("Response: empty");
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(AsyncHttpResponse response, long downloaded, long total) {
+                super.onProgress(response, downloaded, total);
+            }
+
+            @Override
+            public void onConnect(AsyncHttpResponse response) {
+                super.onConnect(response);
             }
         });
     }
 
-    public void getStringResponse(final OnGetResponse onGetResponse){
+    public void getStringResponse(final OnStringResponse onStringResponse){
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getString(onGetResponse);
+                getString(onStringResponse);
             }
         }).start();
     }
 
-    public void getJsonObjectResponse(final OnGetResponse onGetResponse){
+    public void getJsonObjectResponse(final OnJsonObjectResponse onJsonObjectResponse){
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                getJsonObject(onGetResponse);
+                getJsonObject(onJsonObjectResponse);
             }
         }).start();
     }
@@ -174,7 +195,7 @@ public class ConnectionHelper {
         return this;
     }
 
-    public interface OnGetResponse {
+    public interface OnStringResponse {
 
         void notConnectToServer();
 
@@ -184,8 +205,23 @@ public class ConnectionHelper {
 
     }
 
+    public interface OnJsonObjectResponse {
+
+        void notConnectToServer();
+
+        void onSuccessResponse(JSONObject jsonObject);
+
+        void onNullResponse();
+
+    }
+
     @Retention(SOURCE)
-    @StringDef(value = {ConnectionHelper.METHOD_GET , ConnectionHelper.METHOD_HEAD , ConnectionHelper.METHOD_POST})
+    @StringDef(
+            value = {
+                    ConnectionHelper.METHOD_GET ,
+                    ConnectionHelper.METHOD_HEAD ,
+                    ConnectionHelper.METHOD_POST
+            })
     public @interface ConnectionMethod {}
 
 }

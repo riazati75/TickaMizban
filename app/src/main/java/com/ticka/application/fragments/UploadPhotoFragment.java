@@ -251,7 +251,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 .addStringRequest("phone"          , homesModel.getPhone())
                 .addStringRequest("cellphone"      , cellphone)
                 //.addStringRequest("src"            , homesModel.getPhotoArray())
-                .getStringResponse(new ConnectionHelper.OnGetResponse() {
+                .getStringResponse(new ConnectionHelper.OnStringResponse() {
                     @Override
                     public void notConnectToServer() {
                         progressDialog.dismiss();
