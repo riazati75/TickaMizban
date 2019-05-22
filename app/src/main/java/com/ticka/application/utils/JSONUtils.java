@@ -3,18 +3,16 @@ package com.ticka.application.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.ticka.application.core.Logger;
 import com.ticka.application.models.HomeDataModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-
-import static com.ticka.application.helpers.UserHelper.KEY_USER_PHONE;
 
 public class JSONUtils {
 
@@ -54,6 +52,13 @@ public class JSONUtils {
     public static JSONObject getJsonInsert(@NonNull HomeDataModel homesModel , String cellphone){
 
         JSONObject json = new JSONObject();
+        JSONArray facilityArray = new JSONArray(homesModel.getFacilitiesArray());
+        JSONArray rulesArray = new JSONArray(homesModel.getRulesArray());
+        JSONArray photoArray = new JSONArray(homesModel.getPhotoArray());
+
+        Logger.Log(facilityArray.toString());
+        Logger.Log(rulesArray.toString());
+        Logger.Log(photoArray.toString());
 
         try{
 
@@ -74,10 +79,10 @@ public class JSONUtils {
             json.put("single_bed"     , homesModel.getSingleBed());
             json.put("double_bed"     , homesModel.getDoubleBed());
             json.put("extra_bed"      , homesModel.getExtraBed());
-            json.put("facility_array" , homesModel.getFacilitiesArray());
+            json.put("facility_array" , facilityArray);
             json.put("rules"          , homesModel.getRuleDescription());
-            json.put("rules_array"    , homesModel.getRulesArray());
-            json.put("image_array"    , homesModel.getPhotoArray());
+            //json.put("rules_array"    , rulesArray);
+            json.put("image_array"    , photoArray);
 
         }catch(JSONException e){
             e.printStackTrace();
