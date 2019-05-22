@@ -233,7 +233,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                         ""
                 );
 
-        new ConnectionHelper("http://193.176.242.60:7060/ticka/home/public/api/v1/insert-home" , 5000 , ConnectionHelper.METHOD_POST)
+        new ConnectionHelper("http://193.176.242.60:7060/ticka/home/public/api/v1/insert-home" , 5000 , ConnectionHelper.POST)
                 .addStringRequest("name"           , homesModel.getHomeTitle())
                 .addStringRequest("address"        , homesModel.getHomeAddress())
                 .addStringRequest("description"    , homesModel.getHomeDescription())

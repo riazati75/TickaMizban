@@ -23,8 +23,8 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 public class ConnectionHelper {
 
-    public static final String METHOD_POST = "POST";
-    public static final String METHOD_GET  = "GET";
+    public static final String POST = "POST";
+    public static final String GET = "GET";
 
     private AsyncHttpRequest asyncHttpRequest;
     private MultipartFormDataBody body;
@@ -41,11 +41,11 @@ public class ConnectionHelper {
 
         switch(requestMethod){
 
-            case METHOD_POST:
+            case POST:
                 this.asyncHttpRequest = new AsyncHttpPost(configUrl);
                 break;
 
-            case METHOD_GET:
+            case GET:
                 this.asyncHttpRequest = new AsyncHttpGet(configUrl);
                 break;
         }
@@ -272,8 +272,8 @@ public class ConnectionHelper {
     @Retention(SOURCE)
     @StringDef(
             value = {
-                    ConnectionHelper.METHOD_GET ,
-                    ConnectionHelper.METHOD_POST
+                    ConnectionHelper.GET,
+                    ConnectionHelper.POST
             })
     @interface ConnectionMethod {}
 }
