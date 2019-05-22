@@ -157,16 +157,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Recycle")
-    public List<String> getFacilitiesById(String array){
+    public List<String> getFacilitiesById(List<Integer> array){
 
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor;
 
         List<String> facilitiesList = new ArrayList<>();
-        List<Integer> arrayInt = convert(array);
 
-        for(int i = 0; i < arrayInt.size(); i++){
-            cursor = database.rawQuery("SELECT " + FACILITY_NAME + " FROM " + TABLE_FACILITY + " WHERE " + FACILITY_ID + " = " + arrayInt.get(i), null);
+        for(int i = 0; i < array.size(); i++){
+            cursor = database.rawQuery("SELECT " + FACILITY_NAME + " FROM " + TABLE_FACILITY + " WHERE " + FACILITY_ID + " = " + array.get(i), null);
             cursor.moveToFirst();
             String text = cursor.getString(cursor.getColumnIndex(FACILITY_NAME));
             Logger.Log(text);

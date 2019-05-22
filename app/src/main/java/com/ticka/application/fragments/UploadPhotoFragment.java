@@ -30,6 +30,7 @@ import com.ticka.application.R;
 import com.ticka.application.adapters.AddPhotoAdapter;
 import com.ticka.application.adapters.ReviewAdapter;
 import com.ticka.application.api.APIClient;
+import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.helpers.BuildingHelper;
@@ -48,6 +49,9 @@ import java.util.List;
 import java.util.Map;
 
 import ir.farsroidx.StringImageUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.ticka.application.helpers.UserHelper.KEY_USER_PHONE;
 
@@ -185,7 +189,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
         if(!isReviewed){
 
-            homesModel.setPhotoArray(photoArrayList.toString());
+            homesModel.setPhotoArray(photoArrayList);
 
             String facilities = "";
             String rules = "";
@@ -220,8 +224,74 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             Logger.Log(homesModel.parsData());
         }
         else {
-            sendToServe();
+            sendToServe(1);
         }
+    }
+
+    private void sendToServe(int i){
+
+        progressDialog.show();
+
+        final String cellphone = SPUtils.getInstance(context)
+                .readString(
+                        KEY_USER_PHONE,
+                        ""
+                );
+
+        APIInterface api = APIClient.getTESTClient();
+
+        Map<String , Object> map = new HashMap<>();
+        map.put("name"           , homesModel.getHomeTitle());
+        map.put("address"        , homesModel.getHomeAddress());
+        map.put("description"    , homesModel.getHomeDescription());
+        map.put("home_status_id" , homesModel.getHomeStateId());
+        map.put("city_id"        , homesModel.getHomeCityId());
+        map.put("home_type"      , homesModel.getBuildingType());
+        map.put("place_area"     , homesModel.getLocationType());
+        map.put("building_size"  , homesModel.getBuildingArea());
+        map.put("area_size"      , homesModel.getLandArea());
+        map.put("room_count"     , homesModel.getRoomNumber());
+        map.put("base_capacity"  , homesModel.getStandardCapacity());
+        map.put("max_capacity"   , homesModel.getMaximumCapacity());
+        map.put("single_bed"     , homesModel.getSingleBed());
+        map.put("double_bed"     , homesModel.getDoubleBed());
+        map.put("extra_bed"      , homesModel.getExtraBed());
+        map.put("rules"          , homesModel.getRuleDescription());
+        map.put("phone"          , homesModel.getPhone());
+        map.put("cellphone"      , cellphone);
+
+        api.insert(
+                map,
+                homesModel.getFacilitiesArray(),
+                homesModel.getRulesArray(),
+                homesModel.getPhotoArray()
+        ).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                progressDialog.dismiss();
+
+                if(response.isSuccessful()){
+
+                    Logger.Log(response.body());
+
+                    if(response.body().contains(APIClient.CREATE_HOME_SUCCESS)){
+                        Intent intent = new Intent();
+                        intent.putExtra("callback" , "ok");
+                        context.setResult(Activity.RESULT_OK , intent);
+                        context.finish();
+                    }
+                    else {
+                        Toast.makeText(context, "ثبت اقامتگاه با خطا مواجه شد مجدد تست کنید", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                progressDialog.dismiss();
+                Logger.Log("Throwable: => " + t.getMessage());
+            }
+        });
     }
 
     private void sendToServe(){
@@ -250,9 +320,9 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 .addStringRequest("single_bed"     , String.valueOf(homesModel.getSingleBed()))
                 .addStringRequest("double_bed"     , String.valueOf(homesModel.getDoubleBed()))
                 .addStringRequest("extra_bed"      , String.valueOf(homesModel.getExtraBed()))
-                .addStringRequest("facility_array" , homesModel.getFacilitiesArray())
+                .addStringRequest("facility_array" , homesModel.getFacilitiesArray().toString())
                 .addStringRequest("rules"          , String.valueOf(homesModel.getRuleDescription()))
-                .addStringRequest("rules_array"    , homesModel.getRulesArray())
+                .addStringRequest("rules_array"    , homesModel.getRulesArray().toString())
                 .addStringRequest("image_array"    , photoArrayList.toString())
                 .addStringRequest("phone"          , homesModel.getPhone())
                 .addStringRequest("cellphone"      , cellphone)
@@ -299,7 +369,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     public void onPositive(MaterialDialog dialog) {
                         isReviewed = true;
                         dialog.dismiss();
-                        sendToServe();
+                        sendToServe(2);
                     }
 
                     @Override

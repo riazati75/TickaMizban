@@ -1,6 +1,7 @@
 package com.ticka.application.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class HomeDataModel implements Serializable {
 
@@ -24,15 +25,15 @@ public class HomeDataModel implements Serializable {
     private Integer roomNumber = -1;
     private Integer landArea = -1;
     private Integer buildingArea = -1;
-    private String photoArray = "[]";
+    private List<Long> photoArray = null;
     private Integer standardCapacity = -1;
     private Integer maximumCapacity = -1;
     private Integer singleBed = -1;
     private Integer doubleBed = -1;
     private Integer extraBed = -1;
-    private String facilitiesArray = "[]";
+    private List<Integer> facilitiesArray = null;
     private String facilitiesDescription = "";
-    private String rulesArray = "[1,2]";
+    private List<Integer> rulesArray = null;
     private String ruleDescription = "";
 
     public String getHomeTitle() {
@@ -123,11 +124,11 @@ public class HomeDataModel implements Serializable {
         this.buildingArea = buildingArea;
     }
 
-    public String getPhotoArray() {
+    public List<Long> getPhotoArray() {
         return photoArray;
     }
 
-    public void setPhotoArray(String photoArray) {
+    public void setPhotoArray(List<Long> photoArray) {
         this.photoArray = photoArray;
     }
 
@@ -171,11 +172,11 @@ public class HomeDataModel implements Serializable {
         this.extraBed = extraBed;
     }
 
-    public String getFacilitiesArray() {
+    public List<Integer> getFacilitiesArray() {
         return facilitiesArray;
     }
 
-    public void setFacilitiesArray(String facilitiesArray) {
+    public void setFacilitiesArray(List<Integer> facilitiesArray) {
         this.facilitiesArray = facilitiesArray;
     }
 
@@ -187,11 +188,11 @@ public class HomeDataModel implements Serializable {
         this.facilitiesDescription = facilitiesDescription;
     }
 
-    public String getRulesArray() {
+    public List<Integer> getRulesArray() {
         return rulesArray;
     }
 
-    public void setRulesArray(String rulesArray) {
+    public void setRulesArray(List<Integer> rulesArray) {
         this.rulesArray = rulesArray;
     }
 
