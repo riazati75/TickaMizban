@@ -219,11 +219,11 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             Logger.Log(homesModel.parsData());
         }
         else {
-            sendToServerConnectionHelper();
+            sendToServe();
         }
     }
 
-    private void sendToServerConnectionHelper(){
+    private void sendToServe(){
 
         progressDialog.show();
 
@@ -252,7 +252,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 //.addStringRequest("facility_id"    , homesModel.getFacilitiesArray())
                 .addStringRequest("phone"          , homesModel.getPhone())
                 .addStringRequest("cellphone"      , cellphone)
-                //.addStringRequest("src"            , homesModel.getPhotoArray())
+                .addStringRequest("image_array"    , homesModel.getPhotoArray())
                 .getStringResponse(new ConnectionHelper.OnStringResponse() {
                     @Override
                     public void notConnectToServer() {
@@ -286,7 +286,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     public void onPositive(MaterialDialog dialog) {
                         isReviewed = true;
                         dialog.dismiss();
-                        sendToServerConnectionHelper();
+                        sendToServe();
                     }
 
                     @Override
