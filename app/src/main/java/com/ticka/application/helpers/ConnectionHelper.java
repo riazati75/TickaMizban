@@ -300,6 +300,5 @@ public class ConnectionHelper {
                     ConnectionHelper.METHOD_GET ,
                     ConnectionHelper.METHOD_POST
             })
-    public @interface ConnectionMethod {}
-
+    @interface ConnectionMethod {}
 }
