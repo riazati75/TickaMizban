@@ -49,6 +49,9 @@ import java.util.List;
 import java.util.Map;
 
 import ir.farsroidx.StringImageUtils;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okio.BufferedSink;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -224,8 +227,59 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             Logger.Log(homesModel.parsData());
         }
         else {
-            sendToServe(1);
+            sendToServe(true);
         }
+    }
+
+    private void sendToServe(boolean b){
+
+        progressDialog.show();
+
+        final String cellphone = SPUtils.getInstance(context)
+                .readString(
+                        KEY_USER_PHONE,
+                        ""
+                );
+
+        APIInterface api = APIClient.getTESTClient();
+        JSONObject json = JSONUtils.getJsonInsert(homesModel , cellphone);
+
+        RequestBody body = RequestBody.create(
+                MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
+                json.toString()
+        );
+
+        api.insert(body).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                progressDialog.dismiss();
+
+                if(response.isSuccessful()){
+
+                    Logger.Log(response.body());
+
+                    if(response.body().contains(APIClient.CREATE_HOME_SUCCESS)){
+                        Intent intent = new Intent();
+                        intent.putExtra("callback" , "ok");
+                        context.setResult(Activity.RESULT_OK , intent);
+                        context.finish();
+                    }
+                    else {
+                        Logger.Log(response.body());
+                        Toast.makeText(context, "ثبت اقامتگاه با خطا مواجه شد مجدد تست کنید", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Logger.Log(response.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                progressDialog.dismiss();
+                Logger.Log("Throwable: => " + t.getMessage());
+            }
+        });
     }
 
     private void sendToServe(int i){
@@ -279,8 +333,12 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                         context.finish();
                     }
                     else {
+                        Logger.Log(response.body());
                         Toast.makeText(context, "ثبت اقامتگاه با خطا مواجه شد مجدد تست کنید", Toast.LENGTH_SHORT).show();
                     }
+                }
+                else {
+                    Logger.Log(response.toString());
                 }
             }
 
@@ -367,7 +425,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                     public void onPositive(MaterialDialog dialog) {
                         isReviewed = true;
                         dialog.dismiss();
-                        sendToServe(2);
+                        sendToServe(false);
                     }
 
                     @Override

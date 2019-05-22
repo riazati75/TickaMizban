@@ -18,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.QueryMap;
 
 public interface APIInterface {
 
@@ -70,11 +71,18 @@ public interface APIInterface {
     );
 
     @POST(APIClient.URL_INSERT_HOME)
+    @FormUrlEncoded
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
-    @FormUrlEncoded
     Call<String> insert(
             @FieldMap Map<String , Object> map
+    );
+
+    @POST(APIClient.URL_INSERT_HOME)
+    @Headers({"accept: application/json",
+            "Content-Type: application/json"})
+    Call<String> insert(
+            @Body RequestBody body
     );
 
     @GET(APIClient.URL_GET_PHOTO)

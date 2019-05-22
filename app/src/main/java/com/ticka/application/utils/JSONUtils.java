@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ticka.application.models.HomeDataModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +13,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+
+import static com.ticka.application.helpers.UserHelper.KEY_USER_PHONE;
 
 public class JSONUtils {
 
@@ -48,27 +51,39 @@ public class JSONUtils {
         return json;
     }
 
-    public static JsonObject getSaveJson2(@NonNull String base64){
+    public static JSONObject getJsonInsert(@NonNull HomeDataModel homesModel , String cellphone){
 
         JSONObject json = new JSONObject();
-        JsonObject object = new JsonObject();
 
         try{
 
-            json.put("Name" , "photo.jpeg");
-            json.put("Type" , 1);
-            json.put("Size" , 1);
-            json.put("HasThumbnail" , true);
-            json.put("Base64Content" , "data:image/jpeg;base64," + base64);
-
-            JsonParser parser = new JsonParser();
-            object = (JsonObject) parser.parse(json.toString());
+            json.put("name"           , homesModel.getHomeTitle());
+            json.put("cellphone"      , cellphone);
+            json.put("phone"          , homesModel.getPhone());
+            json.put("address"        , homesModel.getHomeAddress());
+            json.put("description"    , homesModel.getHomeDescription());
+            json.put("home_status_id" , homesModel.getHomeStateId());
+            json.put("city_id"        , homesModel.getHomeCityId());
+            json.put("home_type"      , homesModel.getBuildingType());
+            json.put("place_area"     , homesModel.getLocationType());
+            json.put("building_size"  , homesModel.getBuildingArea());
+            json.put("area_size"      , homesModel.getLandArea());
+            json.put("room_count"     , homesModel.getRoomNumber());
+            json.put("base_capacity"  , homesModel.getStandardCapacity());
+            json.put("max_capacity"   , homesModel.getMaximumCapacity());
+            json.put("single_bed"     , homesModel.getSingleBed());
+            json.put("double_bed"     , homesModel.getDoubleBed());
+            json.put("extra_bed"      , homesModel.getExtraBed());
+            json.put("facility_array" , homesModel.getFacilitiesArray());
+            json.put("rules"          , homesModel.getRuleDescription());
+            json.put("rules_array"    , homesModel.getRulesArray());
+            json.put("image_array"    , homesModel.getPhotoArray());
 
         }catch(JSONException e){
             e.printStackTrace();
         }
 
-        return object;
+        return json;
     }
 
     public static JSONObject getSaveJson(@NonNull String base64){
