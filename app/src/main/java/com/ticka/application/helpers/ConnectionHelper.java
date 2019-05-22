@@ -81,6 +81,11 @@ public class ConnectionHelper {
         return this;
     }
 
+    private ConnectionHelper disableProxy(){
+        this.post.disableProxy();
+        return this;
+    }
+
     private void getString(final OnStringResponse onStringResponse) {
 
         this.post.setTimeout(timeOut);
@@ -166,6 +171,30 @@ public class ConnectionHelper {
         });
     }
 
+    private void getFile(final OnFileResponse onFileResponse , String fileName) {
+
+        this.post.setTimeout(timeOut);
+        this.post.setBody(body);
+
+        AsyncHttpClient.getDefaultInstance().executeFile(post, fileName , new AsyncHttpClient.FileCallback() {
+
+            @Override
+            public void onCompleted(Exception e, AsyncHttpResponse source, File result) {
+
+            }
+
+            @Override
+            public void onProgress(AsyncHttpResponse response, long downloaded, long total) {
+
+            }
+
+            @Override
+            public void onConnect(AsyncHttpResponse response) {
+
+            }
+        });
+    }
+
     public void getStringResponse(final OnStringResponse onStringResponse){
 
         new Thread(new Runnable() {
@@ -186,13 +215,18 @@ public class ConnectionHelper {
         }).start();
     }
 
-    public String getRequestMethod(){
-        return this.post.getMethod();
+    public void getFileResponse(final OnFileResponse onFileResponse , final String fileName){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getFile(onFileResponse , fileName);
+            }
+        }).start();
     }
 
-    private ConnectionHelper disableProxy(){
-        this.post.disableProxy();
-        return this;
+    public String getRequestMethod(){
+        return this.post.getMethod();
     }
 
     public interface OnStringResponse {
@@ -206,6 +240,16 @@ public class ConnectionHelper {
     }
 
     public interface OnJsonObjectResponse {
+
+        void notConnectToServer();
+
+        void onSuccessResponse(JSONObject jsonObject);
+
+        void onNullResponse();
+
+    }
+
+    public interface OnFileResponse {
 
         void notConnectToServer();
 
