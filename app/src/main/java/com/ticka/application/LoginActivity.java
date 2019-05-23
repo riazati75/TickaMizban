@@ -169,7 +169,8 @@ public class LoginActivity extends OptionActivity {
 
             ActivityCompat.requestPermissions(LoginActivity.this,
                     new String[] {
-                            Manifest.permission.RECEIVE_SMS
+                            Manifest.permission.RECEIVE_SMS,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
                     },
                     REQUEST_CODE);
         }
