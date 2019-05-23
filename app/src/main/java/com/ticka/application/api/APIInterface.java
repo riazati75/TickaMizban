@@ -4,6 +4,9 @@ import com.ticka.application.models.callback.LoginCallback;
 import com.ticka.application.models.callback.SaveCallback;
 import com.ticka.application.models.facility.FacilityModel;
 import com.ticka.application.models.home.HomeModel;
+import com.ticka.application.models.rules.RuleData;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -35,6 +38,11 @@ public interface APIInterface {
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
     Call<FacilityModel> getFacility();
+
+    @GET(APIClient.URL_GET_RULE)
+    @Headers({"accept: application/json",
+            "Content-Type: application/json"})
+    Call<List<RuleData>> getRule();
 
     @POST(APIClient.URL_INSERT_HOME)
     @Headers({"accept: application/json",

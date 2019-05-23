@@ -18,8 +18,11 @@ import com.ticka.application.core.OptionActivity;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.cities.CitiesModel;
 import com.ticka.application.models.facility.FacilityModel;
+import com.ticka.application.models.rules.RuleData;
 import com.ticka.application.models.states.StatesModel;
 import com.ticka.application.utils.JSONUtils;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +33,8 @@ public class NewActivity extends OptionActivity {
     private LinearLayout root;
     private StepperLayout stepperLayout;
     private DatabaseHelper databaseHelper;
+    private int requestFacility = 5;
+    private int requestRules = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class NewActivity extends OptionActivity {
         databaseHelper = DatabaseHelper.getInstance(this);
         setOfflineCity();
         getFacility();
+        getRules();
 
         root = findViewById(R.id.root);
         stepperLayout = findViewById(R.id.stepperLayout);
@@ -104,11 +110,57 @@ public class NewActivity extends OptionActivity {
                 if(response.isSuccessful()){
                     databaseHelper.insertFacility(response.body().getData());
                 }
+                else {
+
+                    if(requestFacility > 0){
+                        requestFacility = requestFacility - 1;
+                        getFacility();
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<FacilityModel> call, Throwable t) {
                 Logger.Log(t.getMessage());
+                if(requestFacility > 0){
+                    requestFacility = requestFacility - 1;
+                    getFacility();
+                }
+            }
+        });
+    }
+
+    private void getRules(){
+
+        APIInterface api = APIClient.getTESTClient();
+        api.getRule().enqueue(new Callback<List<RuleData>>() {
+            @Override
+            public void onResponse(Call<List<RuleData>> call, Response<List<RuleData>> response) {
+
+                if(response.isSuccessful()){
+
+                    if(response.body() != null){
+                        databaseHelper.insertRule(response.body());
+                    }
+                }
+                else {
+
+                    if(requestRules > 0){
+                        requestRules = requestRules - 1;
+                        getRules();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RuleData>> call, Throwable t) {
+
+                Logger.Log(t.getMessage());
+
+                if(requestRules > 0){
+                    requestRules = requestRules - 1;
+                    getRules();
+                }
             }
         });
     }

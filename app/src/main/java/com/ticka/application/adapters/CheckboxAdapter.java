@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.ticka.application.R;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.facility.FacilityData;
+import com.ticka.application.models.rules.RuleData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +25,12 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
     public static final int RULES_TYPE = 58;
 
     private LayoutInflater layoutInflater;
-    private List<FacilityData> facilityData;
-    private DatabaseHelper databaseHelper;
+    private List<FacilityData> facilityData = null;
+    private List<RuleData> ruleData = null;
     private List<Integer> selectedList = new ArrayList<>();
 
     public CheckboxAdapter(Context context , int type) {
-        this.databaseHelper = DatabaseHelper.getInstance(context);
+        DatabaseHelper databaseHelper = DatabaseHelper.getInstance(context);
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         switch(type){
@@ -39,7 +40,7 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
                 break;
 
             case RULES_TYPE:
-                this.facilityData = databaseHelper.getFacilities();
+                this.ruleData = databaseHelper.getRules();
                 break;
         }
     }
@@ -53,20 +54,40 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
     @Override
     public void onBindViewHolder(@NonNull VH vh, @SuppressLint("RecyclerView") final int position) {
 
-        vh.title.setText(facilityData.get(position).getName());
 
-        vh.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(facilityData != null){
 
-                if(isChecked){
-                    selectedList.add(facilityData.get(position).getId());
+            vh.title.setText(facilityData.get(position).getName());
+
+            vh.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    if(isChecked){
+                        selectedList.add(facilityData.get(position).getId());
+                    }
+                    else {
+                        selectedList.remove(facilityData.get(position).getId());
+                    }
                 }
-                else {
-                    selectedList.remove(facilityData.get(position).getId());
+            });
+        }
+        else if(ruleData != null){
+            vh.title.setText(ruleData.get(position).getDescription());
+
+            vh.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    if(isChecked){
+                        selectedList.add(ruleData.get(position).getId());
+                    }
+                    else {
+                        selectedList.remove(ruleData.get(position).getId());
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override

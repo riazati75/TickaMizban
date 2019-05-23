@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.cities.City;
 import com.ticka.application.models.facility.FacilityData;
+import com.ticka.application.models.rules.RuleData;
 import com.ticka.application.models.states.State;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table name
     private static final String TABLE_FACILITY = "facility";
+    private static final String TABLE_RULE     = "rule";
     private static final String TABLE_CITY     = "city";
     private static final String TABLE_STATE    = "state";
 
@@ -33,6 +35,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String FACILITY_PRIMARY = "_id";
     private static final String FACILITY_ID      = "id";
     private static final String FACILITY_NAME    = "name";
+
+    // Rule
+    private static final String RULE_PRIMARY = "_id";
+    private static final String RULE_ID      = "id";
+    private static final String RULE_NAME    = "name";
 
     // City
     private static final String CITY_PRIMARY  = "_id";
@@ -80,6 +87,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             contentValues.put(FACILITY_ID, facilityData.get(i).getId());
             contentValues.put(FACILITY_NAME, facilityData.get(i).getName());
             database.insert(TABLE_FACILITY , null , contentValues);
+        }
+
+        database.close();
+    }
+
+    public void insertRule(List<RuleData> facilityData){
+
+        deleteTableRule(getWritableDatabase());
+        createTableRule(getWritableDatabase());
+
+        SQLiteDatabase database = getWritableDatabase();
+        ContentValues contentValues = getContentValues();
+
+        for(int i = 0; i < facilityData.size(); i++){
+            contentValues.clear();
+            contentValues.put(RULE_ID, facilityData.get(i).getId());
+            contentValues.put(RULE_NAME, facilityData.get(i).getDescription());
+            database.insert(TABLE_RULE , null , contentValues);
         }
 
         database.close();
@@ -154,6 +179,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         database.close();
         return facilityData;
+    }
+
+    @SuppressLint("Recycle")
+    public List<RuleData> getRules(){
+
+        List<RuleData> ruleData = new ArrayList<>();
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_FACILITY , null);
+
+        if(cursor.moveToFirst()){
+            do{
+
+                Integer id  = cursor.getInt(cursor.getColumnIndex(RULE_ID));
+                String name = cursor.getString(cursor.getColumnIndex(RULE_NAME));
+
+                ruleData.add(
+                        new RuleData(
+                                id,
+                                1,
+                                name ,
+                                null ,
+                                null ,
+                                null
+                        )
+                );
+            }
+            while(cursor.moveToNext());
+        }
+
+        database.close();
+        return ruleData;
     }
 
     @SuppressLint("Recycle")
@@ -271,6 +329,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ")");
     }
 
+    private void createTableRule(SQLiteDatabase db){
+
+        db.execSQL("CREATE TABLE " + TABLE_RULE + " (" + RULE_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
+                RULE_ID + " INTEGER ," +
+                RULE_NAME + " TEXT " +
+                ")");
+    }
+
     private void createTableState(SQLiteDatabase db) {
 
         db.execSQL("CREATE TABLE " + TABLE_STATE + " (" + STATE_PRIMARY + " Integer PRIMARY KEY AUTOINCREMENT , " +
@@ -291,6 +357,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         createTableFacility(db);
+        createTableRule(db);
         createTableState(db);
         createTableCity(db);
     }
@@ -299,6 +366,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if(newVersion > oldVersion){
             deleteTableFacility(db);
+            deleteTableRule(db);
             deleteTableState(db);
             deleteTableCity(db);
             onCreate(db);
@@ -307,6 +375,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void deleteTableFacility(SQLiteDatabase db){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FACILITY);
+    }
+
+    private void deleteTableRule(SQLiteDatabase db){
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RULE);
     }
 
     private void deleteTableState(SQLiteDatabase db){
