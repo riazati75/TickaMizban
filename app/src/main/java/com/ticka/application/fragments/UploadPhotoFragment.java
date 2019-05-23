@@ -139,7 +139,9 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if(requestCode == REQUEST_CODE){
-            pickImage();
+
+            Toast.makeText(context, "برای انتخاب عکس برنامه نیاز به مجوز خواندن حافظه دارد", Toast.LENGTH_SHORT).show();
+
         }
     }
 
