@@ -188,7 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase database = getReadableDatabase();
 
-        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_FACILITY , null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_RULE , null);
 
         if(cursor.moveToFirst()){
             do{

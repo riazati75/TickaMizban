@@ -92,7 +92,13 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
 
     @Override
     public int getItemCount() {
-        return facilityData.size();
+
+        if(facilityData != null){
+            return facilityData.size();
+        }
+        else {
+            return ruleData.size();
+        }
     }
 
     public List<Integer> getSelectedList() {

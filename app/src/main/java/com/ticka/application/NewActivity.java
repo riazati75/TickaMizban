@@ -108,6 +108,8 @@ public class NewActivity extends OptionActivity {
             public void onResponse(Call<FacilityModel> call, Response<FacilityModel> response) {
 
                 if(response.isSuccessful()){
+
+                    Logger.Log("Facility Success");
                     databaseHelper.insertFacility(response.body().getData());
                 }
                 else {
@@ -140,6 +142,8 @@ public class NewActivity extends OptionActivity {
                 if(response.isSuccessful()){
 
                     if(response.body() != null){
+
+                        Logger.Log("Rule Success");
                         databaseHelper.insertRule(response.body());
                     }
                 }
