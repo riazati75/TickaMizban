@@ -45,9 +45,7 @@ public class HomesAdapter extends RecyclerView.Adapter<HomesAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-
         setImage(holder.photo , homeData.get(position).getGallery().get(0).getSrc());
-
     }
 
     private void setImage(final ImageView image , String imageId){

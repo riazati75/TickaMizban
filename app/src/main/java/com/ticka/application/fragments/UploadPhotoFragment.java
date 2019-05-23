@@ -1,14 +1,18 @@
 package com.ticka.application.fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,7 +63,8 @@ import static com.ticka.application.helpers.UserHelper.KEY_USER_PHONE;
 
 public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
-    private static final int PICK_PHOTO_REQUEST = 100;
+    private static final int PICK_PHOTO_REQUEST = 1000;
+    private static final int REQUEST_CODE = 1070;
 
     private AppCompatActivity context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
@@ -111,10 +116,31 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     }
 
     public void pickImage() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "عکس را انتخاب کنید:") , PICK_PHOTO_REQUEST);
+
+        if(ContextCompat.checkSelfPermission(context , Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(context,
+                    new String[] {
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                    },
+                    REQUEST_CODE);
+        }
+        else {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            startActivityForResult(Intent.createChooser(intent, "عکس را انتخاب کنید:") , PICK_PHOTO_REQUEST);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(requestCode == REQUEST_CODE){
+            pickImage();
+        }
     }
 
     @Override

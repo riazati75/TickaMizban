@@ -44,7 +44,7 @@ import static com.ticka.application.SplashActivity.ACTION_FORCE_CLOSE;
 
 public class LoginActivity extends OptionActivity {
 
-    private static final int REQUEST_CODE = 100;
+    private static final int REQUEST_CODE = 1070;
 
     private FrameLayout root;
     private MaskedEditText inPhone;
