@@ -45,8 +45,4 @@ public interface APIInterface {
     @Headers({"accept: application/json", "Content-Type: application/json"})
     Call<String> insert(@Body RequestBody body);
 
-    @GET(APIClient.URL_GET_PHOTO)
-    @Headers({"accept: application/json", "Content-Type: application/json"})
-    Call<ResponseBody> getPhoto(@Path("id") String id);
-
 }
