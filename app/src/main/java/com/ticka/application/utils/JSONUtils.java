@@ -57,27 +57,28 @@ public class JSONUtils {
 
         try{
 
-            json.put("name"           , homesModel.getHomeTitle());
-            json.put("cellphone"      , cellphone);
-            json.put("phone"          , homesModel.getPhone());
-            json.put("address"        , homesModel.getHomeAddress());
-            json.put("description"    , homesModel.getHomeDescription());
-            json.put("home_status_id" , homesModel.getHomeStateId());
-            json.put("city_id"        , homesModel.getHomeCityId());
-            json.put("home_type"      , homesModel.getBuildingType());
-            json.put("place_area"     , homesModel.getLocationType());
-            json.put("building_size"  , homesModel.getBuildingArea());
-            json.put("area_size"      , homesModel.getLandArea());
-            json.put("room_count"     , homesModel.getRoomNumber());
-            json.put("base_capacity"  , homesModel.getStandardCapacity());
-            json.put("max_capacity"   , homesModel.getMaximumCapacity());
-            json.put("single_bed"     , homesModel.getSingleBed());
-            json.put("double_bed"     , homesModel.getDoubleBed());
-            json.put("extra_bed"      , homesModel.getExtraBed());
-            json.put("facility_array" , facilityArray);
-            json.put("rules"          , homesModel.getRuleDescription());
-            json.put("rules_array"    , rulesArray);
-            json.put("image_array"    , photoArray);
+            json.put("name"                 , homesModel.getHomeTitle());
+            json.put("cellphone"            , cellphone);
+            json.put("phone"                , homesModel.getPhone());
+            json.put("address"              , homesModel.getHomeAddress());
+            json.put("description"          , homesModel.getHomeDescription());
+            json.put("home_status_id"       , homesModel.getHomeStateId());
+            json.put("city_id"              , homesModel.getHomeCityId());
+            json.put("home_type"            , homesModel.getBuildingType());
+            json.put("place_area"           , homesModel.getLocationType());
+            json.put("building_size"        , homesModel.getBuildingArea());
+            json.put("area_size"            , homesModel.getLandArea());
+            json.put("room_count"           , homesModel.getRoomNumber());
+            json.put("base_capacity"        , homesModel.getStandardCapacity());
+            json.put("max_capacity"         , homesModel.getMaximumCapacity());
+            json.put("single_bed"           , homesModel.getSingleBed());
+            json.put("double_bed"           , homesModel.getDoubleBed());
+            json.put("extra_bed"            , homesModel.getExtraBed());
+            json.put("facility_description" , homesModel.getFacilitiesDescription());
+            json.put("facility_array"       , facilityArray);
+            json.put("rules"                , homesModel.getRuleDescription());
+            json.put("rules_array"          , rulesArray);
+            json.put("image_array"          , photoArray);
 
         }catch(JSONException e){
             e.printStackTrace();
