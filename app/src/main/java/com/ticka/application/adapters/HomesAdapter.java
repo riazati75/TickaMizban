@@ -15,9 +15,12 @@ import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.models.home.HomeData;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,36 +46,17 @@ public class HomesAdapter extends RecyclerView.Adapter<HomesAdapter.Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
-        setImage(holder.photo , homeData.get(position).getGallery().get(position).getSrc());
+        setImage(holder.photo , homeData.get(position).getGallery().get(0).getSrc());
 
     }
 
     private void setImage(final ImageView image , String imageId){
 
-        APIInterface api = APIClient.getCDNClient();
-        api.getPhoto(imageId).enqueue(new Callback<File>() {
-            @Override
-            public void onResponse(Call<File> call, Response<File> response) {
-
-                if(response.isSuccessful()){
-
-                    Picasso.with(context)
-                            .load(response.body())
-                            .error(android.R.drawable.stat_notify_error)
-                            .placeholder(android.R.drawable.stat_sys_download)
-                            .into(image);
-                }
-                else {
-                    Logger.Log("Response: => " + response.message());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<File> call, Throwable t) {
-                Logger.Log("ThrowableAdapter: => " + t.getMessage());
-            }
-        });
+        Picasso.with(context)
+                .load("http://cdn.ticka.com/file/" + imageId)
+                .error(android.R.drawable.stat_notify_error)
+                .placeholder(android.R.drawable.stat_sys_download)
+                .into(image);
     }
 
     @Override
