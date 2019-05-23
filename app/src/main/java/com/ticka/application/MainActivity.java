@@ -136,7 +136,7 @@ public class MainActivity extends OptionActivity {
         int userId = SPUtils.getInstance(this)
                 .readInteger(
                         KEY_USER_ID,
-                        1
+                        0
                 );
 
         api.getHomes(userId).enqueue(new Callback<HomeModel>() {

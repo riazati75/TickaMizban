@@ -240,7 +240,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                         KEY_USER_PHONE,
                         ""
                 );
-        
+
         int userId = SPUtils.getInstance(context)
                 .readInteger(
                         KEY_USER_ID,

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
+import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.utils.JSONUtils;
 
@@ -143,6 +144,8 @@ public class LoginActivity extends OptionActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
 
+                Logger.Log("Response: " + response.message());
+
                 if(response.isSuccessful()){
                     initCode(phone);
                     Toast.makeText(LoginActivity.this, "کد از سمت سرور ارسال شد", Toast.LENGTH_SHORT).show();
@@ -154,6 +157,7 @@ public class LoginActivity extends OptionActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                Logger.Log("Throwable: " + t.getMessage());
                 Toast.makeText(LoginActivity.this, "خطا در برقراری ارتباط با سرور", Toast.LENGTH_SHORT).show();
             }
         });
@@ -168,6 +172,9 @@ public class LoginActivity extends OptionActivity {
                             Manifest.permission.RECEIVE_SMS
                     },
                     REQUEST_CODE);
+        }
+        else {
+            sendPhone(phone);
         }
     }
 

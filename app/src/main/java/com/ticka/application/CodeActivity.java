@@ -152,6 +152,8 @@ public class CodeActivity extends OptionActivity {
             @Override
             public void onResponse(Call<LoginCallback> call, Response<LoginCallback> response) {
 
+                Logger.Log("Response: " + response.message());
+
                 if(response.isSuccessful()){
 
                     if(response.body() != null){
@@ -165,7 +167,7 @@ public class CodeActivity extends OptionActivity {
 
             @Override
             public void onFailure(Call<LoginCallback> call, Throwable t) {
-                Logger.Log("Message: " + t.getMessage());
+                Logger.Log("Throwable: " + t.getMessage());
                 Toast.makeText(CodeActivity.this, "خطا در برقراری ارتباط با سرور", Toast.LENGTH_SHORT).show();
             }
         });

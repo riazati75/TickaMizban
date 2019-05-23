@@ -57,7 +57,7 @@ public class JSONUtils {
 
         try{
 
-            json.put("userId"               , userId);
+            json.put("user._id"              , userId);
             json.put("name"                 , homesModel.getHomeTitle());
             json.put("cellphone"            , cellphone);
             json.put("phone"                , homesModel.getPhone());
