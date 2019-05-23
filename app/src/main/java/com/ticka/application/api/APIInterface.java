@@ -12,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIInterface {
 
@@ -28,7 +29,7 @@ public interface APIInterface {
     @GET(APIClient.URL_GET_HOME)
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
-    Call<HomeModel> getHomes();
+    Call<HomeModel> getHomes(@Query("user_id") Integer id);
 
     @GET(APIClient.URL_GET_FACILITY)
     @Headers({"accept: application/json",

@@ -29,6 +29,8 @@ import com.ticka.application.custom.verification.OnCompletionListener;
 
 import org.json.JSONObject;
 
+import java.util.Random;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -171,6 +173,8 @@ public class CodeActivity extends OptionActivity {
 
     private void loginSuccess(LoginCallback callback){
 
+        Random random = new Random();
+        userHelper.setUserId(random.nextInt(999));
         userHelper.setUserPhone(phone);
         userHelper.setUserJoined(true);
         userHelper.setUserToken(callback.getToken());

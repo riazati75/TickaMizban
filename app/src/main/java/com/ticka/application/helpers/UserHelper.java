@@ -9,6 +9,7 @@ public class UserHelper {
     private static UserHelper userHelper;
     private SPUtils spUtils;
 
+    public  static final String KEY_USER_ID       = "userId";
     private static final String KEY_USER_IS_JOIN  = "userIsJoin";
     public  static final String KEY_USER_PHONE    = "userPhone";
     private static final String KEY_USER_TOKEN    = "userToken";
@@ -23,6 +24,20 @@ public class UserHelper {
 
     private UserHelper(Context context) {
         spUtils = SPUtils.getInstance(context);
+    }
+
+    public void setUserId(Integer userId){
+        spUtils.writeInteger(
+                KEY_USER_ID,
+                userId
+        );
+    }
+
+    public Integer getUserId(){
+        return spUtils.readInteger(
+                KEY_USER_ID,
+                0
+        );
     }
 
     public void setUserJoined(boolean isJoin){

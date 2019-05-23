@@ -26,6 +26,7 @@ import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.models.home.HomeData;
 import com.ticka.application.models.home.HomeModel;
+import com.ticka.application.utils.SPUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +34,8 @@ import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.ticka.application.helpers.UserHelper.KEY_USER_ID;
 
 public class MainActivity extends OptionActivity {
 
@@ -129,7 +132,14 @@ public class MainActivity extends OptionActivity {
     private void getHome(){
 
         APIInterface api = APIClient.getTESTClient();
-        api.getHomes().enqueue(new Callback<HomeModel>() {
+
+        int userId = SPUtils.getInstance(this)
+                .readInteger(
+                        KEY_USER_ID,
+                        1
+                );
+
+        api.getHomes(userId).enqueue(new Callback<HomeModel>() {
             @Override
             public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
 

@@ -26,7 +26,7 @@ public class APIClient {
     static final String URL_GET_PHOTO         = "File/{id}";
     static final String URL_GET_FACILITY      = "facility";
     static final String URL_INSERT_HOME       = "insert-home";
-    static final String URL_GET_HOME          = "home";
+    static final String URL_GET_HOME          = "gethomebyuserid";
 
     public static final String CREATE_HOME_SUCCESS = "Home_Inserted_Successfully";
 

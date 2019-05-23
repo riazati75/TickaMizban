@@ -54,6 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.ticka.application.helpers.UserHelper.KEY_USER_ID;
 import static com.ticka.application.helpers.UserHelper.KEY_USER_PHONE;
 
 public class UploadPhotoFragment extends Fragment implements BlockingStep {
@@ -239,8 +240,14 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                         ""
                 );
 
+        int userId = SPUtils.getInstance(context)
+                .readInteger(
+                        KEY_USER_ID,
+                        1
+                );
+
         APIInterface api = APIClient.getTESTClient();
-        JSONObject json = JSONUtils.getJsonInsert(homesModel , cellphone);
+        JSONObject json = JSONUtils.getJsonInsert(homesModel , userId , cellphone);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),

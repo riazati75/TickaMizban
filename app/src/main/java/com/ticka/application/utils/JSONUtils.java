@@ -48,7 +48,7 @@ public class JSONUtils {
         return json;
     }
 
-    public static JSONObject getJsonInsert(@NonNull HomeDataModel homesModel , String cellphone){
+    public static JSONObject getJsonInsert(@NonNull HomeDataModel homesModel , Integer userId , String cellphone){
 
         JSONObject json = new JSONObject();
         JSONArray facilityArray = new JSONArray(homesModel.getFacilitiesArray());
@@ -57,6 +57,7 @@ public class JSONUtils {
 
         try{
 
+            json.put("userId"               , userId);
             json.put("name"                 , homesModel.getHomeTitle());
             json.put("cellphone"            , cellphone);
             json.put("phone"                , homesModel.getPhone());
@@ -75,10 +76,19 @@ public class JSONUtils {
             json.put("double_bed"           , homesModel.getDoubleBed());
             json.put("extra_bed"            , homesModel.getExtraBed());
             json.put("facility_description" , homesModel.getFacilitiesDescription());
-            json.put("facility_array"       , facilityArray);
             json.put("rules"                , homesModel.getRuleDescription());
-            json.put("rules_array"          , rulesArray);
-            json.put("image_array"          , photoArray);
+
+            if(homesModel.getFacilitiesArray().size() > 0){
+                json.put("facility_array"   , facilityArray);
+            }
+
+            if(homesModel.getRulesArray().size() > 0){
+                json.put("rules_array"      , rulesArray);
+            }
+
+            if(homesModel.getPhotoArray().size() > 0){
+                json.put("image_array"      , photoArray);
+            }
 
         }catch(JSONException e){
             e.printStackTrace();
