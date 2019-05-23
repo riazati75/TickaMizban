@@ -6,6 +6,7 @@ import com.ticka.application.models.facility.FacilityModel;
 import com.ticka.application.models.home.HomeModel;
 import com.ticka.application.models.rules.RuleData;
 
+import java.io.File;
 import java.util.List;
 
 import okhttp3.RequestBody;
@@ -52,6 +53,6 @@ public interface APIInterface {
     @GET(APIClient.URL_GET_PHOTO)
     @Headers({"accept: application/json",
             "Content-Type: application/json"})
-    Call<SaveCallback> getPhoto(@Path("id") int id);
+    Call<File> getPhoto(@Path("id") String id);
 
 }

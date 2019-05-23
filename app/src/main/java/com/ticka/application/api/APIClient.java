@@ -74,8 +74,15 @@ public class APIClient {
 
         if(TEST == null){
 
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .build();
+
             TEST = new Retrofit.Builder()
                     .baseUrl(BASE_URL_TEST)
+                    .client(okHttpClient)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .build();
@@ -84,8 +91,33 @@ public class APIClient {
         return TEST;
     }
 
+    private static Retrofit getCDN(){
+
+        if(CDN == null){
+
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .build();
+
+            CDN = new Retrofit.Builder()
+                    .baseUrl(BASE_URL_CDN)
+                    .client(okHttpClient)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(getGson()))
+                    .build();
+        }
+
+        return CDN;
+    }
+
     public static APIInterface getAPIClient(){
         return APIClient.getAPI().create(APIInterface.class);
+    }
+
+    public static APIInterface getCDNClient(){
+        return APIClient.getCDN().create(APIInterface.class);
     }
 
     public static APIInterface getTESTClient(){

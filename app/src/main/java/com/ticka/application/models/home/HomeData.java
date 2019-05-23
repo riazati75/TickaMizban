@@ -1,6 +1,7 @@
 package com.ticka.application.models.home;
 
 import java.io.Serializable;
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -9,110 +10,99 @@ public class HomeData implements Serializable {
     @SerializedName("id")
     @Expose
     private Integer id;
-
+    @SerializedName("user_id")
+    @Expose
+    private Integer userId;
     @SerializedName("city_id")
     @Expose
     private Integer cityId;
-
     @SerializedName("home_status_id")
     @Expose
     private Integer homeStatusId;
-
     @SerializedName("base_capacity")
     @Expose
     private Integer baseCapacity;
-
     @SerializedName("max_capacity")
     @Expose
     private Integer maxCapacity;
-
     @SerializedName("place_area")
     @Expose
     private Integer placeArea;
-
     @SerializedName("home_type")
     @Expose
     private Integer homeType;
-
     @SerializedName("room_count")
     @Expose
     private Integer roomCount;
-
     @SerializedName("single_bed")
     @Expose
     private Integer singleBed;
-
     @SerializedName("double_bed")
     @Expose
     private Integer doubleBed;
-
     @SerializedName("extra_bed")
     @Expose
     private Integer extraBed;
-
     @SerializedName("building_size")
     @Expose
     private Integer buildingSize;
-
     @SerializedName("area_size")
     @Expose
     private Integer areaSize;
-
     @SerializedName("operator_id")
     @Expose
-    private Integer operatorId;
-
+    private Object operatorId;
     @SerializedName("name")
     @Expose
     private String name;
-
     @SerializedName("description")
     @Expose
     private String description;
-
+    @SerializedName("facility_description")
+    @Expose
+    private Object facilityDescription;
     @SerializedName("address")
     @Expose
     private String address;
-
     @SerializedName("rules")
     @Expose
     private String rules;
-
     @SerializedName("phone")
     @Expose
     private String phone;
-
     @SerializedName("cellphone")
     @Expose
     private String cellphone;
-
     @SerializedName("team_note")
     @Expose
-    private String teamNote;
-
+    private Object teamNote;
     @SerializedName("is_removed")
     @Expose
-    private Integer isRemoved;
-
+    private Object isRemoved;
     @SerializedName("is_recommended")
     @Expose
-    private Integer isRecommended;
-
+    private Object isRecommended;
     @SerializedName("latitude")
     @Expose
-    private String latitude;
-
+    private Object latitude;
     @SerializedName("longitude")
     @Expose
-    private String longitude;
-
+    private Object longitude;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
-
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("facility")
+    @Expose
+    private List<Facility> facility = null;
+    @SerializedName("gallery")
+    @Expose
+    private List<Gallery> gallery = null;
+    @SerializedName("rule")
+    @Expose
+    private List<Rule> rule = null;
 
     public Integer getId() {
         return id;
@@ -120,6 +110,14 @@ public class HomeData implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getCityId() {
@@ -218,11 +216,11 @@ public class HomeData implements Serializable {
         this.areaSize = areaSize;
     }
 
-    public Integer getOperatorId() {
+    public Object getOperatorId() {
         return operatorId;
     }
 
-    public void setOperatorId(Integer operatorId) {
+    public void setOperatorId(Object operatorId) {
         this.operatorId = operatorId;
     }
 
@@ -240,6 +238,14 @@ public class HomeData implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Object getFacilityDescription() {
+        return facilityDescription;
+    }
+
+    public void setFacilityDescription(Object facilityDescription) {
+        this.facilityDescription = facilityDescription;
     }
 
     public String getAddress() {
@@ -274,43 +280,43 @@ public class HomeData implements Serializable {
         this.cellphone = cellphone;
     }
 
-    public String getTeamNote() {
+    public Object getTeamNote() {
         return teamNote;
     }
 
-    public void setTeamNote(String teamNote) {
+    public void setTeamNote(Object teamNote) {
         this.teamNote = teamNote;
     }
 
-    public Integer getIsRemoved() {
+    public Object getIsRemoved() {
         return isRemoved;
     }
 
-    public void setIsRemoved(Integer isRemoved) {
+    public void setIsRemoved(Object isRemoved) {
         this.isRemoved = isRemoved;
     }
 
-    public Integer getIsRecommended() {
+    public Object getIsRecommended() {
         return isRecommended;
     }
 
-    public void setIsRecommended(Integer isRecommended) {
+    public void setIsRecommended(Object isRecommended) {
         this.isRecommended = isRecommended;
     }
 
-    public String getLatitude() {
+    public Object getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Object latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Object getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Object longitude) {
         this.longitude = longitude;
     }
 
@@ -328,6 +334,30 @@ public class HomeData implements Serializable {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Facility> getFacility() {
+        return facility;
+    }
+
+    public void setFacility(List<Facility> facility) {
+        this.facility = facility;
+    }
+
+    public List<Gallery> getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(List<Gallery> gallery) {
+        this.gallery = gallery;
+    }
+
+    public List<Rule> getRule() {
+        return rule;
+    }
+
+    public void setRule(List<Rule> rule) {
+        this.rule = rule;
     }
 
 }
