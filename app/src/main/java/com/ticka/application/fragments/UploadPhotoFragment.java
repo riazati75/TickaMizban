@@ -46,7 +46,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import ir.farsroidx.StringImageUtils;
 import okhttp3.MediaType;
@@ -244,18 +243,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         int userId = SPUtils.getInstance(context)
                 .readInteger(
                         KEY_USER_ID,
-                        1
+                        0
                 );
-
-        if(userId == 1){
-            Random random = new Random();
-            SPUtils.getInstance(context).writeInteger(KEY_USER_ID , random.nextInt(999));
-            userId = SPUtils.getInstance(context)
-                    .readInteger(
-                            KEY_USER_ID,
-                            1
-                    );
-        }
 
         APIInterface api = APIClient.getTESTClient();
         JSONObject json = JSONUtils.getJsonInsert(homesModel , userId , cellphone);
