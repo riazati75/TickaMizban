@@ -63,8 +63,8 @@ public class UserRulesFragment extends Fragment implements BlockingStep {
 
     @Override
     public VerificationError verifyStep() {
-        if(adapter.getSelectedList().size() <= 3){
-            return new VerificationError("حداقل 4 مورد را انتخاب کنید ");
+        if(adapter.getSelectedList().size() < 1 && inputDescription.getText().toString().equals("")){
+            return new VerificationError("حداقل 1 مورد را انتخاب کنید یا وارد کنید ");
         }
         else {
             homesModel.setRulesArray(adapter.getSelectedList());
