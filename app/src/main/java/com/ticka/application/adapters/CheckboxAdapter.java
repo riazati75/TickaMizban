@@ -97,7 +97,13 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
             return facilityData.size();
         }
         else {
-            return ruleData.size();
+
+            if(ruleData != null){
+                return ruleData.size();
+            }
+            else {
+                return 0;
+            }
         }
     }
 
