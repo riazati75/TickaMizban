@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.transition.Fade;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.view.View;
@@ -33,12 +32,6 @@ public class SplashActivity extends OptionActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         setupNotificationBar();
-
-        Fade fade = new Fade();
-        View decor = getWindow().getDecorView();
-        fade.excludeTarget(decor.findViewById(R.id.root) , true);
-        getWindow().setEnterTransition(fade);
-        getWindow().setExitTransition(fade);
 
         init();
     }

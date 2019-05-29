@@ -21,7 +21,6 @@ public class APIClient {
     public static final String BODY_TEXT_HTML_TYPE  = "text/html";
 
     private static final String BASE_URL_API  = "http://api.ticka.com/";
-    private static final String BASE_URL_CDN  = "http://cdn.ticka.com/";
     private static final String BASE_URL_TEST = "http://193.176.242.60:7060/ticka/home/public/api/v1/";
 
     static final String URL_LOGIN             = "Account/SendLoginCode";
@@ -35,6 +34,21 @@ public class APIClient {
 
     private static Retrofit API = null , TEST = null;
     private static Gson GSON = null;
+    private static OkHttpClient okHttpClient = null;
+
+    private static OkHttpClient getOkHttpClient(){
+
+        if(okHttpClient == null){
+
+            okHttpClient = new OkHttpClient.Builder()
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .writeTimeout(30, TimeUnit.SECONDS)
+                    .build();
+        }
+
+        return okHttpClient;
+    }
 
     private static Gson getGson(){
 
@@ -52,15 +66,9 @@ public class APIClient {
 
         if(API == null){
 
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
-                    .build();
-
             API = new Retrofit.Builder()
                     .baseUrl(BASE_URL_API)
-                    .client(okHttpClient)
+                    .client(getOkHttpClient())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .build();
@@ -73,15 +81,9 @@ public class APIClient {
 
         if(TEST == null){
 
-            OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(30, TimeUnit.SECONDS)
-                    .readTimeout(30, TimeUnit.SECONDS)
-                    .writeTimeout(30, TimeUnit.SECONDS)
-                    .build();
-
             TEST = new Retrofit.Builder()
                     .baseUrl(BASE_URL_TEST)
-                    .client(okHttpClient)
+                    .client(getOkHttpClient())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(getGson()))
                     .build();
