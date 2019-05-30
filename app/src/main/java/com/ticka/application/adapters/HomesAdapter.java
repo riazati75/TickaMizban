@@ -37,12 +37,12 @@ public class HomesAdapter extends RecyclerView.Adapter<HomesAdapter.Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
-        holder.txtTitle.setText(homeData.get(position).getName());
+        holder.txtTitle.setText(" " + homeData.get(position).getName());
 
         if(homeData.get(position).getDescription().equals("")){
             holder.txtDesc.setVisibility(View.GONE);
         }else {
-            holder.txtDesc.setText(homeData.get(position).getDescription());
+            holder.txtDesc.setText(" " + homeData.get(position).getDescription());
         }
 
         setImage(holder.photo , homeData.get(position).getGallery().get(0).getSrc());

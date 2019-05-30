@@ -213,7 +213,7 @@
     <style name="styleRippleBlack" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="styleRipplePrimary" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/gray500</item>
     </style>
 
     <style name="styleRippleWhiteMe" parent="Theme.AppCompat.NoActionBar">
