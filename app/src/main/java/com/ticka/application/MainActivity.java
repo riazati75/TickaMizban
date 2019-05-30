@@ -151,6 +151,9 @@ public class MainActivity extends OptionActivity {
                         recyclerView.setAdapter(adapter);
                         runLayoutAnimation(recyclerView);
                     }
+                    else {
+                        Toast.makeText(MainActivity.this, "شما هنوز اقامتگاهی ثبت نکردید", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else {
                     showSnackbar(fab);

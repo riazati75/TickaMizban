@@ -132,7 +132,7 @@ public class SplashActivity extends OptionActivity {
                         new CheckingConnection().execute();
                     }
                 })
-                .setNegativeButton("فعلا نه", new DialogInterface.OnClickListener() {
+                .setNegativeButton("خروج", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
