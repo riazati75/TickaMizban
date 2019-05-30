@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class MainActivity extends OptionActivity {
     private LinearLayout notFound;
     private RecyclerView recyclerView;
     private HomesAdapter adapter;
+    private ImageView refresh;
     private FloatingActionButton fab;
 
     @Override
@@ -56,6 +58,7 @@ public class MainActivity extends OptionActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         notFound = findViewById(R.id.notFound);
+        refresh = findViewById(R.id.refresh);
         fab = findViewById(R.id.fab);
 
         initViews();
@@ -97,6 +100,13 @@ public class MainActivity extends OptionActivity {
                         ),REQUEST_CODE
                 );
                 overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
+            }
+        });
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHome();
             }
         });
 
@@ -149,6 +159,7 @@ public class MainActivity extends OptionActivity {
 
             @Override
             public void onFailure(Call<HomeModel> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "خطا در اتصال به اینترنت", Toast.LENGTH_SHORT).show();
                 Logger.Log("Throwable: => " + t.getMessage());
             }
         });
