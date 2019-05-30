@@ -65,13 +65,13 @@ public class MainActivity extends OptionActivity {
             @Override
             public void onClick(View v) {
 
+                Toast.makeText(MainActivity.this, "در حال برسی اطلاعات داخلی", Toast.LENGTH_LONG).show();
+
                 startActivityForResult(
                         new Intent(
                                 MainActivity.this , NewActivity.class
                         ),REQUEST_CODE
                 );
-
-                Toast.makeText(MainActivity.this, "در حال برسی اطلاعات داخلی", Toast.LENGTH_LONG).show();
 
                 overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
             }

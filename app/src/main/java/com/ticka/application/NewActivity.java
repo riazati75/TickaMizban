@@ -40,11 +40,6 @@ public class NewActivity extends OptionActivity {
 
         root = findViewById(R.id.root);
         stepperLayout = findViewById(R.id.stepperLayout);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
         initViews();
     }
 
