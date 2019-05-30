@@ -1,7 +1,14 @@
 package com.ticka.application;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Bundle;
@@ -14,9 +21,30 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.ticka.application.api.APIClient;
+import com.ticka.application.api.APIInterface;
+import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
+import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.helpers.UserHelper;
+import com.ticka.application.models.facility.FacilityData;
+import com.ticka.application.models.facility.FacilityModel;
+import com.ticka.application.models.rules.RuleData;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends OptionActivity {
 
@@ -26,6 +54,13 @@ public class SplashActivity extends OptionActivity {
     private ImageView photo;
     private Button button;
     private UserHelper userHelper;
+    private DatabaseHelper databaseHelper;
+    private AlertDialog alertDialog;
+    private MaterialDialog dialog;
+    private TextView txtProgress;
+    private ProgressBar progressBar;
+    private int requestFacility = 5;
+    private int requestRules = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +74,20 @@ public class SplashActivity extends OptionActivity {
     @Override
     protected void init() {
         userHelper = UserHelper.getInstance(this);
+        databaseHelper = DatabaseHelper.getInstance(this);
 
         root   = findViewById(R.id.root);
         photo  = findViewById(R.id.imageView);
         button = findViewById(R.id.button);
 
+        List<FacilityData> list1 = databaseHelper.getFacilities();
+        List<RuleData>     list2 = databaseHelper.getRules();
+
+        if(list1.size() <= 0 || list2.size() <= 0){
+            initDialog();
+            setLoadingProgress(0);
+            dialogConfirmData();
+        }
         initViews();
     }
 
@@ -69,6 +113,149 @@ public class SplashActivity extends OptionActivity {
             @Override
             public void onClick(View v) {
                 initLogin();
+            }
+        });
+    }
+
+    private void dialogConfirmData() {
+
+        alertDialog = new AlertDialog.Builder(SplashActivity.this , R.style.AppThemeDialog)
+                .setMessage("کاربر عزیز برای صحیح کار کردن برنامه باید اطلاعات از سرور بروزرسانی گردد\n\nاز اتصال اینترنت خود اطمینان حاصل کرده و سپس اقدام به دریافت اطلاعات کنید.")
+                .setPositiveButton("ارسال", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        new CheckingConnection().execute();
+                    }
+                })
+                .setNegativeButton("فعلا نه", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                }).create();
+
+        alertDialog.show();
+    }
+
+    private void initDialog(){
+
+        dialog = new MaterialDialog.Builder(this)
+                .customView(R.layout.dialog_loading_content , false)
+                .cancelable(false)
+                .autoDismiss(false)
+                .build();
+
+        progressBar = (ProgressBar) dialog.findViewById(R.id.progressBar);
+        txtProgress = (TextView) dialog.findViewById(R.id.txtProgress);
+
+        if(dialog.getWindow() != null){
+            dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_background);
+        }
+    }
+
+    private void setLoadingProgress(int progress){
+        String prg = progress + " %";
+        txtProgress.setText(prg);
+        progressBar.setProgress(progress);
+    }
+
+    private void getFacility(){
+
+        dialog.show();
+
+        if(progressBar.getProgress() + 17 < 100){
+            setLoadingProgress(progressBar.getProgress() + 20);
+        }
+
+        APIInterface api = APIClient.getTESTClient();
+        api.getFacility().enqueue(new Callback<FacilityModel>() {
+            @Override
+            public void onResponse(Call<FacilityModel> call, Response<FacilityModel> response) {
+
+                if(response.isSuccessful()){
+
+                    if(response.body().getData() != null){
+
+                        if(progressBar.getProgress() + 26 < 100){
+                            setLoadingProgress(progressBar.getProgress() + 20);
+                        }
+
+                        Logger.Log("Facility Success");
+                        databaseHelper.insertFacility(response.body().getData());
+
+                        getRules();
+                    }
+                }
+                else {
+
+                    if(requestFacility > 0){
+                        requestFacility = requestFacility - 1;
+                        getFacility();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FacilityModel> call, Throwable t) {
+                Toast.makeText(SplashActivity.this, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
+                Logger.Log(t.getMessage());
+                if(requestFacility > 0){
+                    requestFacility = requestFacility - 1;
+                    getFacility();
+                }
+            }
+        });
+    }
+
+    private void getRules(){
+
+        dialog.show();
+
+        if(progressBar.getProgress() + 32 < 100){
+            setLoadingProgress(progressBar.getProgress() + 20);
+        }
+
+        APIInterface api = APIClient.getTESTClient();
+        api.getRule().enqueue(new Callback<List<RuleData>>() {
+            @Override
+            public void onResponse(Call<List<RuleData>> call, Response<List<RuleData>> response) {
+
+                if(response.isSuccessful()){
+
+                    if(response.body() != null){
+
+                        if(progressBar.getProgress() + 25 <= 100){
+                            setLoadingProgress(progressBar.getProgress() + 20);
+                        }
+
+                        Logger.Log("Rule Success");
+                        databaseHelper.insertRule(response.body());
+
+                        dialog.dismiss();
+
+                        initMain();
+                    }
+                }
+                else {
+
+                    if(requestRules > 0){
+                        requestRules = requestRules - 1;
+                        getRules();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<RuleData>> call, Throwable t) {
+
+                Logger.Log(t.getMessage());
+
+                if(requestRules > 0){
+                    requestRules = requestRules - 1;
+                    getRules();
+                }
             }
         });
     }
@@ -113,6 +300,58 @@ public class SplashActivity extends OptionActivity {
                 finish();
             }
         } , 800);
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class CheckingConnection extends AsyncTask<String,String,Boolean> {
+
+        private ProgressDialog nDialog;
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            nDialog = new ProgressDialog(SplashActivity.this);
+            nDialog.setTitle("در حال چک کردن اینترنت");
+            nDialog.setMessage("لطفا منتظر بمانید...");
+            nDialog.setIndeterminate(false);
+            nDialog.setCancelable(false);
+            nDialog.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... args){
+
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnected()) {
+                try {
+                    URL url = new URL("https://google.com");
+                    HttpURLConnection httpURL = (HttpURLConnection) url.openConnection();
+                    httpURL.setConnectTimeout(4000);
+                    httpURL.connect();
+                    if (httpURL.getResponseCode() == 200) {
+                        return true;
+                    }
+                } catch (MalformedURLException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return false;
+        }
+        @Override
+        protected void onPostExecute(Boolean isConnected){
+
+            if(isConnected){
+                nDialog.dismiss();
+                getFacility();
+            }
+            else{
+                nDialog.dismiss();
+                alertDialog.show();
+            }
+        }
     }
 
     public void setupNotificationBar() {

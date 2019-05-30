@@ -33,8 +33,6 @@ public class NewActivity extends OptionActivity {
     private LinearLayout root;
     private StepperLayout stepperLayout;
     private DatabaseHelper databaseHelper;
-    private int requestFacility = 5;
-    private int requestRules = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +46,6 @@ public class NewActivity extends OptionActivity {
 
         databaseHelper = DatabaseHelper.getInstance(this);
         setOfflineCity();
-        getFacility();
-        getRules();
 
         root = findViewById(R.id.root);
         stepperLayout = findViewById(R.id.stepperLayout);
@@ -98,75 +94,6 @@ public class NewActivity extends OptionActivity {
         String cities = JSONUtils.openJsonFromAssets(this , "json/cities.json");
         databaseHelper.insertStates(CentralCore.getGson().fromJson(states , StatesModel.class).getStates());
         databaseHelper.insertCities(CentralCore.getGson().fromJson(cities , CitiesModel.class).getCities());
-    }
-
-    private void getFacility(){
-
-        APIInterface api = APIClient.getTESTClient();
-        api.getFacility().enqueue(new Callback<FacilityModel>() {
-            @Override
-            public void onResponse(Call<FacilityModel> call, Response<FacilityModel> response) {
-
-                if(response.isSuccessful()){
-
-                    Logger.Log("Facility Success");
-                    databaseHelper.insertFacility(response.body().getData());
-                }
-                else {
-
-                    if(requestFacility > 0){
-                        requestFacility = requestFacility - 1;
-                        getFacility();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<FacilityModel> call, Throwable t) {
-                Logger.Log(t.getMessage());
-                if(requestFacility > 0){
-                    requestFacility = requestFacility - 1;
-                    getFacility();
-                }
-            }
-        });
-    }
-
-    private void getRules(){
-
-        APIInterface api = APIClient.getTESTClient();
-        api.getRule().enqueue(new Callback<List<RuleData>>() {
-            @Override
-            public void onResponse(Call<List<RuleData>> call, Response<List<RuleData>> response) {
-
-                if(response.isSuccessful()){
-
-                    if(response.body() != null){
-
-                        Logger.Log("Rule Success");
-                        databaseHelper.insertRule(response.body());
-                    }
-                }
-                else {
-
-                    if(requestRules > 0){
-                        requestRules = requestRules - 1;
-                        getRules();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<RuleData>> call, Throwable t) {
-
-                Logger.Log(t.getMessage());
-
-                if(requestRules > 0){
-                    requestRules = requestRules - 1;
-                    getRules();
-                }
-            }
-        });
     }
 
     @Override
