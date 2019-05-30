@@ -28,6 +28,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="3dp"
+                    android:text="@string/general_title"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginEnd="16dp"
                     android:padding="5dp"
                     android:textSize="18sp" />
@@ -53,6 +55,8 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:padding="5dp"
+                    android:text="@string/general_state"
+                    android:textColor="@color/colorBlack"
                     android:textSize="18sp" />
 
                 <RelativeLayout
@@ -79,6 +83,8 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:padding="5dp"
+                    android:text="@string/general_city"
+                    android:textColor="@color/colorBlack"
                     android:textSize="18sp" />
 
                 <RelativeLayout
@@ -104,6 +110,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
+                    android:text="@string/general_phone"
+                    android:textColor="@color/colorBlack"
                     android:padding="5dp"
                     android:textSize="18sp" />
 
@@ -116,6 +124,11 @@
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/selector_edt"
                     android:padding="10dp"
+                    android:textColorHint="@color/gray500"
+                    android:digits="0123456789"
+                    android:hint="ex: 02112345678"
+                    android:textSize="16sp"
+                    android:maxLength="13"
                     android:inputType="phone"
                     android:textColor="@color/colorBlack"
                     tools:ignore="Autofill,LabelFor" />
@@ -128,6 +141,8 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:padding="5dp"
+                    android:text="@string/general_address"
+                    android:textColor="@color/colorBlack"
                     android:textSize="18sp" />
 
                 <EditText
@@ -140,6 +155,8 @@
                     android:background="@drawable/selector_edt"
                     android:maxLines="5"
                     android:minLines="3"
+                    android:gravity="top"
+                    android:textSize="16sp"
                     android:padding="10dp"
                     android:textColor="@color/colorBlack"
                     tools:ignore="Autofill,LabelFor" />
@@ -152,6 +169,8 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:padding="5dp"
+                    android:text="@string/general_description"
+                    android:textColor="@color/colorBlack"
                     android:textSize="18sp" />
 
                 <EditText
@@ -164,6 +183,7 @@
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/selector_edt"
                     android:maxLines="3"
+                    android:textSize="16sp"
                     android:minLines="2"
                     android:padding="10dp"
                     android:textColorHint="@color/gray500"

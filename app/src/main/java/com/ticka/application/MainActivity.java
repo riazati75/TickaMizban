@@ -38,7 +38,7 @@ import static com.ticka.application.helpers.UserHelper.KEY_USER_ID;
 
 public class MainActivity extends OptionActivity {
 
-    private static final int REQUEST_CODE = 1080;
+    private static final int REQUEST_CODE = 10;
 
     private LinearLayout notFound;
     private RecyclerView recyclerView;
@@ -99,6 +99,9 @@ public class MainActivity extends OptionActivity {
                                 MainActivity.this , NewActivity.class
                         ),REQUEST_CODE
                 );
+
+                Toast.makeText(MainActivity.this, "در حال برسی اطلاعات داخلی", Toast.LENGTH_LONG).show();
+
                 overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
             }
         });
