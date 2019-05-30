@@ -318,8 +318,8 @@ public class SplashActivity extends OptionActivity {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            nDialog = new ProgressDialog(SplashActivity.this);
-            nDialog.setTitle("در حال چک کردن اینترنت");
+            nDialog = new ProgressDialog(SplashActivity.this , R.style.AppThemeDialog);
+            nDialog.setTitle("در حال اتصال");
             nDialog.setMessage("لطفا منتظر بمانید...");
             nDialog.setIndeterminate(false);
             nDialog.setCancelable(false);

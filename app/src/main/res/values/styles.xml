@@ -5,13 +5,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorError">@color/colorError</item>
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowActivityTransitions" tools:ignore="NewApi">true</item>
         <item name="android:fontFamily">@font/yekan_mobile_regular</item>
         <item name="ms_stepperStyle">@style/MSDefaultStepperLayoutTheme</item>
         <item name="coordinatorLayoutStyle">@style/coordinatorLayoutStyle</item>
         <item name="cardViewStyle">@style/cardViewStyle</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/colorPrimary</item>
         <item name="verificationCodeStyle">@style/verificationCodeStyle</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
     </style>
@@ -26,9 +26,9 @@
         <item name="android:fontFamily">@font/yekan_mobile_regular</item>
         <item name="coordinatorLayoutStyle">@style/coordinatorLayoutStyle</item>
         <item name="cardViewStyle">@style/cardViewStyle</item>
-        <item name="android:windowContentTransitions">true</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
-        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/colorPrimary</item>
+        <item name="android:windowActivityTransitions" tools:ignore="NewApi">true</item>
         <item name="ms_stepperStyle">@style/MSDefaultStepperLayoutTheme</item>
         <item name="verificationCodeStyle">@style/verificationCodeStyle</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
@@ -39,7 +39,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="fontFamily">@font/yekan_mobile_regular</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorText</item>
         <item name="dialogCornerRadius">8dp</item>
     </style>
@@ -127,7 +127,7 @@
     <style name="SBottomNavigation">
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/ms_bottomNavigationBackgroundColor</item>
-        <item name="android:elevation">16dp</item>
+        <item name="android:elevation" tools:ignore="NewApi">16dp</item>
     </style>
 
     <style name="verificationCodeStyle" parent="Widget.AppCompat.EditText">
