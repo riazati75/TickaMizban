@@ -2,6 +2,7 @@ package com.ticka.application.fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,6 +32,7 @@ import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
+import com.ticka.application.SplashActivity;
 import com.ticka.application.adapters.AddPhotoAdapter;
 import com.ticka.application.adapters.ReviewAdapter;
 import com.ticka.application.api.APIClient;
@@ -77,6 +79,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private String errorMessage = null;
     private List<Long> photoArrayList = new ArrayList<>();
     private long result = 0;
+    private AlertDialog alertDialog;
     private MaterialDialog dialog;
     private ProgressDialog progressDialog;
     private boolean isReviewed = false;
@@ -90,6 +93,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         View view = inflater.inflate(R.layout.fragment_upload_photo, container, false);
         context = (AppCompatActivity) getContext();
         databaseHelper = DatabaseHelper.getInstance(context);
+        dialogWait();
         initViews(view);
         setDialog();
         return view;
@@ -167,6 +171,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     private void uploadFileVolley(String base64) {
 
+        alertDialog.show();
+
         String URL = "http://cdn.ticka.com/upload";
         final JSONObject jsonBody = JSONUtils.getSaveJson(base64);
 
@@ -185,9 +191,11 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 if(isSuccess){
                     Toast.makeText(context, "ارسال موفق آمیز بود", Toast.LENGTH_SHORT).show();
                     photoArrayList.add(result);
+                    alertDialog.dismiss();
                     adapter.setItemCount(adapter.getItemCount() + 1);
                 }else {
                     Logger.Log("error: " + errorMessage);
+                    alertDialog.dismiss();
                     Toast.makeText(context, "خطا در ارسال تصویر. مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -195,7 +203,8 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Logger.Log("throwable: " + error.toString());
-                Toast.makeText(context, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+                Toast.makeText(context, "خطا در اتصال به شبکه مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -313,6 +322,16 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
                 Logger.Log("Throwable: => " + t.getMessage());
             }
         });
+    }
+
+    private void dialogWait() {
+
+        alertDialog = new AlertDialog.Builder(context , R.style.AppThemeDialog)
+                .setCancelable(false)
+                .setTitle("در حال ارسال عکس")
+                .setIcon(R.drawable.icon_cloud_upload)
+                .setMessage("لطفا شکیبا باشید...")
+                .create();
     }
 
     private void setDialog() {
