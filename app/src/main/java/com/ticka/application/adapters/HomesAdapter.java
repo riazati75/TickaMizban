@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.ticka.application.R;
@@ -34,6 +35,10 @@ public class HomesAdapter extends RecyclerView.Adapter<HomesAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
+
+        holder.txtTitle.setText(homeData.get(position).getName());
+        holder.txtDesc.setText(homeData.get(position).getDescription());
+
         setImage(holder.photo , homeData.get(position).getGallery().get(0).getSrc());
     }
 
@@ -54,10 +59,13 @@ public class HomesAdapter extends RecyclerView.Adapter<HomesAdapter.Holder> {
     class Holder extends RecyclerView.ViewHolder {
 
         ImageView photo;
+        TextView txtTitle , txtDesc;
 
         Holder(@NonNull View itemView) {
             super(itemView);
             photo = itemView.findViewById(R.id.photo);
+            txtTitle = itemView.findViewById(R.id.txtTitle);
+            txtDesc = itemView.findViewById(R.id.txtDesc);
         }
     }
 
