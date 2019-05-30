@@ -42,7 +42,6 @@ public class MainActivity extends OptionActivity {
     private RecyclerView recyclerView;
     private HomesAdapter adapter;
     private FloatingActionButton fab;
-    private boolean isConnect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,17 +90,12 @@ public class MainActivity extends OptionActivity {
             @Override
             public void onClick(View v) {
 
-                if(isConnect){
-                    startActivityForResult(
-                            new Intent(
-                                    MainActivity.this , NewActivity.class
-                            ),REQUEST_CODE
-                    );
-                    overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
-                }
-                else {
-                    showSnackbar(v);
-                }
+                startActivityForResult(
+                        new Intent(
+                                MainActivity.this , NewActivity.class
+                        ),REQUEST_CODE
+                );
+                overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
             }
         });
 
@@ -135,7 +129,6 @@ public class MainActivity extends OptionActivity {
             public void onResponse(Call<HomeModel> call, Response<HomeModel> response) {
 
                 if(response.body() != null){
-                    isConnect = true;
                     List<HomeData> model = response.body().getData();
 
                     if(model.size() > 0){
@@ -149,14 +142,12 @@ public class MainActivity extends OptionActivity {
                     }
                 }
                 else {
-                    isConnect = false;
                     showSnackbar(fab);
                 }
             }
 
             @Override
             public void onFailure(Call<HomeModel> call, Throwable t) {
-                isConnect = false;
                 Logger.Log("Throwable: => " + t.getMessage());
             }
         });

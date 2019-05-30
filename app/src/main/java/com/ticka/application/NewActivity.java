@@ -3,30 +3,21 @@ package com.ticka.application;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 import com.ticka.application.adapters.StepperAdapter;
-import com.ticka.application.api.APIClient;
-import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.CentralCore;
-import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
 import com.ticka.application.database.DatabaseHelper;
 import com.ticka.application.models.cities.CitiesModel;
-import com.ticka.application.models.facility.FacilityModel;
-import com.ticka.application.models.rules.RuleData;
 import com.ticka.application.models.states.StatesModel;
 import com.ticka.application.utils.JSONUtils;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class NewActivity extends OptionActivity {
 
@@ -105,9 +96,23 @@ public class NewActivity extends OptionActivity {
         onBackPressed();
     }
 
+    private boolean isExit = false;
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
+
+        if(!isExit){
+            isExit = true;
+            Toast.makeText(this, "برای بازگشت مجدد ضربه بزنید", Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isExit = false;
+                }
+            } , 2000);
+        }
+        else{
+            super.onBackPressed();
+            overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
+        }
     }
 }

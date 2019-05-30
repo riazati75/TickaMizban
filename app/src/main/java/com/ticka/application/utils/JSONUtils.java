@@ -124,7 +124,7 @@ public class JSONUtils {
             byte[] buffer = new byte[size];
             inputStream.read(buffer);
             inputStream.close();
-            return new String(buffer , StandardCharsets.UTF_8);
+            return new String(buffer , "UTF-8");
         }catch(IOException e){
             e.printStackTrace();
             return null;
