@@ -3,6 +3,7 @@
 
     <color name="colorPrimary">#EF4044</color>
     <color name="colorPrimaryDark">#EF4044</color>
+    <color name="colorPrimaryDarkMain">#CA282C</color>
     <color name="colorAccent">#00446A</color>
     <color name="colorBackground">#f0f5f9</color>
     <color name="colorBackgroundSplash">#EF4044</color>
