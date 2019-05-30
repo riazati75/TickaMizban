@@ -85,10 +85,11 @@ public class SplashActivity extends OptionActivity {
 
         if(list1.size() <= 0 || list2.size() <= 0){
             initDialog();
-            setLoadingProgress(0);
             dialogConfirmData();
         }
-        initViews();
+        else {
+            initViews();
+        }
     }
 
     @Override
@@ -120,8 +121,11 @@ public class SplashActivity extends OptionActivity {
     private void dialogConfirmData() {
 
         alertDialog = new AlertDialog.Builder(SplashActivity.this , R.style.AppThemeDialog)
-                .setMessage("کاربر عزیز برای صحیح کار کردن برنامه باید اطلاعات از سرور بروزرسانی گردد\n\nاز اتصال اینترنت خود اطمینان حاصل کرده و سپس اقدام به دریافت اطلاعات کنید.")
-                .setPositiveButton("ارسال", new DialogInterface.OnClickListener() {
+                .setCancelable(false)
+                .setTitle("بروزرسانی:")
+                .setIcon(R.drawable.icon_cloud_download)
+                .setMessage("کاربر عزیز برای صحیح کار کردن برنامه باید اطلاعات از سرور بروزرسانی گردد.\n\n- از اتصال اینترنت خود اطمینان حاصل کرده و سپس اقدام به دریافت اطلاعات کنید.")
+                .setPositiveButton("بروزرسانی", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
@@ -163,6 +167,7 @@ public class SplashActivity extends OptionActivity {
 
     private void getFacility(){
 
+        setLoadingProgress(0);
         dialog.show();
 
         if(progressBar.getProgress() + 17 < 100){
@@ -200,6 +205,7 @@ public class SplashActivity extends OptionActivity {
             @Override
             public void onFailure(Call<FacilityModel> call, Throwable t) {
                 Toast.makeText(SplashActivity.this, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
+                alertDialog.show();
                 Logger.Log(t.getMessage());
                 if(requestFacility > 0){
                     requestFacility = requestFacility - 1;
@@ -235,7 +241,7 @@ public class SplashActivity extends OptionActivity {
 
                         dialog.dismiss();
 
-                        initMain();
+                        initViews();
                     }
                 }
                 else {
@@ -249,6 +255,8 @@ public class SplashActivity extends OptionActivity {
 
             @Override
             public void onFailure(Call<List<RuleData>> call, Throwable t) {
+                Toast.makeText(SplashActivity.this, "خطا در اتصال به شبکه", Toast.LENGTH_SHORT).show();
+                alertDialog.show();
 
                 Logger.Log(t.getMessage());
 
