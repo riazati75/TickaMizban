@@ -1,8 +1,9 @@
 package com.ticka.application.models.facility;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 public class FacilityData implements Serializable {
 

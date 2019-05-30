@@ -17,9 +17,9 @@ import com.stepstone.stepper.VerificationError;
 import com.ticka.application.R;
 import com.ticka.application.adapters.DropDownAdapter;
 import com.ticka.application.core.Logger;
+import com.ticka.application.custom.ValueChanger;
 import com.ticka.application.helpers.BuildingHelper;
 import com.ticka.application.models.HomeDataModel;
-import com.ticka.application.custom.ValueChanger;
 
 import java.util.ArrayList;
 import java.util.Arrays;

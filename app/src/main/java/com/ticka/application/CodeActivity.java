@@ -16,16 +16,17 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.ticka.application.api.APIClient;
 import com.ticka.application.api.APIInterface;
 import com.ticka.application.core.Logger;
 import com.ticka.application.core.OptionActivity;
+import com.ticka.application.custom.verification.CodeVerification;
+import com.ticka.application.custom.verification.OnCompletionListener;
 import com.ticka.application.helpers.UserHelper;
 import com.ticka.application.models.callback.LoginCallback;
 import com.ticka.application.utils.JSONUtils;
 import com.ticka.application.utils.TimeLoader;
-import com.ticka.application.custom.verification.CodeVerification;
-import com.ticka.application.custom.verification.OnCompletionListener;
 
 import org.json.JSONObject;
 

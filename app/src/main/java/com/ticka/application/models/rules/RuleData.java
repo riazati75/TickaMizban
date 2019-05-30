@@ -1,9 +1,10 @@
 
 package com.ticka.application.models.rules;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 public class RuleData implements Serializable {
 

@@ -10,20 +10,9 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 import com.ticka.application.R;
-import com.ticka.application.api.APIClient;
-import com.ticka.application.api.APIInterface;
-import com.ticka.application.core.Logger;
 import com.ticka.application.models.home.HomeData;
 
-import org.json.JSONObject;
-
-import java.io.File;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomesAdapter extends RecyclerView.Adapter<HomesAdapter.Holder> {
 

@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 
 public class JSONUtils {
 
@@ -124,7 +124,7 @@ public class JSONUtils {
             byte[] buffer = new byte[size];
             inputStream.read(buffer);
             inputStream.close();
-            return new String(buffer , "UTF-8");
+            return new String(buffer , Charset.forName("UTF-8"));
         }catch(IOException e){
             e.printStackTrace();
             return null;
