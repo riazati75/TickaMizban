@@ -1,5 +1,6 @@
 package com.ticka.application;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +52,7 @@ public class CodeActivity extends OptionActivity {
     private String phone;
     private TimeLoader loader = TimeLoader.getTimeLoader();
     private TextView timer , resend;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,18 @@ public class CodeActivity extends OptionActivity {
             }
         };
 
+        setProgressDialog();
         initViews();
+    }
+
+    private void setProgressDialog(){
+
+        progressDialog = new ProgressDialog(CodeActivity.this , R.style.AppThemeDialog);
+        progressDialog.setTitle("در حال اتصال");
+        progressDialog.setMessage("لطفا منتظر بمانید...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+
     }
 
     private void sendPhone(String phone){
@@ -91,6 +104,8 @@ public class CodeActivity extends OptionActivity {
         RequestBody body = RequestBody.create(
                 MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
                 object.toString());
+
+        progressDialog.show();
 
         APIInterface api = APIClient.getAPIClient();
         api.login(body).enqueue(new Callback<Void>() {
@@ -107,6 +122,8 @@ public class CodeActivity extends OptionActivity {
                     timer.setText(text);
                     resend.setEnabled(true);
                 }
+
+                progressDialog.dismiss();
             }
 
             @Override
@@ -116,6 +133,7 @@ public class CodeActivity extends OptionActivity {
                 String text = "کد را دریافت نکردید؟ 00:00" + "\nمجدد امتحان کنید";
                 timer.setText(text);
                 resend.setEnabled(true);
+                progressDialog.dismiss();
             }
         });
     }
@@ -148,6 +166,8 @@ public class CodeActivity extends OptionActivity {
                 MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
                 object.toString());
 
+        progressDialog.show();
+
         APIInterface api = APIClient.getAPIClient();
         api.verificationCode(body).enqueue(new Callback<LoginCallback>() {
             @Override
@@ -164,11 +184,14 @@ public class CodeActivity extends OptionActivity {
                 else {
                     loginFailed();
                 }
+
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<LoginCallback> call, Throwable t) {
                 Logger.Log("Throwable: " + t.getMessage());
+                progressDialog.dismiss();
                 Toast.makeText(CodeActivity.this, "خطا در برقراری ارتباط با سرور", Toast.LENGTH_SHORT).show();
             }
         });

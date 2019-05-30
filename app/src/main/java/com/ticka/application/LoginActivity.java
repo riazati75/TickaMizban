@@ -2,6 +2,7 @@ package com.ticka.application;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -52,6 +53,7 @@ public class LoginActivity extends OptionActivity {
     private Button button;
     private String phone = "";
     private BroadcastReceiver receiver;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class LoginActivity extends OptionActivity {
         inPhone = findViewById(R.id.inPhone);
         button  = findViewById(R.id.button);
 
+        setProgressDialog();
         initViews();
     }
 
@@ -110,6 +113,16 @@ public class LoginActivity extends OptionActivity {
         });
     }
 
+    private void setProgressDialog(){
+
+        progressDialog = new ProgressDialog(LoginActivity.this , R.style.AppThemeDialog);
+        progressDialog.setTitle("در حال اتصال");
+        progressDialog.setMessage("لطفا منتظر بمانید...");
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+
+    }
+
     private void dialogConfirmPhone() {
 
         AlertDialog dialog = new AlertDialog.Builder(LoginActivity.this , R.style.AppThemeDialog)
@@ -139,6 +152,8 @@ public class LoginActivity extends OptionActivity {
                 MediaType.parse(APIClient.BODY_TEXT_PLAIN_TYPE),
                 object.toString());
 
+        progressDialog.show();
+
         APIInterface api = APIClient.getAPIClient();
         api.login(body).enqueue(new Callback<Void>() {
             @Override
@@ -153,11 +168,13 @@ public class LoginActivity extends OptionActivity {
                 else {
                     Toast.makeText(LoginActivity.this, "ارسال کد با مشکل مواجه شد", Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Logger.Log("Throwable: " + t.getMessage());
+                progressDialog.dismiss();
                 Toast.makeText(LoginActivity.this, "خطا در برقراری ارتباط با سرور", Toast.LENGTH_SHORT).show();
             }
         });
