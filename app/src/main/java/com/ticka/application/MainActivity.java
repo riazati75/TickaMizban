@@ -61,6 +61,22 @@ public class MainActivity extends OptionActivity {
         refresh = findViewById(R.id.refresh);
         fab = findViewById(R.id.fab);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivityForResult(
+                        new Intent(
+                                MainActivity.this , NewActivity.class
+                        ),REQUEST_CODE
+                );
+
+                Toast.makeText(MainActivity.this, "در حال برسی اطلاعات داخلی", Toast.LENGTH_LONG).show();
+
+                overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
+            }
+        });
+
         initViews();
     }
 
@@ -87,22 +103,6 @@ public class MainActivity extends OptionActivity {
                 else {
                     fab.show();
                 }
-            }
-        });
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivityForResult(
-                        new Intent(
-                                MainActivity.this , NewActivity.class
-                        ),REQUEST_CODE
-                );
-
-                Toast.makeText(MainActivity.this, "در حال برسی اطلاعات داخلی", Toast.LENGTH_LONG).show();
-
-                overridePendingTransition(R.anim.animation_activity_show , R.anim.animation_activity_hide);
             }
         });
 

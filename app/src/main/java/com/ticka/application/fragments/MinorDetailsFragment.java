@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
@@ -56,8 +55,6 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
         roomsCounter = view.findViewById(R.id.roomsCounter);
         spLocation   = view.findViewById(R.id.spLeft);
         spType       = view.findViewById(R.id.spRight);
-        TextView ca1 = view.findViewById(R.id.ca1);
-        TextView ca2 = view.findViewById(R.id.ca2);
 
         spLocation.setAdapter(new DropDownAdapter(getContext() , getList(buildingHelper.getBuildingLocation())));
         spType.setAdapter(new DropDownAdapter(getContext() , getList(buildingHelper.getBuildingType())));
@@ -85,10 +82,6 @@ public class MinorDetailsFragment extends Fragment implements BlockingStep {
                 typeIdSelected = 0;
             }
         });
-
-        ca1.setText(R.string.minor_1);
-        ca2.setText(R.string.minor_2);
-
     }
 
     private List<String> getList(String[] strings){

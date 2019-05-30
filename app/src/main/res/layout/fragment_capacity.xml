@@ -34,6 +34,8 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="4dp"
+                        android:text="@string/capacity_1"
+                        android:textColor="@color/colorBlack"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
@@ -54,6 +56,8 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="4dp"
+                        android:text="@string/capacity_2"
+                        android:textColor="@color/colorBlack"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
@@ -132,6 +136,8 @@
                         android:layout_marginTop="3dp"
                         android:layout_marginEnd="4dp"
                         android:padding="5dp"
+                        android:text="@string/capacity_3"
+                        android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
 
                     <com.ticka.application.custom.ValueChanger
@@ -151,6 +157,8 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="4dp"
+                        android:text="@string/capacity_4"
+                        android:textColor="@color/colorBlack"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
@@ -171,6 +179,8 @@
                         android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="4dp"
+                        android:text="@string/capacity_5"
+                        android:textColor="@color/colorBlack"
                         android:padding="5dp"
                         android:textSize="16sp" />
 
