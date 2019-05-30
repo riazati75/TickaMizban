@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.ticka.application.R;
@@ -40,6 +41,13 @@ public class HomesAdapter extends RecyclerView.Adapter<HomesAdapter.Holder> {
         holder.txtDesc.setText(homeData.get(position).getDescription());
 
         setImage(holder.photo , homeData.get(position).getGallery().get(0).getSrc());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "در حال حاضر امکان ویرایش اقامتگاه وجود ندارد", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setImage(final ImageView image , String imageId){
