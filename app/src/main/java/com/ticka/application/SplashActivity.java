@@ -124,7 +124,7 @@ public class SplashActivity extends OptionActivity {
                 .setCancelable(false)
                 .setTitle("بروزرسانی:")
                 .setIcon(R.drawable.icon_cloud_download)
-                .setMessage("کاربر عزیز برای صحیح کار کردن برنامه باید اطلاعات از سرور بروزرسانی گردد.\n\n- از اتصال اینترنت خود اطمینان حاصل کرده و سپس اقدام به دریافت اطلاعات کنید.")
+                .setMessage("کاربر عزیز برای صحیح کار کردن برنامه باید اطلاعات از سرور بروزرسانی گردد.\n\n- از اتصال اینترنت خود اطمینان حاصل کرده و سپس اقدام به دریافت اطلاعات کنید.\n")
                 .setPositiveButton("بروزرسانی", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
