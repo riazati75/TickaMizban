@@ -65,8 +65,7 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
 
                     if(isChecked){
                         selectedList.add(facilityData.get(position).getId());
-                    }
-                    else {
+                    }else {
                         selectedList.remove(facilityData.get(position).getId());
                     }
                 }
@@ -81,8 +80,7 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
 
                     if(isChecked){
                         selectedList.add(ruleData.get(position).getId());
-                    }
-                    else {
+                    }else {
                         selectedList.remove(ruleData.get(position).getId());
                     }
                 }
@@ -95,13 +93,11 @@ public class CheckboxAdapter extends RecyclerView.Adapter<CheckboxAdapter.VH>{
 
         if(facilityData != null){
             return facilityData.size();
-        }
-        else {
+        }else {
 
             if(ruleData != null){
                 return ruleData.size();
-            }
-            else {
+            }else {
                 return 0;
             }
         }
