@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="کاربر">
+
+        <menu>
+
+            <item
+                android:id="@+id/m1"
+                android:checkable="true"
+                android:checkableBehavior="single"
+                android:icon="@drawable/icon_build"
+                android:title="کاربری"/>
+
+            <item
+                android:id="@+id/m2"
+                android:checkableBehavior="single"
+                android:checkable="true"
+                android:icon="@drawable/icon_send"
+                android:title="ارسال بازخورد"/>
+
+        </menu>
+
+    </item>
+
+    <item android:title="برنامه">
+
+        <menu>
+
+            <item
+                android:id="@+id/m3"
+                android:checkableBehavior="single"
+                android:checkable="true"
+                android:icon="@drawable/icon_share"
+                android:title="اشتراک گذاری"/>
+
+            <item
+                android:checkableBehavior="single"
+                android:checkable="true"
+                android:icon="@drawable/icon_description"
+                android:title="درباره"/>
+
+            <item
+                android:checkableBehavior="single"
+                android:checkable="true"
+                android:icon="@drawable/icon_close"
+                android:title="خروج"/>
+
+        </menu>
+
+    </item>
+
+</menu>

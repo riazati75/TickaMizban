@@ -6,17 +6,25 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ticka.application.adapters.HomesAdapter;
@@ -42,9 +50,12 @@ public class MainActivity extends OptionActivity {
 
     private LinearLayout notFound;
     private RecyclerView recyclerView;
+    private TextView titleDescription;
     private HomesAdapter adapter;
     private ImageView refresh;
     private FloatingActionButton fab;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +67,10 @@ public class MainActivity extends OptionActivity {
     @Override
     protected void init() {
 
+        titleDescription = findViewById(R.id.titleDescription);
+        navigationView = findViewById(R.id.navigationView);
         recyclerView = findViewById(R.id.recyclerView);
+        drawerLayout = findViewById(R.id.drawerLayout);
         notFound = findViewById(R.id.notFound);
         refresh = findViewById(R.id.refresh);
         fab = findViewById(R.id.fab);
@@ -78,6 +92,46 @@ public class MainActivity extends OptionActivity {
         });
 
         initViews();
+        setNavigationView();
+    }
+
+    private void setNavigationView(){
+
+        navigationView.setCheckedItem(R.id.m1);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+
+                titleDescription.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+                titleDescription.setHorizontallyScrolling(true);
+                titleDescription.setSelected(true);
+
+                switch(id){
+
+                    case R.id.m1:
+                        drawerLayout.closeDrawer(GravityCompat.END);
+
+                        break;
+
+                    case R.id.m2:
+                        drawerLayout.closeDrawer(GravityCompat.END);
+
+                        break;
+
+                    case R.id.m3:
+                        drawerLayout.closeDrawer(GravityCompat.END);
+
+                        break;
+
+                    default: drawerLayout.closeDrawer(GravityCompat.END);
+                }
+                return true;
+            }
+        });
+
+        navigationView.setMeasureAllChildren(true);
+
     }
 
     @Override
@@ -85,7 +139,7 @@ public class MainActivity extends OptionActivity {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(
-                this , LinearLayoutManager.VERTICAL , false
+                this , RecyclerView.VERTICAL , false
         ));
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -183,6 +237,7 @@ public class MainActivity extends OptionActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
             Toast.makeText(this, "اطلاعات ثبت و برای بازبینی ارسال شد", Toast.LENGTH_SHORT).show();
             getHome();

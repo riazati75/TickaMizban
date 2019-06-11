@@ -1,7 +1,7 @@
 package com.ticka.application.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.ticka.application.models.HomeDataModel;
 

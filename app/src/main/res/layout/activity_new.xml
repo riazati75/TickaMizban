@@ -7,7 +7,7 @@
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -43,7 +43,7 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <com.stepstone.stepper.StepperLayout
         android:id="@+id/stepperLayout"
@@ -53,13 +53,16 @@
         app:ms_activeStepColor="@color/colorDone"
         app:ms_backButtonColor="@color/colorBlack"
         app:ms_backButtonText="مرحله قبل"
+        app:ms_backButtonBackground="@android:color/transparent"
         app:ms_bottomNavigationBackground="@color/colorWhite"
         app:ms_completeButtonColor="@color/colorBlack"
         app:ms_completeButtonText="ثبت نهایی"
+        app:ms_completeButtonBackground="@android:color/transparent"
         app:ms_errorColor="@color/colorError"
         app:ms_inactiveStepColor="@color/gray400"
         app:ms_nextButtonColor="@color/colorBlack"
         app:ms_nextButtonText="مرحله بعد"
+        app:ms_nextButtonBackground="@android:color/transparent"
         app:ms_showBackButtonOnFirstStep="false"
         app:ms_showBottomNavigation="true"
         app:ms_showErrorMessageEnabled="true"
