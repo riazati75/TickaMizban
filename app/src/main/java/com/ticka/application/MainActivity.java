@@ -49,7 +49,7 @@ public class MainActivity extends OptionActivity {
     private LinearLayout notFound;
     private RecyclerView recyclerView;
     private HomesAdapter adapter;
-    private ImageView refresh;
+    private ImageView refresh , menu;
     private FloatingActionButton fab;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -69,7 +69,15 @@ public class MainActivity extends OptionActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         notFound = findViewById(R.id.notFound);
         refresh = findViewById(R.id.refresh);
+        menu = findViewById(R.id.menu);
         fab = findViewById(R.id.fab);
+
+        initItemSelected();
+        initViews();
+        setNavigationView();
+    }
+
+    private void initItemSelected(){
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +95,12 @@ public class MainActivity extends OptionActivity {
             }
         });
 
-        initViews();
-        setNavigationView();
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.END);
+            }
+        });
     }
 
     private void setNavigationView(){
@@ -121,9 +133,6 @@ public class MainActivity extends OptionActivity {
                 return true;
             }
         });
-
-        navigationView.setMeasureAllChildren(true);
-
     }
 
     @Override

@@ -14,13 +14,13 @@ public class CentralCore extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        setupFont("yekan_mobile_regular.ttf");
+        setupFont();
     }
 
-    public void setupFont(String fontName){
+    public void setupFont(){
 
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath(fontName)
+                .setDefaultFontPath("yekan_mobile_regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

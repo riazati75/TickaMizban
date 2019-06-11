@@ -34,15 +34,30 @@
 
             <ImageView
                 android:id="@+id/refresh"
-                style="@style/ClickableCircle"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/menu"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="@string/general_description"
+                android:focusable="true"
+                android:padding="6dp"
+                android:src="@drawable/icon_refresh" />
+
+            <ImageView
+                android:id="@+id/menu"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:contentDescription="@string/general_description"
+                android:focusable="true"
                 android:padding="6dp"
-                android:src="@drawable/icon_refresh" />
+                android:src="@drawable/icon_menu" />
 
         </RelativeLayout>
 
@@ -93,9 +108,9 @@
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        app:maxImageSize="30dp"
         android:tint="@color/colorWhite"
         app:backgroundTint="?attr/colorAccent"
+        app:maxImageSize="30dp"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

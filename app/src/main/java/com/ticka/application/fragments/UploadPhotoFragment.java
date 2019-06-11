@@ -27,6 +27,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
@@ -66,6 +67,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
     private static final int PICK_PHOTO_REQUEST = 1000;
     private static final int REQUEST_CODE = 1070;
 
+    private View view;
     private AppCompatActivity context;
     private HomeDataModel homesModel = HomeDataModel.getInstance();
     private BuildingHelper buildingHelper = BuildingHelper.getInstance();
@@ -88,7 +90,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_upload_photo, container, false);
+        view = inflater.inflate(R.layout.fragment_upload_photo, container, false);
         context = (AppCompatActivity) getContext();
         databaseHelper = DatabaseHelper.getInstance(context);
         dialogWait();
@@ -104,7 +106,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         adapter = new AddPhotoAdapter(context);
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(
-                context , LinearLayoutManager.VERTICAL , false
+                context , RecyclerView.VERTICAL , false
         ));
         recycler.setAdapter(adapter);
 
@@ -117,7 +119,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         });
     }
 
-    public void pickImage() {
+    private void pickImage() {
 
         if(ContextCompat.checkSelfPermission(context , Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED){
@@ -153,17 +155,23 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         if (requestCode == PICK_PHOTO_REQUEST
                 && resultCode == Activity.RESULT_OK) {
 
-            Uri selectedImageUri = data.getData();
-            Bitmap bitmap = null;
             try{
-                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImageUri);
-            }catch(IOException e){
-                e.printStackTrace();
+                Uri selectedImageUri = data.getData();
+                Bitmap bitmap = null;
+                try{
+                    bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImageUri);
+                }catch(IOException e){
+                    e.printStackTrace();
+                    Snackbar.make(view , "خطا در انتخاب عکس" , Snackbar.LENGTH_LONG).show();
+                }
+                String base64 = StringImageUtils.encodeToString(bitmap);
+                Bitmap b = StringImageUtils.decodeToBitmap(base64);
+                imageView.setImageBitmap(b);
+                uploadFileVolley(base64);
             }
-            String base64 = StringImageUtils.encodeToString(bitmap);
-            Bitmap b = StringImageUtils.decodeToBitmap(base64);
-            imageView.setImageBitmap(b);
-            uploadFileVolley(base64);
+            catch(OutOfMemoryError error){
+                Snackbar.make(view , "متاسفانه حجم عکس انتخابی بیش از حد زیاد است. عکسی با حجم کمتر از 1 مگابایت انتخاب کنید." , Snackbar.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -357,7 +365,7 @@ public class UploadPhotoFragment extends Fragment implements BlockingStep {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(
                 new LinearLayoutManager(
-                        context, LinearLayoutManager.VERTICAL, false
+                        context, RecyclerView.VERTICAL, false
                 )
         );
 
