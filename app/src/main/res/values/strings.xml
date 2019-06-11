@@ -22,7 +22,7 @@
     <string name="general_city"><b><font color="black"><font color="red">*</font> شهر :</font></b></string>
     <string name="general_phone"><b><font color="black"><font color="red">*</font> تلفن اقامتگاه :</font></b></string>
     <string name="general_address"><b><font color="black"><font color="red">*</font> آدرس :</font></b></string>
-    <string name="general_description"><b><font color="black">متن اختیاری :</font></b></string>
+    <string name="general_description"><b><font color="black">توضیحات بیشتر :</font></b></string>
 
     <string name="capacity_1"><b><font color="black"><font color="red">*</font> ظرفیت استاندارد :</font></b></string>
     <string name="capacity_2"><b><font color="black"><font color="red">*</font> حداکثر ظرفیت :</font></b></string>

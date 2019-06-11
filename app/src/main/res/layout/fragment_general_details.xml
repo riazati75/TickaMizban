@@ -187,7 +187,7 @@
                     android:minLines="2"
                     android:padding="10dp"
                     android:textColorHint="@color/gray500"
-                    android:hint="مثل فاصله از موقعیت های خاص"
+                    android:hint="جزییات بیشتر در صورت نیاز"
                     android:textColor="@color/colorBlack"
                     tools:ignore="Autofill,LabelFor" />
 
