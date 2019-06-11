@@ -114,22 +114,21 @@ public class MainActivity extends OptionActivity {
                 switch(id){
 
                     case R.id.m1:
-                        drawerLayout.closeDrawer(GravityCompat.END);
 
                         break;
 
                     case R.id.m2:
-                        drawerLayout.closeDrawer(GravityCompat.END);
 
                         break;
 
                     case R.id.m3:
-                        drawerLayout.closeDrawer(GravityCompat.END);
 
                         break;
 
-                    default: drawerLayout.closeDrawer(GravityCompat.END);
+                    default:
                 }
+
+                drawerLayout.closeDrawer(GravityCompat.END);
                 return true;
             }
         });
