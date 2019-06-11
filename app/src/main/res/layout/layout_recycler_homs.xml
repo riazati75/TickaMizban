@@ -13,11 +13,10 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:focusable="true"
-        app:state_dragged="true"
-        app:cardCornerRadius="4dp"
         app:cardBackgroundColor="@color/colorWhite"
-        app:rippleColor="@color/colorWhite"
-        app:cardElevation="2dp">
+        app:cardCornerRadius="4dp"
+        app:cardElevation="2dp"
+        app:rippleColor="@color/colorWhite">
 
         <include layout="@layout/layout_content_recycler_homes" />
 

@@ -14,7 +14,7 @@ public class CentralCore extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        setupFont("sans_mobile_regular.ttf");
+        setupFont("yekan_mobile_regular.ttf");
     }
 
     public void setupFont(String fontName){
