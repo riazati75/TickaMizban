@@ -9,14 +9,12 @@
                 android:id="@+id/m1"
                 android:checkable="true"
                 android:checkableBehavior="single"
-                android:icon="@drawable/icon_build"
                 android:title="کاربری" />
 
             <item
                 android:id="@+id/m2"
                 android:checkable="true"
                 android:checkableBehavior="single"
-                android:icon="@drawable/icon_send"
                 android:title="ارسال بازخورد" />
 
         </menu>
@@ -31,19 +29,16 @@
                 android:id="@+id/m3"
                 android:checkable="true"
                 android:checkableBehavior="single"
-                android:icon="@drawable/icon_share"
                 android:title="اشتراک گذاری" />
 
             <item
                 android:checkable="true"
                 android:checkableBehavior="single"
-                android:icon="@drawable/icon_description"
                 android:title="درباره" />
 
             <item
                 android:checkable="true"
                 android:checkableBehavior="single"
-                android:icon="@drawable/icon_close"
                 android:title="خروج" />
 
         </menu>

@@ -17,14 +17,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ticka.application.adapters.HomesAdapter;
@@ -50,7 +48,6 @@ public class MainActivity extends OptionActivity {
 
     private LinearLayout notFound;
     private RecyclerView recyclerView;
-    private TextView titleDescription;
     private HomesAdapter adapter;
     private ImageView refresh;
     private FloatingActionButton fab;
@@ -67,7 +64,6 @@ public class MainActivity extends OptionActivity {
     @Override
     protected void init() {
 
-        titleDescription = findViewById(R.id.titleDescription);
         navigationView = findViewById(R.id.navigationView);
         recyclerView = findViewById(R.id.recyclerView);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -102,10 +98,6 @@ public class MainActivity extends OptionActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-
-                titleDescription.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-                titleDescription.setHorizontallyScrolling(true);
-                titleDescription.setSelected(true);
 
                 switch(id){
 

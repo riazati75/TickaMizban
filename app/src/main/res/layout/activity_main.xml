@@ -11,120 +11,21 @@
 
     <include layout="@layout/content_main" />
 
-    <RelativeLayout
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_gravity="end"
-        android:background="@color/colorWhite">
-
-        <RelativeLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/settings"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="6dp"
-                android:src="@drawable/icon_settings"
-                app:tint="?attr/colorAccent" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profilePhoto"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/men"
-                app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="2dp" />
-
-            <TextView
-                android:id="@+id/txtUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/profilePhoto"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="4dp"
-                android:gravity="center_vertical"
-                android:padding="2dp"
-                android:text="محمد علی ریاضتی"
-                android:textColor="?attr/colorAccent"
-                android:textSize="22sp"
-                android:textStyle="italic|bold" />
-
-            <TextView
-                android:id="@+id/titleDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtUsername"
-                android:layout_marginTop="8dp"
-                android:ellipsize="marquee"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:text="به تیکا میزبان خوش آمدید. برای بهبود عملکرد برنامه نظرات انتقادات و پیشنهادات خود را با ما در میان بگذارید!"
-                android:textColor="?attr/colorAccent"
-                android:textSize="16sp" />
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/profilePhoto"
-                android:layout_alignParentStart="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="6dp"
-                android:layout_toStartOf="@+id/profilePhoto"
-                android:gravity="center"
-                android:text="ویرایش اطلاعات"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp"
-                app:backgroundTint="@color/colorWhite"
-                app:rippleColor="@color/colorAccent" />
-
-        </RelativeLayout>
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/header"
-            android:alpha="0.2"
-            android:background="@color/colorBlack" />
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigationView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/view"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/colorWhite"
-            android:elevation="0dp"
-            android:layoutDirection="ltr"
-            android:textDirection="ltr"
-            app:elevation="0dp"
-            app:itemBackground="@drawable/selector_drawer_items"
-            app:itemIconTint="@color/color_drawer_main"
-            app:itemTextColor="@color/color_drawer_main"
-            app:menu="@menu/drawer_menu" />
-
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:paddingEnd="4dp"
+        android:paddingStart="4dp"
+        android:layoutDirection="ltr"
+        android:textDirection="ltr"
+        app:elevation="0dp"
+        app:headerLayout="@layout/layout_drawer_header"
+        app:itemBackground="@drawable/selector_drawer_items"
+        app:itemIconTint="@color/color_drawer_main"
+        app:itemTextColor="@color/color_drawer_main"
+        app:menu="@menu/drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
