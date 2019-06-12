@@ -50,6 +50,7 @@
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:maxLines="3"
+                    android:hint="امکانات بیشتر را صورت نیاز بنویسید"
                     android:background="@drawable/selector_edt"
                     android:padding="10dp"
                     android:textColor="@color/colorBlack"

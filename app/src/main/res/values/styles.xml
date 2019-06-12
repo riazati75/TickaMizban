@@ -39,12 +39,24 @@
     <style name="AppThemeDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:buttonBarButtonStyle">@style/dialogButtonsStyle</item>
+        <item name="android:windowElevation" tools:ignore="NewApi">4dp</item>
+        <item name="android:elevation" tools:ignore="NewApi">4dp</item>
+        <item name="android:popupElevation" tools:ignore="NewApi">4dp</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="fontFamily">@font/yekan_mobile_regular</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorText</item>
-        <item name="floatingActionButtonStyle">@style/fabStyle</item>
         <item name="dialogCornerRadius">8dp</item>
+    </style>
+
+    <style name="dialogButtonsStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="backgroundTint">@color/colorWhite</item>
+        <item name="android:elevation" tools:ignore="NewApi">0dp</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="enforceMaterialTheme">true</item>
+        <item name="rippleColor">@color/colorAccent</item>
     </style>
 
     <style name="SDefaultStepperLayoutTheme">
